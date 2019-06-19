@@ -1,0 +1,79 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="https://s3.amazonaws.com/django-blog/ico/favicon_v2.ico">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".clickable").on("click", function(event) {
+        var x = event.pageX - this.offsetLeft;
+        var y = event.pageY - this.offsetTop;
+	var width = this.width
+	var height = this.height
+        /*alert("X Coordinate: " + x +
+              " Y Coordinate: " + y + 
+              " Width: " + width +
+	      " Height: " + height);*/
+
+
+    var sessionId = $("#sessionId").text();
+    //alert(sessionId)
+
+    window.location.href = "/" + sessionId + "/" + y + "/" + x + "/" + height + "/" + width;
+    d = new Date();
+    $(".updatable").attr('src', '{{ filteredImage }}' + "?rnd=" + Math.random());
+    //window.location.reload(true);
+
+    });
+
+    $("#nextButton").on("click", function(event) {window.location.href = "/";});
+    $("#saveButton").on("click", function(event) {
+                                                    var sessionId = $("#sessionId").text();
+                                                    window.location.href = "/" + sessionId + "/save"
+                                                  });
+
+});
+</script>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 30%;
+  padding: 5px;
+}
+
+.row {
+  display: flex; 
+}
+
+.clickable {
+cursor: crosshair;
+}
+
+</style>
+</head>
+Session ID: <span id="sessionId">{{ sessionId }}</span>
+<div class="row">
+<!-- <div class="column">
+	<img src="/home/itskov/MeanProj.png" width="100%"></img>
+</div> -->
+<div class="column">
+<img src="{{ origImage }}" width="100%"></img>
+</div> 
+<div class="column">
+<img class="clickable" src="{{ bwImage }}" width="100%"></img>
+</div>
+    <div class="column">
+<img class="updatable" src="{{ filteredImage }}" width="100%"></img>
+</div>
+        <input id="nextButton" type="button" value="Next"/>
+    <input id="saveButton" type="button" value="Save"/>
+
+</div>
+
+</html>
+
