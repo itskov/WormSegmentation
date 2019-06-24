@@ -53,5 +53,6 @@ class DataAugumenter:
 
 
 if __name__ == "__main__":
-    da = DataAugumenter()
-    da.createTrainData()
+   # da = DataAugumenter()
+   # da.createTrainData()
+   pass
