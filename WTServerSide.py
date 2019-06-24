@@ -11,7 +11,7 @@ from glob2 import glob
 
 from os.path import join
 from os import mkdir, rmdir
-from shutil import copyfile, copytree
+from shutil import copyfile, copytree, rmtree
 from scipy.ndimage import imread, label
 from PIL import Image
 
@@ -56,6 +56,7 @@ class WTServerSide:
 
     def saveSession(self, sessionId):
         sessionPath = join(self.TEMP_DIRECTORY, sessionId)
+        rmtree(join(self.SAVE_DIRECTORY, sessionId), ignore_errors=True)
         copytree(sessionPath, join(self.SAVE_DIRECTORY, sessionId))
 
 

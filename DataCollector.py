@@ -83,34 +83,35 @@ class DataCollector:
 
 
 
+from multiprocessing import Pool
+
+dc = DataCollector()
+
+def saveImage(i):
+
+    try:
+        im = dc.getSnip()
+        imt = dc.getSeg(im)
+
+        im_I = Image.fromarray(im)
+        imt_I = Image.fromarray(imt)
+
+        im_I.save(join('./static/RawData/', str(i) + '.orig.png'), compress_level=0)
+        imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
+    except Exception:
+        print('Error creating sample')
+
+    print(str(i))
+
 
 if __name__ == "__main__":
-    dc = DataCollector()
+    with Pool(processes=4) as pool:
+        pool.map(saveImage, np.random.choice(range(1,5*10**6),100000))
 
-    N = 10000
 
-    for i in range(N):
-        try:
-            im = dc.getSnip()
-            imt = dc.getSeg(im)
 
-            im_I = Image.fromarray(im)
-            imt_I = Image.fromarray(imt)
 
-            im_I.save(join('./static/RawData/', str(i) + '.orig.png'), compress_level=0)
-            imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
-        except Exception:
-            print('Error creating datapoint.')
-            continue;
 
-        if (imt is not None):
-            #plt.imshow(im)
-            #plt.show()
-            #plt.imshow(imt)
-            #plt.show()
-            pass
-
-        print(str(i))
 
 
 
