@@ -12,10 +12,9 @@ from glob2 import glob
 
 
 class DataAugumenter:
-    def __init__(self):
-        self._fromDirectory = "/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/static/SavedData"
-        self._toDirectory = "/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/static/TrainData"
-
+    def __init__(self, fromDirectory, toDirectory):
+        self._fromDirectory = fromDirectory
+        self._toDirectory = toDirectory
 
         if isdir(self._toDirectory):
             rmtree(self._toDirectory)
