@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/mnt/storageNASRe/ChristianData/**/*.mj2'
+        self._GLOB_TERM = '/mnt/storageNASRe/tph1/**/*.mj2'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -45,11 +45,12 @@ class DataCollector:
         cap.set(cv2.CAP_PROP_POS_FRAMES, frameNum)
         success, readFrame = cap.read()
 
-        return readFrame
+        return readFrame, fetchedFile, frameNum
 
 
     def getSnip(self):
-        curImage = self.fetchImage()
+        curImage, fileName, frameNum = self.fetchImage()
+        print('Fetched frame: ' + str(frameNum) + ' from ' + fileName)
 
         if (curImage is None):
             return None
