@@ -32,7 +32,7 @@ def main():
         print('Usage: processVideo.py <RestorePoint> <FileToProcess> ')
         return
 
-    RESTORE_POINT = sys.argv[1]ca
+    RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.abspath(sys.argv[2])
 
 
