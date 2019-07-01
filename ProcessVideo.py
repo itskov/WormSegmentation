@@ -54,11 +54,11 @@ def main():
 
     # Read first frame to get frame size.
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
-    success, readFrame = cap.read()
+    success, frameRead = cap.read()
     print('Success opening:' + str(success))
 
     # Getting the shape of the frame.
-    height, width, _ = readFrame.shape
+    height, width, _ = frameRead.shape
 
     tf.reset_default_graph()
 
