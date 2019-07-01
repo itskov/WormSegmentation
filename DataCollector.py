@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/mnt/storageNASRe/tph1/**/*.mj2'
+        self._GLOB_TERM = '/mnt/storageNASRe/tph1/*.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -76,7 +76,7 @@ class DataCollector:
 
     def getSeg(self, curImage):
         thImage = cv2.adaptiveThreshold(curImage, 1, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
-                                   cv2.THRESH_BINARY, 11, 2)
+                                        cv2.THRESH_BINARY, 11, 2)
 
         thImage = np.abs(thImage - 1)
 
@@ -94,6 +94,8 @@ def saveImage(i):
         im = dc.getSnip()
         imt = dc.getSeg(im)
 
+        print('Got snip!')
+
         im_I = Image.fromarray(im)
         imt_I = Image.fromarray(imt)
 
@@ -102,12 +104,14 @@ def saveImage(i):
     except Exception:
         print('Error creating sample')
 
+
     print(str(i))
 
 
 if __name__ == "__main__":
     with Pool(processes=4) as pool:
         pool.map(saveImage, np.random.choice(range(1,5*10**6),100000))
+    #saveImage(4)
 
 
 

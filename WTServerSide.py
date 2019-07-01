@@ -6,6 +6,7 @@ import numpy as np
 
 # Flask
 from flask import Flask, render_template, url_for
+import matplotlib.pyplot as plt
 from glob2 import glob
 
 
@@ -13,6 +14,7 @@ from os.path import join
 from os import mkdir, rmdir
 from shutil import copyfile, copytree, rmtree
 from scipy.ndimage import imread, label
+#from skimage.measure import label
 from PIL import Image
 
 
@@ -40,6 +42,10 @@ class WTServerSide:
 
         filteredImage = Image.fromarray(np.zeros((100,100), dtype=np.uint8))
         filteredImage.save(join(newTempPath, str(rawSampleId) + ".filter.png"), compress_level=0)
+
+	    # Removing the raw samples.
+        #os.remove(join(self.RAW_DATA, str(rawSampleId) + ".orig.png"))
+        #os.remove(join(self.RAW_DATA, str(rawSampleId) + ".bw.png"))
 
         # Returning the valid session id.
         return sessionId, rawSampleId
@@ -102,8 +108,7 @@ class WTServerSide:
         if (np.all(bwImage == filteredImage)):
             filteredImage = np.zeros(filteredImage.shape, dtype=np.uint8)
 
-        labeledImage, n = label(bwImage)
-        labeledImage = np.uint8(labeledImage);
+        labeledImage, n = label(np.uint16(bwImage))
 
         for i in range(1, n):
             blobsPosY, blobsPosX = np.where(labeledImage == i)
@@ -141,6 +146,9 @@ wtServerSide = WTServerSide()
 staticPath = wtServerSide.TEMP_DIRECTORY[1:]
 print('Static Path:' +  staticPath)
 
+if __name__ == "__main__":
+    wtServerSide.updateSessionDir('1589cacc-18db-40da-8d9d-f731bbcd3b3c', (461 / 541.0),(233 / 541.0))
+
 app = Flask(__name__)
 
 
@@ -176,8 +184,7 @@ def saveSession(sessionId):
 
 #app.secret_key = 'any random string’
 
-if __name__ == "__main__":
-    index('965d3e6d-d4a8-4a5c-9ed6-e3ae6d1278ef')
+
 
 
 

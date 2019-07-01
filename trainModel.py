@@ -25,15 +25,15 @@ import pandas as pd
 
 
 def cnn_model_fn(origImages_, filteredImages, imageSize):
-    vaeBeta = 1
     input_layer = tf.reshape(origImages_, [-1, imageSize[0], imageSize[1], 1])
+    filtered_images = tf.reshape(filteredImages, [-1, imageSize[0], imageSize[1], 1])
 
     conv1 = tf.layers.conv2d(
         inputs=input_layer,
         filters=32,
         kernel_size=[3, 3],
         padding="same",
-        strides = (1,1),
+        strides=(1, 1),
         activation=tf.nn.relu)
 
     conv2 = tf.layers.conv2d(
@@ -41,7 +41,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
         filters=64,
         kernel_size=[3, 3],
         padding="same",
-        strides = (2,2),
+        strides=(2, 2),
         activation=tf.nn.relu)
 
     conv3 = tf.layers.conv2d(
@@ -49,43 +49,41 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
         filters=128,
         kernel_size=[3, 3],
         padding="same",
-        strides = (2,2),
+        strides=(2, 2),
         activation=tf.nn.relu)
 
-
     dconv1 = tf.layers.conv2d_transpose(
-        inputs = conv3,
-        filters = 32,
-        kernel_size = (3,3),
-        strides = (2,2),
+        inputs=conv3,
+        filters=32,
+        kernel_size=(3, 3),
+        strides=(2, 2),
         padding="same",
         activation=tf.nn.relu)
 
     dconv2 = tf.layers.conv2d_transpose(
-        inputs = dconv1,
-        filters = 64,
-        kernel_size = (3,3),
-        strides = (2,2),
+        inputs=dconv1,
+        filters=64,
+        kernel_size=(3, 3),
+        strides=(2, 2),
         padding="same",
         activation=tf.nn.relu)
 
     dconv3 = tf.layers.conv2d(
-        inputs = dconv2,
-        filters = 128,
-        kernel_size = (3,3),
-        strides = (1,1),
+        inputs=dconv2,
+        filters=128,
+        kernel_size=(3, 3),
+        strides=(1, 1),
         padding="same",
         activation=tf.nn.relu)
 
     output = tf.layers.conv2d(
-        inputs = dconv2,
-        filters = 1,
-        kernel_size = (3,3),
-        strides = (1,1),
-        padding="same",
-        activation=tf.nn.sigmoid)
+        inputs=dconv2,
+        filters=1,
+        kernel_size=(3, 3),
+        strides=(1, 1),
+        padding="same")
 
-    loss = tf.reduce_mean(tf.norm(tf.subtract(output, input_layer)))
+    loss = tf.reduce_mean(tf.norm(tf.subtract(output, filtered_images)))
 
     return (loss, output)
 
@@ -97,15 +95,21 @@ def getBatch(batchDir, batchNum, imageSize):
     chosenFiles = np.random.choice(npyFiles, batchNum)
 
     origImages = np.zeros((batchNum,) + imageSize)
-    filteredImages = np.zeros((batchNum,)+ imageSize)
+    filteredImages = np.zeros((batchNum,) + imageSize)
 
-    for i,fileName in enumerate(chosenFiles):
+    for i, fileName in enumerate(chosenFiles):
         currentSample = np.load(fileName)
 
         origImages[i, :, :] = currentSample[0]
         filteredImages[i, :, :] = currentSample[1]
 
     return (origImages, filteredImages)
+
+
+def normalizeFrame(outImage):
+    outImage = (outImage - np.min(outImage)) / (np.max(outImage) - np.min(outImage))
+    outImage = np.uint8(outImage * 255)
+    return (outImage)
 
 
 def main():
