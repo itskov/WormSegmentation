@@ -10,7 +10,6 @@ import tensorflow as tf
 import time
 
 
-import tifffile
 
 from trainModel import  cnn_model_fn,normalizeFrame
 
