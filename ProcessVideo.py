@@ -32,8 +32,9 @@ def main():
         print('Usage: processVideo.py <RestorePoint> <FileToProcess> ')
         return
 
+    RESTORE_POINT = sys.argv[1]ca
     INPUT_DIR = os.path.abspath(sys.argv[2])
-    RESTORE_POINT = sys.argv[1]
+
 
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
@@ -73,11 +74,11 @@ def main():
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
         for i in range(0, movieLength, 1):
-            readFrame = readFrame(cap, i, height, width)
+            frameRead = readFrame(cap, i, height, width)
 
             print('Start network forward.')
             beforeForward = time.time()
-            procDict = {currentFrame_: readFrame, filteredFrame_: readFrame}
+            procDict = {currentFrame_: frameRead, filteredFrame_: frameRead}
             outputVal = output.eval(procDict)
             outputVal = normalizeFrame(np.reshape(outputVal, (height, width)))
             forwardElpsd = time.time() - beforeForward
