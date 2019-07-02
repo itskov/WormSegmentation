@@ -78,7 +78,7 @@ def main():
             print('Frame: ' + str(i) + "/" + str(movieLength))
 
             firstFrame = i
-            lastFrame = np.min(i + batch, (movieLength - 1))
+            lastFrame = np.minimum(i + batch, (movieLength - 1))
             framesRead = np.zeros((batch, height, width))
 
             framesRange = range(firstFrame, lastFrame)
