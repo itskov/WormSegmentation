@@ -17,7 +17,7 @@ from skvideo.io import FFmpegWriter
 
 
 def readFrame(cap, i, height, width):
-    print('Start Reading frame: ' + str(i))
+    #print('Start Reading frame: ' + str(i))
     cap.set(cv2.CAP_PROP_POS_FRAMES, i)
     success, readFrame = cap.read()
     readFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
@@ -73,7 +73,7 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        batch = 10
+        batch = 3
         for i in range(0, movieLength, batch):
             print('Frame: ' + str(i) + "/" + str(movieLength))
 
