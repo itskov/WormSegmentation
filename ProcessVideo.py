@@ -82,7 +82,7 @@ def main():
             framesRead = np.zeros((batch, height, width))
 
             for f, j in enumerate(range(firstFrame, lastFrame)):
-                framesRead[f,:,:] = readFrame(cap, i, height, width)
+                framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
 
             print('Start network forward.')
             beforeForward = time.time()
