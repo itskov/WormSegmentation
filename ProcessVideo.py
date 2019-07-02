@@ -87,7 +87,7 @@ def main():
             beforeRead = time.time()
             for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
-            elpsdReading = time.time() - beforeReading
+            elpsdReading = time.time() - beforeRead
             print('After Reading. Time: ' + str(elpsdReading))
 
             framesRead = np.reshape(framesRead, (batch, height, width, 1))
