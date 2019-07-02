@@ -73,7 +73,7 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        batch = 3
+        batch = 10
         for i in range(0, movieLength, batch):
             print('Frame: ' + str(i) + "/" + str(movieLength))
 
