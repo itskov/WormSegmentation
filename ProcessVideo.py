@@ -22,7 +22,7 @@ def readFrame(cap, i, height, width):
     success, readFrame = cap.read()
     readFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
     readFrame = np.reshape(readFrame, (1, height, width, 1))
-    print('End Reading frame: ' + str(i))
+    #print('End Reading frame: ' + str(i))
     return (readFrame)
 
 
@@ -81,9 +81,13 @@ def main():
             lastFrame = i + batch
             framesRead = np.zeros((batch, height, width))
 
-            for f, j in enumerate(range(firstFrame, lastFrame)):
+            framesRange = range(firstFrame, lastFrame)
+            print('Reading Frames: ' + str(list(framesRange)))
+            for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
 
+
+            framesRead = np.reshape(framesRead, (batch, height, width, 1))
             print('Start network forward.')
             beforeForward = time.time()
             procDict = {currentFrame_: framesRead, filteredFrame_: framesRead}
