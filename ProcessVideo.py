@@ -62,7 +62,8 @@ def main():
 
     tf.reset_default_graph()
 
-    with tf.Session() as sess:
+    with tf.Session(config=tf.ConfigProto(
+      allow_soft_placement=True, log_device_placement=True)) as sess:
         currentFrame_ = tf.placeholder(tf.float64, [None, height, width, 1])
         filteredFrame_ = tf.placeholder(tf.float64, [None, height, width, 1])
 
@@ -73,7 +74,7 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        batch = 30
+        batch = 10
         for i in range(0, movieLength, batch):
             print('Frame: ' + str(i) + "/" + str(movieLength))
 
@@ -83,9 +84,11 @@ def main():
 
             framesRange = range(firstFrame, lastFrame)
             print('Reading Frames: ' + str(list(framesRange)))
+            beforeRead = time.time()
             for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
-
+            elpsdReading = time.time() - beforeReading
+            print('After Reading. Time: ' + str(elpsdReading))
 
             framesRead = np.reshape(framesRead, (batch, height, width, 1))
             print('Start network forward.')
