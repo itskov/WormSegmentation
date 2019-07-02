@@ -92,7 +92,7 @@ def main():
             beforeForward = time.time()
             procDict = {currentFrame_: framesRead, filteredFrame_: framesRead}
             outputVal = output.eval(procDict)
-            outputVal = normalizeFrame(np.reshape(outputVal, (height, width)))
+            outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
             forwardElpsd = time.time() - beforeForward
             print('End network forward. Time: ' + str(forwardElpsd))
 
