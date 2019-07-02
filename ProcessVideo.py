@@ -73,12 +73,20 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        for i in range(0, movieLength, 1):
-            frameRead = readFrame(cap, i, height, width)
+        batch = 10
+        for i in range(0, movieLength, batch):
+            print('Frame: ' + str(i) + "/" + str(movieLength))
+
+            firstFrame = i
+            lastFrame = i + batch
+            framesRead = np.zeros((batch, height, width))
+
+            for f, j in enumerate(range(firstFrame, lastFrame)):
+                framesRead[f,:,:] = readFrame(cap, i, height, width)
 
             print('Start network forward.')
             beforeForward = time.time()
-            procDict = {currentFrame_: frameRead, filteredFrame_: frameRead}
+            procDict = {currentFrame_: framesRead, filteredFrame_: framesRead}
             outputVal = output.eval(procDict)
             outputVal = normalizeFrame(np.reshape(outputVal, (height, width)))
             forwardElpsd = time.time() - beforeForward
@@ -86,7 +94,10 @@ def main():
 
             print('Start writing frame.')
             beforeWriting = time.time()
-            videoWriter.writeFrame(outputVal)
+
+            for f, j in enumerate(range(firstFrame, lastFrame)):
+                videoWriter.writeFrame(framesRead[f, :, :])
+
             writingElpsd = time.time() - beforeWriting
             print('After writing. Time: ' + str(writingElpsd))
 
