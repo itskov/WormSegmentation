@@ -73,12 +73,12 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        batch = 10
+        batch = 30
         for i in range(0, movieLength, batch):
             print('Frame: ' + str(i) + "/" + str(movieLength))
 
             firstFrame = i
-            lastFrame = i + batch
+            lastFrame = np.min(i + batch, (movieLength - 1))
             framesRead = np.zeros((batch, height, width))
 
             framesRange = range(firstFrame, lastFrame)
