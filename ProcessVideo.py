@@ -37,7 +37,7 @@ def main():
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.abspath(sys.argv[2])
 
-    logging.basicConfig(filename=join(INPUT_DIR,'segLog.log'), level=logging.DEBUG)
+    logging.basicConfig(filename=join(INPUT_DIR, 'segLog.log'), level=logging.DEBUG)
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
     outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
@@ -107,8 +107,8 @@ def main():
             outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
 
             # Binarizing the image.
-            outputVal[outputVal < 0.75] = 0
-            outputVal[outputVal >= 0.75] = 1
+            outputVal[outputVal < 195] = 0
+            outputVal[outputVal >= 195] = 1 * 255
 
             forwardElpsd = time.time() - beforeForward
             #print('End network forward. Time: ' + str(forwardElpsd))
