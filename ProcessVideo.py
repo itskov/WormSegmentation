@@ -39,8 +39,10 @@ def main():
 
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(levelname)s %(message)s',
-                        filename=join(INPUT_DIR, 'seg.log'),
+                        filename='seg.log',
                         filemode='w')
+
+    logging.debug('Start segmentation')
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
     outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
