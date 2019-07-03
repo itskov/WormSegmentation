@@ -37,7 +37,10 @@ def main():
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.abspath(sys.argv[2])
 
-    logging.basicConfig(filename=join(INPUT_DIR, 'segLog.log'), level=logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(message)s',
+                        filename=join(INPUT_DIR, 'seg.log'),
+                        filemode='w')
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
     outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
