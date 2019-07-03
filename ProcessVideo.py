@@ -85,7 +85,7 @@ def main():
 
         batch = 3
         #for i in range(0, movieLength, batch):
-        for i in range(250, 350, batch):
+        for i in range(350, 400, batch):
             # DEBUG
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
@@ -105,6 +105,7 @@ def main():
             beforeRead = time.time()
             for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
+
             elpsdReading = time.time() - beforeRead
             #print('After Reading. Time: ' + str(elpsdReading))
             logging.debug('After Reading. Time: ' + str(elpsdReading))
