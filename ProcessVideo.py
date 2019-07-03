@@ -38,12 +38,11 @@ def main():
     INPUT_DIR = os.path.dirname(sys.argv[2])
 
     logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)s %(message)s',
-                        filename=join('/cs/phd/itskov','seg.log'),
-                        filemode='w')
+                        filename='./seg.log',
+                        filemode='a')
 
     logger = logging.getLogger()
-    
+
 
     logging.debug('Start segmentation')
 
