@@ -43,7 +43,7 @@ def main():
                         filemode='w')
 
     logger = logging.getLogger()
-    logger.
+    
 
     logging.debug('Start segmentation')
 
