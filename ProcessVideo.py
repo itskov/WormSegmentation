@@ -42,9 +42,10 @@ def main():
                         filemode='a')
 
     logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
 
 
-    logging.debug('Start segmentation')
+    logger.debug('Start segmentation')
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
     outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
