@@ -85,7 +85,7 @@ def main():
 
         batch = 3
         #for i in range(0, movieLength, batch):
-        for i in range(350, 400, batch):
+        for i in range(350, 380, batch):
             # DEBUG
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
@@ -136,6 +136,9 @@ def main():
             writingElpsd = time.time() - beforeWriting
             #print('After writing. Time: ' + str(writingElpsd))
             logging.debug('After writing. Time: ' + str(writingElpsd))
+
+            logger = logging.getLogger()
+            logger.handlers[0].flush()
 
 
         videoWriter.close()
