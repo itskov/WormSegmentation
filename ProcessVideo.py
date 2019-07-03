@@ -78,6 +78,11 @@ def main():
 
         loss, output = cnn_model_fn(currentFrame_, filteredFrame_, (height, width))
 
+        # DEBUG
+        print("***" + join(INPUT_DIR,'seg.log') + "***")
+        print("***" + join(INPUT_DIR, 'seg.log') + "***")
+        print("***" + join(INPUT_DIR, 'seg.log') + "***")
+        # DEBUG
         saver = tf.train.Saver()
         saver.restore(sess, RESTORE_POINT)
 
