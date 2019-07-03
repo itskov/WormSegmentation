@@ -80,7 +80,7 @@ def main():
 
         batch = 3
         #for i in range(0, movieLength, batch):
-        for i in range(250, 300, batch):
+        for i in range(250, 350, batch):
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             logging.debug('Frame: ' + str(i) + "/" + str(movieLength))
 
