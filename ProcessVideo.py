@@ -37,10 +37,10 @@ def main():
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.dirname(sys.argv[2])
 
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)s %(message)s',
-                        filename=join('/cs/phd/itskov','seg.log'),
-                        filemode='w')
+    logger = logging.basicConfig(level=logging.DEBUG,
+                                 format='%(asctime)s %(levelname)s %(message)s',
+                                 filename=join('/cs/phd/itskov','seg.log'),
+                                 filemode='w')
 
     logging.debug('Start segmentation')
 
@@ -58,13 +58,13 @@ def main():
     # Number of frames.
     movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     #print('Video Length:' + str(movieLength))
-    logging.debug('Video Length:' + str(movieLength))
+    logger.debug('Video Length:' + str(movieLength))
 
     # Read first frame to get frame size.
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
     success, frameRead = cap.read()
     #print('Success opening:' + str(success))
-    logging.debug('Success opening:' + str(success))
+    logger.debug('Success opening:' + str(success))
 
     # Getting the shape of the frame.
     height, width, _ = frameRead.shape
@@ -72,7 +72,7 @@ def main():
     tf.reset_default_graph()
 
     with tf.Session(config=tf.ConfigProto(
-      allow_soft_placement=True, log_device_placement=True)) as sess:
+            allow_soft_placement=True, log_device_placement=True)) as sess:
         currentFrame_ = tf.placeholder(tf.float64, [None, height, width, 1])
         filteredFrame_ = tf.placeholder(tf.float64, [None, height, width, 1])
 
@@ -93,7 +93,7 @@ def main():
             # DEBUG
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
-            logging.debug('Frame: ' + str(i) + "/" + str(movieLength))
+            logger.debug('Frame: ' + str(i) + "/" + str(movieLength))
 
             firstFrame = i
             lastFrame = np.minimum(i + batch, (movieLength - 1))
@@ -101,18 +101,18 @@ def main():
 
             framesRange = range(firstFrame, lastFrame)
             #print('Reading Frames: ' + str(list(framesRange)))
-            logging.debug('Reading Frames: ' + str(list(framesRange)))
+            logger.debug('Reading Frames: ' + str(list(framesRange)))
             beforeRead = time.time()
             for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
 
             elpsdReading = time.time() - beforeRead
             #print('After Reading. Time: ' + str(elpsdReading))
-            logging.debug('After Reading. Time: ' + str(elpsdReading))
+            logger.debug('After Reading. Time: ' + str(elpsdReading))
 
             framesRead = np.reshape(framesRead, (batch, height, width, 1))
             #print('Start network forward.')
-            logging.debug('Start network forward.')
+            logger.debug('Start network forward.')
             beforeForward = time.time()
             procDict = {currentFrame_: framesRead, filteredFrame_: framesRead}
             outputVal = output.eval(procDict)
@@ -124,10 +124,10 @@ def main():
 
             forwardElpsd = time.time() - beforeForward
             #print('End network forward. Time: ' + str(forwardElpsd))
-            logging.debug('End network forward. Time: ' + str(forwardElpsd))
+            logger.debug('End network forward. Time: ' + str(forwardElpsd))
 
             #print('Start writing frame.')
-            logging.debug('Start writing frame.')
+            logger.debug('Start writing frame.')
             beforeWriting = time.time()
 
             for f, j in enumerate(range(firstFrame, lastFrame)):
@@ -135,9 +135,8 @@ def main():
 
             writingElpsd = time.time() - beforeWriting
             #print('After writing. Time: ' + str(writingElpsd))
-            logging.debug('After writing. Time: ' + str(writingElpsd))
+            logger.debug('After writing. Time: ' + str(writingElpsd))
 
-            logger = logging.getLogger()
             logger.handlers[0].flush()
 
 
