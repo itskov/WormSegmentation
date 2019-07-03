@@ -31,7 +31,7 @@ def readFrame(cap, i, height, width):
 
 
 def writeLog(logFile, s):
-    logFile.writelines([s])
+    logFile.writelines([s + os.linesepfg])
     logFile.flush()
 
 def main():
