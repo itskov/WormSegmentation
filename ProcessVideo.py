@@ -37,10 +37,12 @@ def main():
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.dirname(sys.argv[2])
 
-    logger = logging.basicConfig(level=logging.DEBUG,
-                                 format='%(asctime)s %(levelname)s %(message)s',
-                                 filename=join('/cs/phd/itskov','seg.log'),
-                                 filemode='w')
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(message)s',
+                        filename=join('/cs/phd/itskov','seg.log'),
+                        filemode='w')
+
+    logger = logging.getLogger()
 
     logging.debug('Start segmentation')
 
