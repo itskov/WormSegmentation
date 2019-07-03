@@ -43,6 +43,7 @@ def main():
                         filemode='w')
 
     logger = logging.getLogger()
+    logger.
 
     logging.debug('Start segmentation')
 
@@ -60,7 +61,7 @@ def main():
     # Number of frames.
     movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     #print('Video Length:' + str(movieLength))
-    logger.info('Video Length:' + str(movieLength))
+    logger.warn('Video Length:' + str(movieLength))
 
     # Read first frame to get frame size.
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
