@@ -75,7 +75,8 @@ def main():
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
         batch = 10
-        for i in range(0, movieLength, batch):
+        #for i in range(0, movieLength, batch):
+        for i in range(0, 100, batch):
             print('Frame: ' + str(i) + "/" + str(movieLength))
 
             firstFrame = i
@@ -103,7 +104,7 @@ def main():
             beforeWriting = time.time()
 
             for f, j in enumerate(range(firstFrame, lastFrame)):
-                videoWriter.writeFrame(framesRead[f, :, :])
+                videoWriter.writeFrame(outputVal[f, :, :])
 
             writingElpsd = time.time() - beforeWriting
             print('After writing. Time: ' + str(writingElpsd))
