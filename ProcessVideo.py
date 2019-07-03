@@ -9,11 +9,13 @@ import numpy as np
 import tensorflow as tf
 import time
 
+import logging
 
 
 from trainModel import  cnn_model_fn,normalizeFrame
 
 from skvideo.io import FFmpegWriter
+from os.path import join
 
 
 def readFrame(cap, i, height, width):
@@ -35,7 +37,7 @@ def main():
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.abspath(sys.argv[2])
 
-
+    logging.basicConfig(filename=join(INPUT_DIR,'segLog.log'), level=logging.DEBUG)
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
     outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
@@ -50,12 +52,14 @@ def main():
 
     # Number of frames.
     movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    print('Video Length:' + str(movieLength))
+    #print('Video Length:' + str(movieLength))
+    logging.debug('Video Length:' + str(movieLength))
 
     # Read first frame to get frame size.
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
     success, frameRead = cap.read()
-    print('Success opening:' + str(success))
+    #print('Success opening:' + str(success))
+    logging.debug('Success opening:' + str(success))
 
     # Getting the shape of the frame.
     height, width, _ = frameRead.shape
@@ -76,38 +80,50 @@ def main():
 
         batch = 3
         #for i in range(0, movieLength, batch):
-        for i in range(0, 100, batch):
-            print('Frame: ' + str(i) + "/" + str(movieLength))
+        for i in range(250, 300, batch):
+            #print('Frame: ' + str(i) + "/" + str(movieLength))
+            logging.debug('Frame: ' + str(i) + "/" + str(movieLength))
 
             firstFrame = i
             lastFrame = np.minimum(i + batch, (movieLength - 1))
             framesRead = np.zeros((batch, height, width))
 
             framesRange = range(firstFrame, lastFrame)
-            print('Reading Frames: ' + str(list(framesRange)))
+            #print('Reading Frames: ' + str(list(framesRange)))
+            logging.debug('Reading Frames: ' + str(list(framesRange)))
             beforeRead = time.time()
             for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
             elpsdReading = time.time() - beforeRead
-            print('After Reading. Time: ' + str(elpsdReading))
+            #print('After Reading. Time: ' + str(elpsdReading))
+            logging.debug('After Reading. Time: ' + str(elpsdReading))
 
             framesRead = np.reshape(framesRead, (batch, height, width, 1))
-            print('Start network forward.')
+            #print('Start network forward.')
+            logging.debug('Start network forward.')
             beforeForward = time.time()
             procDict = {currentFrame_: framesRead, filteredFrame_: framesRead}
             outputVal = output.eval(procDict)
             outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
-            forwardElpsd = time.time() - beforeForward
-            print('End network forward. Time: ' + str(forwardElpsd))
 
-            print('Start writing frame.')
+            # Binarizing the image.
+            outputVal[outputVal < 0.75] = 0
+            outputVal[outputVal >= 0.75] = 1
+
+            forwardElpsd = time.time() - beforeForward
+            #print('End network forward. Time: ' + str(forwardElpsd))
+            logging.debug('End network forward. Time: ' + str(forwardElpsd))
+
+            #print('Start writing frame.')
+            logging.debug('Start writing frame.')
             beforeWriting = time.time()
 
             for f, j in enumerate(range(firstFrame, lastFrame)):
                 videoWriter.writeFrame(outputVal[f, :, :])
 
             writingElpsd = time.time() - beforeWriting
-            print('After writing. Time: ' + str(writingElpsd))
+            #print('After writing. Time: ' + str(writingElpsd))
+            logging.debug('After writing. Time: ' + str(writingElpsd))
 
 
         videoWriter.close()
