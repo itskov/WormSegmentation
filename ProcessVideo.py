@@ -29,6 +29,11 @@ def readFrame(cap, i, height, width):
 
 
 
+
+def writeLog(logFile, s):
+    logFile.writelines([s])
+    logFile.flush()
+
 def main():
     if len(sys.argv) != 3:
         print('Usage: processVideo.py <RestorePoint> <FileToProcess> ')
@@ -37,38 +42,41 @@ def main():
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.dirname(sys.argv[2])
 
-    logging.basicConfig(level=logging.DEBUG,
-                        filename='./seg.log',
-                        filemode='a')
-
-    logger = logging.getLogger('SeqLog')
-    logger.propagate = False
-    logger.setLevel(logging.DEBUG)
+    logFile = open(join(INPUT_DIR, 'seg.log'),'a')
 
 
-    logger.debug('Start segmentation')
+    #logging.basicConfig(level=logging.DEBUG,
+    #                    filename='./seg.log',
+    #                    filemode='a')
+
+
+
+
+
+    writeLog(logFile,'Start segmentation')
 
     inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
     outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
 
 
-    print('Opening: ' + inputFile)
-    print('Wiring into:' + outputFile)
+    #print('Opening: ' + inputFile)
+    writeLog(logFile, 'Opening: ' + inputFile)
+    writeLog(logFile, 'Wiring into:' + outputFile)
     cap = cv2.VideoCapture(inputFile)
 
     if not os.path.exists(inputFile):
-        print(inputFile + ' file do not exist.')
+        writeLog(logFile, inputFile + ' file do not exist.')
 
     # Number of frames.
     movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     #print('Video Length:' + str(movieLength))
-    logger.warn('Video Length:' + str(movieLength))
+    writeLog(logFile, 'Video Length:' + str(movieLength))
 
     # Read first frame to get frame size.
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
     success, frameRead = cap.read()
     #print('Success opening:' + str(success))
-    logger.debug('Success opening:' + str(success))
+    writeLog(logFile, 'Success opening:' + str(success))
 
     # Getting the shape of the frame.
     height, width, _ = frameRead.shape
@@ -90,15 +98,9 @@ def main():
         batch = 3
         #for i in range(0, movieLength, batch):
         for i in range(350, 380, batch):
-            # DEBUG
-            print("***" + join(INPUT_DIR, 'seg.log') + "***")
-            print("***" + join(INPUT_DIR, 'seg.log') + "***")
-            print("***" + join(INPUT_DIR, 'seg.log') + "***")
-            print(logger)
-            # DEBUG
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
-            logger.debug('Frame: ' + str(i) + "/" + str(movieLength))
+            writeLog(logFile, 'Frame: ' + str(i) + "/" + str(movieLength))
 
             firstFrame = i
             lastFrame = np.minimum(i + batch, (movieLength - 1))
@@ -106,18 +108,18 @@ def main():
 
             framesRange = range(firstFrame, lastFrame)
             #print('Reading Frames: ' + str(list(framesRange)))
-            logger.debug('Reading Frames: ' + str(list(framesRange)))
+            writeLog(logFile, 'Reading Frames: ' + str(list(framesRange)))
             beforeRead = time.time()
             for f, j in enumerate(framesRange):
                 framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
 
             elpsdReading = time.time() - beforeRead
             #print('After Reading. Time: ' + str(elpsdReading))
-            logger.debug('After Reading. Time: ' + str(elpsdReading))
+            writeLog(logFile, 'After Reading. Time: ' + str(elpsdReading))
 
             framesRead = np.reshape(framesRead, (batch, height, width, 1))
             #print('Start network forward.')
-            logger.debug('Start network forward.')
+            writeLog(logFile, 'Start network forward.')
             beforeForward = time.time()
             procDict = {currentFrame_: framesRead, filteredFrame_: framesRead}
             outputVal = output.eval(procDict)
@@ -129,10 +131,10 @@ def main():
 
             forwardElpsd = time.time() - beforeForward
             #print('End network forward. Time: ' + str(forwardElpsd))
-            logger.debug('End network forward. Time: ' + str(forwardElpsd))
+            writeLog(logFile, 'End network forward. Time: ' + str(forwardElpsd))
 
             #print('Start writing frame.')
-            logger.debug('Start writing frame.')
+            writeLog(logFile, 'Start writing frame.')
             beforeWriting = time.time()
 
             for f, j in enumerate(range(firstFrame, lastFrame)):
@@ -140,9 +142,8 @@ def main():
 
             writingElpsd = time.time() - beforeWriting
             #print('After writing. Time: ' + str(writingElpsd))
-            logger.debug('After writing. Time: ' + str(writingElpsd))
+            writeLog(logFile, 'After writing. Time: ' + str(writingElpsd))
 
-            logger.handlers[0].flush()
 
 
         videoWriter.close()
