@@ -60,7 +60,7 @@ def main():
     # Number of frames.
     movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     #print('Video Length:' + str(movieLength))
-    logger.debug('Video Length:' + str(movieLength))
+    logger.info('Video Length:' + str(movieLength))
 
     # Read first frame to get frame size.
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
@@ -92,6 +92,7 @@ def main():
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
             print("***" + join(INPUT_DIR, 'seg.log') + "***")
+            print(logger)
             # DEBUG
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
