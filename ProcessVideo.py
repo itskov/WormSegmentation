@@ -41,7 +41,8 @@ def main():
                         filename='./seg.log',
                         filemode='a')
 
-    logger = logging.getLogger()
+    logger = logging.getLogger('SeqLog')
+    logger.propagate = False
     logger.setLevel(logging.DEBUG)
 
 
