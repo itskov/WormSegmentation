@@ -78,11 +78,6 @@ def main():
 
         loss, output = cnn_model_fn(currentFrame_, filteredFrame_, (height, width))
 
-        # DEBUG
-        print("***" + join(INPUT_DIR,'seg.log') + "***")
-        print("***" + join(INPUT_DIR, 'seg.log') + "***")
-        print("***" + join(INPUT_DIR, 'seg.log') + "***")
-        # DEBUG
         saver = tf.train.Saver()
         saver.restore(sess, RESTORE_POINT)
 
@@ -91,6 +86,12 @@ def main():
         batch = 3
         #for i in range(0, movieLength, batch):
         for i in range(250, 350, batch):
+            # DEBUG
+            print("***" + join(INPUT_DIR, 'seg.log') + "***")
+            print("***" + join(INPUT_DIR, 'seg.log') + "***")
+            print("***" + join(INPUT_DIR, 'seg.log') + "***")
+            # DEBUG
+
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             logging.debug('Frame: ' + str(i) + "/" + str(movieLength))
 
