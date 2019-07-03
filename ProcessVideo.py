@@ -95,7 +95,7 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        batch = 3
+        batch = 12
         #for i in range(0, movieLength, batch):
         for i in range(350, 380, batch):
 
