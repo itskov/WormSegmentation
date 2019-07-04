@@ -30,7 +30,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     conv1 = tf.layers.conv2d(
         inputs=input_layer,
-        filters=32,
+        filters=8,
         kernel_size=[3, 3],
         padding="same",
         strides=(1, 1),
@@ -38,7 +38,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     conv2 = tf.layers.conv2d(
         inputs=conv1,
-        filters=64,
+        filters=16,
         kernel_size=[3, 3],
         padding="same",
         strides=(2, 2),
@@ -46,7 +46,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     conv3 = tf.layers.conv2d(
         inputs=conv2,
-        filters=128,
+        filters=24,
         kernel_size=[3, 3],
         padding="same",
         strides=(2, 2),
@@ -54,7 +54,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     dconv1 = tf.layers.conv2d_transpose(
         inputs=conv3,
-        filters=32,
+        filters=8,
         kernel_size=(3, 3),
         strides=(2, 2),
         padding="same",
@@ -62,22 +62,23 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     dconv2 = tf.layers.conv2d_transpose(
         inputs=dconv1,
-        filters=64,
+        filters=16,
         kernel_size=(3, 3),
         strides=(2, 2),
         padding="same",
         activation=tf.nn.relu)
 
-    dconv3 = tf.layers.conv2d(
+    dconv3 = tf.layers.conv2d_transpose(
         inputs=dconv2,
-        filters=128,
+        filters=24,
         kernel_size=(3, 3),
         strides=(1, 1),
         padding="same",
         activation=tf.nn.relu)
 
+
     output = tf.layers.conv2d(
-        inputs=dconv2,
+        inputs=dconv3,
         filters=1,
         kernel_size=(3, 3),
         strides=(1, 1),
