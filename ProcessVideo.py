@@ -83,8 +83,9 @@ def main():
 
     tf.reset_default_graph()
 
-    with tf.Session(config=tf.ConfigProto(
-            allow_soft_placement=True, log_device_placement=True)) as sess:
+    config = tf.ConfigProto()
+    config.gpu_options.allocator_type = 'BFC'
+    with tf.Session(config = config) as sess:
         currentFrame_ = tf.placeholder(tf.float64, [None, height, width, 1])
         filteredFrame_ = tf.placeholder(tf.float64, [None, height, width, 1])
 
@@ -95,7 +96,7 @@ def main():
 
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
-        batch = 12
+        batch = 1
         for i in range(0, movieLength, batch):
         #for i in range(350, 380, batch):
 
