@@ -32,10 +32,12 @@ def splitBatch(batchData, bins):
     batchDataSize = batchData.shape
 
 
-    if (batchDataSize[0] % bins !=0) or (batchDataSize[1] % bins != 0):
+    if (batchDataSize[1] % bins !=0) or (batchDataSize[2] % bins != 0):
         print(batchDataSize)
         print("Error splitting: " + str((batchDataSize[0], batchDataSize[1])) + " do  not divide by " + str(bins))
         return
+
+    batchData = batchData.reshape(batchData, (batchDataSize[1],batchDataSize[2], batchDataSize[0]))
 
     # Splitting the rows.
     rowSplit = np.split(batchData, bins, axis = 0)
@@ -48,16 +50,22 @@ def splitBatch(batchData, bins):
     splittedBatch = np.reshape(np.asarray(colSplit),
                                (int(batchDataSize[0] / bins), int(batchDataSize[1] / bins), batchDataSize[2] * bins**2))
 
+
+    splittedBatch = np.reshape(splittedBatch, (splittedBatch.shape[2], splittedBatch.shape[0], splittedBatch.shape[1]))
+
     return splittedBatch
 
 def mergeBatch(batchData, bins):
     s = batchData.shape
+    batchData = batchData.reshape(batchData, (s[1], s[2], s[0]))
 
     reshaedSplittedData = np.reshape(batchData, (s[0], s[1], int(s[2] / bins ** 2), bins, bins))
     reshaedSplittedData = np.rollaxis(np.rollaxis(reshaedSplittedData, axis=3), axis=4)
 
 
     fullData = np.reshape(reshaedSplittedData, (s[0] * bins, s[1] * bins, int(s[2] /  bins ** 2)))
+
+    fullData = np.reshape(fullData, (fullData.shape[2], fullData.shape[0], fullData.shape[1]))
 
     return(fullData)
 
