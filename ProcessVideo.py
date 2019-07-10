@@ -32,7 +32,7 @@ def splitBatch(batchData, bins):
     batchDataSize = batchData.shape
 
     if (batchDataSize[0] % bins !=0) or (batchDataSize[1] % bins != 0):
-        print("Error splitting: " + str((batchDataSize[0], batchDataSize[1])) + " do  not divide by " + str(bins)
+        print("Error splitting: " + str((batchDataSize[0], batchDataSize[1])) + " do  not divide by " + str(bins))
         return
 
     # Splitting the rows.
