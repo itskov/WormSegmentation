@@ -123,8 +123,8 @@ def main():
     config = tf.ConfigProto()
     config.gpu_options.allocator_type = 'BFC'
     with tf.Session(config = config) as sess:
-        currentFrame_ = tf.placeholder(tf.float64, [None, int(height / BINS), int(width / BINS), 1])
-        filteredFrame_ = tf.placeholder(tf.float64, [None, int(height / BINS), int(width / BINS), 1])
+        currentFrame_ = tf.placeholder(tf.float64, [None, int(height / BINS), int(width / BINS)])
+        filteredFrame_ = tf.placeholder(tf.float64, [None, int(height / BINS), int(width / BINS)])
 
         loss, output = cnn_model_fn(currentFrame_, filteredFrame_, (int(height / BINS), int(width / BINS)))
 
