@@ -59,7 +59,7 @@ def splitBatch(batchData, bins):
 
 def mergeBatch(batchData, bins):
     s = batchData.shape
-    batchData = batchData.reshape(batchData, (s[1], s[2], s[0]))
+    batchData = np.reshape(batchData, (s[1], s[2], s[0]))
     s = batchData.shape
 
     reshaedSplittedData = np.reshape(batchData, (s[0], s[1], int(s[2] / bins ** 2), bins, bins))
