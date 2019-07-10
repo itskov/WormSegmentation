@@ -37,7 +37,8 @@ def splitBatch(batchData, bins):
         print("Error splitting: " + str((batchDataSize[0], batchDataSize[1])) + " do  not divide by " + str(bins))
         return
 
-    batchData = batchData.reshape(batchData, (batchDataSize[1],batchDataSize[2], batchDataSize[0]))
+    print((batchDataSize[1],batchDataSize[2],batchDataSize[0]))
+    batchData = batchData.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
 
     # Splitting the rows.
     rowSplit = np.split(batchData, bins, axis = 0)
