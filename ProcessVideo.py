@@ -164,9 +164,9 @@ def main():
             beforeForward = time.time()
             procDict = {currentFrame_: splittedFramesRead, filteredFrame_: splittedFramesRead}
             outputVal = output.eval(procDict)
-            outputVal = normalizeFrame(np.reshape(outputVal, (batch, int(height / BINS), int(width / BINS))))
 
             outputVal = mergeBatch(outputVal, BINS)
+            outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
 
             # Binarizing the image.
             outputVal[outputVal < 195] = 0
