@@ -39,6 +39,7 @@ def splitBatch(batchData, bins):
 
     print((batchDataSize[1],batchDataSize[2],batchDataSize[0]))
     batchData = np.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
+    batchDataSize = batchData.shape
 
     # Splitting the rows.
     rowSplit = np.split(batchData, bins, axis = 0)
