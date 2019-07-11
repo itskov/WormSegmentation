@@ -15,6 +15,7 @@ import logging
 from trainModel import  cnn_model_fn,normalizeFrame
 
 from skvideo.io import FFmpegWriter
+from skimage import data
 from os.path import join
 
 
@@ -38,39 +39,36 @@ def splitBatch(batchData, bins):
         return
 
     print((batchDataSize[1],batchDataSize[2],batchDataSize[0]))
-    batchData = np.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
+    #batchData = np.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
     batchDataSize = batchData.shape
 
     # Splitting the rows.
-    rowSplit = np.split(batchData, bins, axis = 0)
+    rowSplit = np.split(batchData, bins, axis = 1)
     # Splitting the cols.
-    colSplit = np.asarray([np.asarray(np.split(s, bins, axis = 1)) for s in rowSplit])
+    colSplit = np.asarray([np.asarray(np.split(s, bins, axis = 2)) for s in rowSplit])
 
     # Changing the axis order
-    colSplit = np.rollaxis(np.rollaxis(colSplit, axis=3), axis=3)
+    colSplit = np.rollaxis(colSplit, axis=2)
+
 
     splittedBatch = np.reshape(np.asarray(colSplit),
-                               (int(batchDataSize[0] / bins), int(batchDataSize[1] / bins), batchDataSize[2] * bins**2))
+                               (batchDataSize[0] * bins**2, int(batchDataSize[1] / bins), int(batchDataSize[2] / bins)))
 
-
-    splittedBatch = np.reshape(splittedBatch, (splittedBatch.shape[2], splittedBatch.shape[0], splittedBatch.shape[1]))
 
     return splittedBatch
 
 def mergeBatch(batchData, bins):
+
     s = batchData.shape
-    batchData = np.reshape(batchData, (s[1], s[2], s[0]))
-    s = batchData.shape
 
-    reshaedSplittedData = np.reshape(batchData, (s[0], s[1], int(s[2] / bins ** 2), bins, bins))
-    reshaedSplittedData = np.rollaxis(np.rollaxis(reshaedSplittedData, axis=3), axis=4)
+    reshaedSplittedData = np.reshape(batchData, (int(s[0] / bins ** 2), bins, bins, s[1], s[2]))
+    reshaedSplittedData = np.transpose(reshaedSplittedData, (0,1,3,2,4))
 
+    fullData = np.reshape(reshaedSplittedData, (int(s[0] /  bins ** 2), s[1] * bins, s[2] * bins))
 
-    fullData = np.reshape(reshaedSplittedData, (s[0] * bins, s[1] * bins, int(s[2] /  bins ** 2)))
+    #fullData = np.rollaxis(fullData, 2)
 
-    fullData = np.reshape(fullData, (fullData.shape[2], fullData.shape[0], fullData.shape[1]))
-
-    return(fullData)
+    return fullData
 
 
 def writeLog(logFile, s):
