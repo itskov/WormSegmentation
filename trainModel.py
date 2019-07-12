@@ -125,8 +125,8 @@ def main():
 
     tf.reset_default_graph()
 
-    origImages_ = tf.placeholder(tf.float64, [None, IMAGE_SIZE[0], IMAGE_SIZE[1]])
-    filteredImages_ = tf.placeholder(tf.float64, [None, IMAGE_SIZE[0], IMAGE_SIZE[1]])
+    origImages_ = tf.placeholder(tf.float32, [None, IMAGE_SIZE[0], IMAGE_SIZE[1]])
+    filteredImages_ = tf.placeholder(tf.float32, [None, IMAGE_SIZE[0], IMAGE_SIZE[1]])
 
     loss, output = cnn_model_fn(origImages_, filteredImages_, IMAGE_SIZE)
 

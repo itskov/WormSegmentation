@@ -39,36 +39,39 @@ def splitBatch(batchData, bins):
         return
 
     print((batchDataSize[1],batchDataSize[2],batchDataSize[0]))
-    #batchData = np.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
+    batchData = np.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
     batchDataSize = batchData.shape
 
     # Splitting the rows.
-    rowSplit = np.split(batchData, bins, axis = 1)
+    rowSplit = np.split(batchData, bins, axis = 0)
     # Splitting the cols.
-    colSplit = np.asarray([np.asarray(np.split(s, bins, axis = 2)) for s in rowSplit])
+    colSplit = np.asarray([np.asarray(np.split(s, bins, axis = 1)) for s in rowSplit])
 
     # Changing the axis order
-    colSplit = np.rollaxis(colSplit, axis=2)
-
+    colSplit = np.rollaxis(np.rollaxis(colSplit, axis=3), axis=3)
 
     splittedBatch = np.reshape(np.asarray(colSplit),
-                               (batchDataSize[0] * bins**2, int(batchDataSize[1] / bins), int(batchDataSize[2] / bins)))
+                               (int(batchDataSize[0] / bins), int(batchDataSize[1] / bins), batchDataSize[2] * bins**2))
 
+
+    splittedBatch = np.reshape(splittedBatch, (splittedBatch.shape[2], splittedBatch.shape[0], splittedBatch.shape[1]))
 
     return splittedBatch
 
 def mergeBatch(batchData, bins):
-
+    s = batchData.shape
+    batchData = np.reshape(batchData, (s[1], s[2], s[0]))
     s = batchData.shape
 
-    reshaedSplittedData = np.reshape(batchData, (int(s[0] / bins ** 2), bins, bins, s[1], s[2]))
-    reshaedSplittedData = np.transpose(reshaedSplittedData, (0,1,3,2,4))
+    reshaedSplittedData = np.reshape(batchData, (s[0], s[1], int(s[2] / bins ** 2), bins, bins))
+    reshaedSplittedData = np.rollaxis(np.rollaxis(reshaedSplittedData, axis=3), axis=4)
 
-    fullData = np.reshape(reshaedSplittedData, (int(s[0] /  bins ** 2), s[1] * bins, s[2] * bins))
 
-    #fullData = np.rollaxis(fullData, 2)
+    fullData = np.reshape(reshaedSplittedData, (s[0] * bins, s[1] * bins, int(s[2] /  bins ** 2)))
 
-    return fullData
+    fullData = np.reshape(fullData, (fullData.shape[2], fullData.shape[0], fullData.shape[1]))
+
+    return(fullData)
 
 
 def writeLog(logFile, s):
@@ -76,6 +79,11 @@ def writeLog(logFile, s):
     logFile.flush()
 
 def main():
+    ## DEBUG
+    im = data.coins()
+    splitBatch(np.reshape(im, (1, im.shape[0], im.shape[1])),3)
+
+    ## DEBUG
     if len(sys.argv) != 3:
         print('Usage: processVideo.py <RestorePoint> <FileToProcess> ')
         return
@@ -121,8 +129,8 @@ def main():
     config = tf.ConfigProto()
     config.gpu_options.allocator_type = 'BFC'
     with tf.Session(config = config) as sess:
-        currentFrame_ = tf.placeholder(tf.float32, [None, int(height / BINS), int(width / BINS)])
-        filteredFrame_ = tf.placeholder(tf.float32, [None, int(height / BINS), int(width / BINS)])
+        currentFrame_ = tf.placeholder(tf.float64, [None, int(height / BINS), int(width / BINS)])
+        filteredFrame_ = tf.placeholder(tf.float64, [None, int(height / BINS), int(width / BINS)])
 
         loss, output = cnn_model_fn(currentFrame_, filteredFrame_, (int(height / BINS), int(width / BINS)))
 
