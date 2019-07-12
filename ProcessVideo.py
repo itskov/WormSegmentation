@@ -168,8 +168,8 @@ def main():
             outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
 
             # Binarizing the image.
-            outputVal[outputVal < 250] = 0
-            outputVal[outputVal >= 250] = 1 * 255
+            outputVal[outputVal < 200] = 0
+            outputVal[outputVal >= 200] = 1 * 255
 
             forwardElpsd = time.time() - beforeForward
             #print('End network forward. Time: ' + str(forwardElpsd))
