@@ -21,7 +21,7 @@ from os.path import join
 
 def readFrame(cap, i, height, width):
     #print('Start Reading frame: ' + str(i))
-    cap.set(cv2.CAP_PROP_POS_FRAMES, i)
+    #cap.set(cv2.CAP_PROP_POS_FRAMES, i)
     success, readFrame = cap.read()
     readFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
     readFrame = np.reshape(readFrame, (1, height, width, 1))
