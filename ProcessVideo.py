@@ -132,8 +132,9 @@ def main():
         videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
 
         batch = 1
-        for i in range(0, movieLength, batch):
-        #for i in range(350, 380, batch):
+        cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
+        #for i in range(0, movieLength, batch):
+        for i in range(350, 550, batch):
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             writeLog(logFile, 'Frame: ' + str(i) + "/" + str(movieLength))
