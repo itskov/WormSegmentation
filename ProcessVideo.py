@@ -133,8 +133,8 @@ def main():
 
         batch = 1
         cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
-        for i in range(0, movieLength, batch):
-        #for i in range(350, 550, batch):
+        #for i in range(0, movieLength, batch):
+        for i in range(350, 650, batch):
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             writeLog(logFile, 'Frame: ' + str(i) + "/" + str(movieLength))
@@ -147,8 +147,8 @@ def main():
             #print('Reading Frames: ' + str(list(framesRange)))
             writeLog(logFile, 'Reading Frames: ' + str(list(framesRange)))
             beforeRead = time.time()
-            for f, j in enumerate(framesRange):
-                framesRead[f,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
+            #for f, j in enumerate(framesRange):
+            framesRead[0,:,:] = np.reshape(readFrame(cap, i, height, width), (height, width))
 
 
             splittedFramesRead = splitBatch(framesRead, BINS)
@@ -179,8 +179,8 @@ def main():
             writeLog(logFile, 'Start writing frame.')
             beforeWriting = time.time()
 
-            for f, j in enumerate(range(firstFrame, lastFrame)):
-                videoWriter.writeFrame(outputVal[f, :, :])
+            #for f, j in enumerate(range(firstFrame, lastFrame)):
+            videoWriter.writeFrame(outputVal[0, :, :])
 
             writingElpsd = time.time() - beforeWriting
             #print('After writing. Time: ' + str(writingElpsd))
