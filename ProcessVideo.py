@@ -169,7 +169,7 @@ def main():
 
             # Binarizing the image.
             # First we convolve it.
-            outputVal = cv2.blur(outputVal, (4,4))
+            outputVal[0,:,:] = cv2.blur(outputVal[0,:,:], (4,4))
             outputVal[outputVal < 254] = 0
             outputVal[outputVal >= 254] = 1 * 255
 
