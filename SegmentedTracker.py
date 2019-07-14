@@ -186,8 +186,8 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    #tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
-    tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
+    tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
+    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
