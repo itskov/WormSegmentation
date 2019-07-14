@@ -169,9 +169,9 @@ def main():
 
             # Binarizing the image.
             # First we convolve it.
-            outputVal[0,:,:] = cv2.blur(outputVal[0,:,:], (4,4))
-            outputVal[outputVal < 254] = 0
-            outputVal[outputVal >= 254] = 1 * 255
+            outputVal[0,:,:] = cv2.blur(outputVal[0,:,:], (3,3))
+            outputVal[outputVal < 190] = 0
+            outputVal[outputVal >= 190] = 1 * 255
 
             forwardElpsd = time.time() - beforeForward
             #print('End network forward. Time: ' + str(forwardElpsd))
