@@ -28,7 +28,7 @@ class SegmentedTracker:
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
         #self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
-        self._numOfFrames = 2
+        self._numOfFrames = 4
 
         self._tracks = []
 
@@ -99,7 +99,7 @@ class SegmentedTracker:
         self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         self._rawCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
-        #outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
+        outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
         #outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
         #outputFileBoth = os.path.join(self._path,self._baseName +'_both_tracked.mp4')
 
@@ -107,7 +107,7 @@ class SegmentedTracker:
         #print(outputFileRaw)
         #print(outputFileBoth)
 
-        #videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
+        videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
         #videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
         #videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '0'})
 
@@ -144,7 +144,7 @@ class SegmentedTracker:
             #bothFrame = np.concatenate((np.asarray(curImSeg), np.asarray(curImRaw)), axis=1)
             #videoWriterBoth.writeFrame(bothFrame)
 
-        #videoWriterSeg.close()
+        videoWriterSeg.close()
         #videoWriterRaw.close()
         #videoWriterBoth.close()
 
