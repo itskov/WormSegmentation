@@ -99,17 +99,17 @@ class SegmentedTracker:
         self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         self._rawCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
-        outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
-        outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
-        outputFileBoth = os.path.join(self._path,self._baseName +'_both_tracked.mp4')
+        #outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
+        #outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
+        #outputFileBoth = os.path.join(self._path,self._baseName +'_both_tracked.mp4')
 
-        print(outputFileSeg)
-        print(outputFileRaw)
-        print(outputFileBoth)
+        #print(outputFileSeg)
+        #print(outputFileRaw)
+        #print(outputFileBoth)
 
-        videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
-        videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
-        videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '0'})
+        #videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
+        #videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
+        #videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '0'})
 
         font = ImageFont.truetype("FreeSans.ttf", 32)
 
@@ -138,15 +138,15 @@ class SegmentedTracker:
                     curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
 
-            videoWriterSeg.writeFrame(np.asarray(curImSeg))
-            videoWriterRaw.writeFrame(np.asarray(curImRaw))
+            #videoWriterSeg.writeFrame(np.asarray(curImSeg))
+            #videoWriterRaw.writeFrame(np.asarray(curImRaw))
 
-            bothFrame = np.concatenate((np.asarray(curImSeg), np.asarray(curImRaw)), axis=1)
-            videoWriterBoth.writeFrame(bothFrame)
+            #bothFrame = np.concatenate((np.asarray(curImSeg), np.asarray(curImRaw)), axis=1)
+            #videoWriterBoth.writeFrame(bothFrame)
 
-        videoWriterSeg.close()
-        videoWriterRaw.close()
-        videoWriterBoth.close()
+        #videoWriterSeg.close()
+        #videoWriterRaw.close()
+        #videoWriterBoth.close()
 
 
 
