@@ -28,7 +28,7 @@ class SegmentedTracker:
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
         #self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT))
-        self._numOfFrames = 125
+        self._numOfFrames = 10
 
         self._tracks = []
 
@@ -154,23 +154,21 @@ class SegmentedTracker:
         #labeledFrame, n = label(np.uint16(readFrame))
         #labeledFrame = connected_components(np.uint16(segReadFrame))
         #labeledFrame = labeledFrame.eval(session = self._session)
-        labeledFrame, _ = label(np.uint16(segReadFrame))
-
-        n = len(np.unique(labeledFrame))
+        labeledFrame, n = label(np.uint16(segReadFrame))
 
         for j in range(n):
             if (np.sum(labeledFrame == j) < 25 or np.sum(labeledFrame == j) > 300):
                 labeledFrame[labeledFrame == j] = 0
 
-
+        n = len(np.unique(labeledFrame))
         success, rawReadFrame = self._rawCap.read()
 
         return (segReadFrame, rawReadFrame, labeledFrame, n)
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
-    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
+    #tracker = SegmentedTracker(sys.argv[1])
+    tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
