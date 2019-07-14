@@ -27,12 +27,12 @@ class SegmentedTracker:
         self._segmentedCap = cv2.VideoCapture(self._segmentedInputFile)
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
-        #self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT))
-        self._numOfFrames = 10
+        self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
+        #self._numOfFrames = 10
 
         self._tracks = []
 
-        #self._session = Session()
+        self._session = Session()
 
     def track(self):
         # Going to the first frame.
@@ -96,11 +96,12 @@ class SegmentedTracker:
 
     def createTrackedMovie(self):
         # Going to the first frame.
-        self._cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
+        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        self._rawCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
-        outputFileSeg = os.path.join(self._path,self._baseName,'_seg_tracked.mp4')
-        outputFileRaw = os.path.join(self._path,self._baseName,'_raw_tracked.mp4')
-        outputFileBoth = os.path.join(self._path,self._baseName,'_both_tracked.mp4')
+        outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
+        outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
+        outputFileBoth = os.path.join(self._path,self._baseName +'_both_tracked.mp4')
 
         videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
         videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
@@ -152,10 +153,11 @@ class SegmentedTracker:
 
         segReadFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
         #labeledFrame, n = label(np.uint16(readFrame))
-        #labeledFrame = connected_components(np.uint16(segReadFrame))
-        #labeledFrame = labeledFrame.eval(session = self._session)
-        labeledFrame, n = label(np.uint16(segReadFrame))
+        labeledFrame = connected_components(np.uint16(segReadFrame))
+        labeledFrame = labeledFrame.eval(session = self._session)
+        #labeledFrame, n = label(np.uint16(segReadFrame))
 
+        n = len(np.unique(labeledFrame))
         for j in range(n):
             if (np.sum(labeledFrame == j) < 25 or np.sum(labeledFrame == j) > 300):
                 labeledFrame[labeledFrame == j] = 0
@@ -166,9 +168,16 @@ class SegmentedTracker:
         return (segReadFrame, rawReadFrame, labeledFrame, n)
 
 
+    def saveTracks(self):
+        outputFileBoth = os.path.join(self._path, self._baseName + '_tracks.numpy')
+        np.save(outputFileBoth, self._tracks)
+
+
 if __name__ == "__main__":
     tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
     #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
+
+    tracker.saveTracks()
