@@ -28,7 +28,7 @@ class SegmentedTracker:
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
         #self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
-        self._numOfFrames = 10
+        self._numOfFrames = 2
 
         self._tracks = []
 
@@ -103,7 +103,9 @@ class SegmentedTracker:
         outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
         outputFileBoth = os.path.join(self._path,self._baseName +'_both_tracked.mp4')
 
-
+        print(outputFileSeg)
+        print(outputFileRaw)
+        print(outputFileBoth)
 
         videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
         videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
@@ -113,7 +115,7 @@ class SegmentedTracker:
 
         for currentFrameNum in range(1, self._numOfFrames):
             print('Saving frame: ' + str(currentFrameNum))
-            segReadFrame, rawReadFrame,_,__ = self.getFrame(False)
+            segReadFrame, rawReadFrame,_,n = self.getFrame()
 
             # The segmented output
             curImSeg = Image.fromarray(segReadFrame).convert('RGB')
@@ -150,25 +152,22 @@ class SegmentedTracker:
 
 
 
-    def getFrame(self, shouldLabel = True):
+    def getFrame(self):
         success, readFrame = self._segmentedCap.read()
 
         segReadFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
         #labeledFrame, n = label(np.uint16(readFrame))
-        labeledFrame = segReadFrame
+        labeledFrame = connected_components(np.uint16(segReadFrame))
+        labeledFrame = labeledFrame.eval(session = self._session)
+        #labeledFrame, n = label(np.uint16(segReadFrame))
 
-        if (shouldLabel):
-            labeledFrame = connected_components(np.uint16(segReadFrame))
-            labeledFrame = labeledFrame.eval(session = self._session)
-            #labeledFrame, n = label(np.uint16(segReadFrame))
+        n = len(np.unique(labeledFrame))
+        for j in range(n):
+            if (np.sum(labeledFrame == j) < 25 or np.sum(labeledFrame == j) > 300):
+                labeledFrame[labeledFrame == j] = 0
 
-            n = len(np.unique(labeledFrame))
-            for j in range(n):
-                if (np.sum(labeledFrame == j) < 25 or np.sum(labeledFrame == j) > 300):
-                    labeledFrame[labeledFrame == j] = 0
-
-            n = len(np.unique(labeledFrame))
-            success, rawReadFrame = self._rawCap.read()
+        n = len(np.unique(labeledFrame))
+        success, rawReadFrame = self._rawCap.read()
 
         return (segReadFrame, rawReadFrame, labeledFrame, n)
 
