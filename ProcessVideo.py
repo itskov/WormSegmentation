@@ -134,7 +134,7 @@ def main():
         batch = 1
         cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
         #for i in range(0, movieLength, batch):
-        for i in range(0, 2000, batch):
+        for i in range(0, 500, batch):
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             writeLog(logFile, 'Frame: ' + str(i) + "/" + str(movieLength))
@@ -168,8 +168,8 @@ def main():
             outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
 
             # Binarizing the image.
-            outputVal[outputVal < 190] = 0
-            outputVal[outputVal >= 190] = 1 * 255
+            outputVal[outputVal < 220] = 0
+            outputVal[outputVal >= 220] = 1 * 255
 
             forwardElpsd = time.time() - beforeForward
             #print('End network forward. Time: ' + str(forwardElpsd))
