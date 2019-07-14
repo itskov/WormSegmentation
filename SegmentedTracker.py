@@ -27,8 +27,8 @@ class SegmentedTracker:
         self._segmentedCap = cv2.VideoCapture(self._segmentedInputFile)
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
-        #self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
-        self._numOfFrames = 2
+        self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
+        #self._numOfFrames = 2
 
         self._tracks = []
 
@@ -173,7 +173,7 @@ class SegmentedTracker:
 
 
     def saveTracks(self):
-        outputFileBoth = os.path.join(self._path, self._baseName + '_tracks.numpy')
+        outputFileBoth = os.path.join(self._path, self._baseName + '_tracks')
         np.save(outputFileBoth, self._tracks)
 
 
