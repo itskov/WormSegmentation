@@ -27,8 +27,8 @@ class SegmentedTracker:
         self._segmentedCap = cv2.VideoCapture(self._segmentedInputFile)
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
-        # self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
-        self._numOfFrames = 350
+        self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
+        # self._numOfFrames = 350
 
         self._tracks = []
 
