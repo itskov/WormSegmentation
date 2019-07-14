@@ -168,6 +168,8 @@ def main():
             outputVal = normalizeFrame(np.reshape(outputVal, (batch, height, width)))
 
             # Binarizing the image.
+            # First we convolve it.
+            outputVal = cv2.blur(outputVal, 4)
             outputVal[outputVal < 254] = 0
             outputVal[outputVal >= 254] = 1 * 255
 
