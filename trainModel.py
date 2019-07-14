@@ -111,7 +111,7 @@ def normalizeFrame(outImage):
     outImage = np.maximum(outImage, 0)
     outImage = np.minimum(outImage, 1)
 
-    outImage = (outImage - np.min(outImage)) / (np.max(outImage) - np.min(outImage))
+    #outImage = (outImage - np.min(outImage)) / (np.max(outImage) - np.min(outImage))
     outImage = np.uint8(outImage * 255)
     return (outImage)
 
