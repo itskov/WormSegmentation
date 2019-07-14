@@ -173,7 +173,7 @@ class SegmentedTracker:
             labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
         else:
             labeledFrame = segReadFrame
-            endLabels = []
+            labelsInds = []
 
         success, rawReadFrame = self._rawCap.read()
 
