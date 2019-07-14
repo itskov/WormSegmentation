@@ -91,7 +91,7 @@ class SegmentedTracker:
         self._tracks = np.asarray(self._tracks)[lens > 5]
 
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        self._tracks = self._tracks[np.asarray(maxDistances) > 250]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 50]
 
 
 
@@ -186,8 +186,8 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
-    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
+    #tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
+    tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
