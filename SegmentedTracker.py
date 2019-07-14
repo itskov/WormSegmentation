@@ -27,7 +27,7 @@ class SegmentedTracker:
         self._segmentedCap = cv2.VideoCapture(self._segmentedInputFile)
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
-        self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
+        self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2
         # self._numOfFrames = 350
 
         self._tracks = []
@@ -67,7 +67,7 @@ class SegmentedTracker:
 
                     if (len(distances) > 0):
                         nextPosIndex = np.argmin(distances)
-                        if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 20):
+                        if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 18):
                             t[currentFrameNum] = centroids[np.argmin(distances),:]
                             usedCentroids[nextPosIndex] = 1
 
@@ -109,8 +109,8 @@ class SegmentedTracker:
         print(outputFileBoth)
 
         videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
-        videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
-        videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '0'})
+        videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '20'})
+        videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '20'})
 
         font = ImageFont.truetype("FreeSans.ttf", 32)
 
@@ -186,7 +186,7 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
+    tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
     #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
