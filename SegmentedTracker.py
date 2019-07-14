@@ -4,7 +4,7 @@ import sys
 
 import numpy as np
 
-from scipy.ndimage import label
+from scipy.ndimage import measurements, label
 from scipy.spatial.distance import  pdist
 from skvideo.io import FFmpegWriter
 
@@ -41,13 +41,13 @@ class SegmentedTracker:
         currentTracks = []
 
         for currentFrameNum in range(self._numOfFrames):
-            readFrame, _, labeledFrame, n = self.getFrame()
+            readFrame, _, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
 
             # Prepare centroids
-            centroids = np.zeros((n, 2), dtype=np.int)
-            usedCentroids = np.zeros((n, 1))
-            for li, l in enumerate(np.unique(labeledFrame)):
+            centroids = np.zeros((len(labelsInds), 2), dtype=np.int)
+            usedCentroids = np.zeros((len(labelsInds), 1))
+            for li, l in enumerate(labelsInds):
                 if (l == 0):
                     continue
 
@@ -81,7 +81,7 @@ class SegmentedTracker:
             [currentTracks.append({currentFrameNum: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
             # Log
-            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(n))
+            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(len(labelsInds)))
 
         self._tracks += list(currentTracks)
 
@@ -92,6 +92,7 @@ class SegmentedTracker:
 
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
         self._tracks = self._tracks[np.asarray(maxDistances) > 250]
+
 
 
     def createTrackedMovie(self):
@@ -115,7 +116,7 @@ class SegmentedTracker:
 
         for currentFrameNum in range(1, self._numOfFrames):
             print('Saving frame: ' + str(currentFrameNum))
-            segReadFrame, rawReadFrame,_,n = self.getFrame()
+            segReadFrame, rawReadFrame,_,_ = self.getFrame(False)
 
             # The segmented output
             curImSeg = Image.fromarray(segReadFrame).convert('RGB')
@@ -152,24 +153,31 @@ class SegmentedTracker:
 
 
 
-    def getFrame(self):
+    def getFrame(self, shouldLabel=True):
         success, readFrame = self._segmentedCap.read()
 
         segReadFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
-        #labeledFrame, n = label(np.uint16(readFrame))
-        labeledFrame = connected_components(np.uint16(segReadFrame))
-        labeledFrame = labeledFrame.eval(session = self._session)
-        #labeledFrame, n = label(np.uint16(segReadFrame))
 
-        n = len(np.unique(labeledFrame))
-        for j in range(n):
-            if (np.sum(labeledFrame == j) < 25 or np.sum(labeledFrame == j) > 300):
-                labeledFrame[labeledFrame == j] = 0
+        if (shouldLabel):
+            #labeledFrame = connected_components(np.uint16(segReadFrame))
+            #labeledFrame = labeledFrame.eval(session = self._session)
+            labeledFrame, n = label(np.uint16(segReadFrame))
 
-        n = len(np.unique(labeledFrame))
+            n = len(np.unique(labeledFrame))
+            initialLabelsInds =  list(range(n))
+
+            area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
+            badAreas = np.where((area < 25) | (area > 400))[0]
+            labeledFrame[np.isin(labeledFrame, badAreas)] = 0
+
+            labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
+        else:
+            labeledFrame = segReadFrame
+            endLabels = []
+
         success, rawReadFrame = self._rawCap.read()
 
-        return (segReadFrame, rawReadFrame, labeledFrame, n)
+        return (segReadFrame, rawReadFrame, labeledFrame, labelsInds)
 
 
     def saveTracks(self):
@@ -178,8 +186,8 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
-    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
+    #tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
+    tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
