@@ -10,27 +10,38 @@ from skvideo.io import FFmpegWriter
 
 from PIL import Image, ImageDraw, ImageFont
 
+from tensorflow.contrib.image import connected_components
+from tensorflow import Session
+
 class SegmentedTracker:
-    def __init__(self, segmentedFile):
-        self._inputFile = segmentedFile
+    def __init__(self, segmentedFile, rawInputFile):
+        self._segmentedInputFile = segmentedFile
+        self._rawInputFile = rawInputFile
 
         self._path = os.path.dirname(segmentedFile)
         self._baseName = os.path.basename(segmentedFile)
 
-        self._cap = cap = cv2.VideoCapture(self._inputFile)
-        #self._numOfFrames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        self._numOfFrames = 250
+        # Getting rid of the extension
+        self._baseName = self._baseName[0:-4]
+
+        self._segmentedCap = cv2.VideoCapture(self._segmentedInputFile)
+        self._rawCap = cv2.VideoCapture(self._rawInputFile)
+
+        #self._numOfFrames = int(self._rawCap.get(cv2.CAP_PROP_FRAME_COUNT))
+        self._numOfFrames = 125
 
         self._tracks = []
 
+        self._session = Session()
+
     def track(self):
         # Going to the first frame.
-        self._cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
+        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
         currentTracks = []
 
         for currentFrameNum in range(self._numOfFrames):
-            readFrame, labeledFrame, n = self.getFrame()
+            readFrame, _, labeledFrame, n = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
 
             # Prepare centroids
@@ -79,24 +90,35 @@ class SegmentedTracker:
         lens = np.asarray([len(list(t.values())) for t in self._tracks])
         self._tracks = np.asarray(self._tracks)[lens > 5]
 
-        maxDistances = [max(pdist(np.asarray(t.values))) for t in self._tracks]
+        maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 250]
 
 
     def createTrackedMovie(self):
         # Going to the first frame.
         self._cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
 
-        outputFile = os.path.join(self._path,self._baseName,'_tracked.mp4')
-        videoWriter = FFmpegWriter(outputFile, outputdict={'-crf': '0'})
+        outputFileSeg = os.path.join(self._path,self._baseName,'_seg_tracked.mp4')
+        outputFileRaw = os.path.join(self._path,self._baseName,'_raw_tracked.mp4')
+        outputFileBoth = os.path.join(self._path,self._baseName,'_both_tracked.mp4')
+
+        videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
+        videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '0'})
+        videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '0'})
 
         font = ImageFont.truetype("FreeSans.ttf", 32)
 
         for currentFrameNum in range(1, self._numOfFrames):
             print('Saving frame: ' + str(currentFrameNum))
-            readFrame, _,_n = self.getFrame()
+            segReadFrame, rawReadFrame,_,_n = self.getFrame()
 
-            curIm = Image.fromarray(readFrame).convert('RGB')
-            curImDraw = ImageDraw.Draw(curIm)
+            # The segmented output
+            curImSeg = Image.fromarray(segReadFrame).convert('RGB')
+            curImSegDraw = ImageDraw.Draw(curImSeg)
+
+            # The raw output
+            curImRaw = Image.fromarray(rawReadFrame).convert('RGB')
+            curImRawDraw = ImageDraw.Draw(curImRaw)
 
             for t in self._tracks:
                 if currentFrameNum in t:
@@ -104,33 +126,50 @@ class SegmentedTracker:
 
                     traj = [(pos[1][1], pos[1][0]) for pos in trajItems if pos[0] <= currentFrameNum]
 
-                    curImDraw.line(traj, fill=(255,0,0), width=2)
-                    curImDraw.text(traj[-1], "+", (0, 0, 255), font=font)
+                    curImSegDraw.line(traj, fill=(255,0,0), width=2)
+                    curImSegDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
-            videoWriter.writeFrame(np.asarray(curIm))
+                    curImRawDraw.line(traj, fill=(255,0,0), width=2)
+                    curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
-        videoWriter.close()
+
+            videoWriterSeg.writeFrame(np.asarray(curImSeg))
+            videoWriterRaw.writeFrame(np.asarray(curImRaw))
+
+            bothFrame = np.concatenate((np.asarray(curImSeg), np.asarray(curImRaw)), axis=1)
+            videoWriterBoth.writeFrame(bothFrame)
+
+        videoWriterSeg.close()
+        videoWriterRaw.close()
+        videoWriterBoth.close()
 
 
 
 
 
     def getFrame(self):
-        success, readFrame = self._cap.read()
-        readFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
-        labeledFrame, n = label(np.uint16(readFrame))
+        success, readFrame = self._segmentedCap.read()
+
+        segReadFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
+        #labeledFrame, n = label(np.uint16(readFrame))
+        labeledFrame = connected_components(np.uint16(segReadFrame))
+        labeledFrame = labeledFrame.eval(session = self._session)
+
+        n = len(np.unique(labeledFrame))
 
         for j in range(n):
             if (np.sum(labeledFrame == j) < 25 or np.sum(labeledFrame == j) > 300):
                 labeledFrame[labeledFrame == j] = 0
 
 
-        n = len(np.unique(labeledFrame))
-        return (readFrame, labeledFrame, n)
+        success, rawReadFrame = self._rawCap.read()
+
+        return (segReadFrame, rawReadFrame, labeledFrame, n)
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1])
+    tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
+    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
