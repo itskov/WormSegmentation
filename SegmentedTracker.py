@@ -32,7 +32,7 @@ class SegmentedTracker:
 
         self._tracks = []
 
-        self._session = Session()
+        #self._session = Session()
 
     def track(self):
         # Going to the first frame.
@@ -152,8 +152,9 @@ class SegmentedTracker:
 
         segReadFrame = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
         #labeledFrame, n = label(np.uint16(readFrame))
-        labeledFrame = connected_components(np.uint16(segReadFrame))
-        labeledFrame = labeledFrame.eval(session = self._session)
+        #labeledFrame = connected_components(np.uint16(segReadFrame))
+        #labeledFrame = labeledFrame.eval(session = self._session)
+        labeledFrame, _ = label(np.uint16(segReadFrame))
 
         n = len(np.unique(labeledFrame))
 
