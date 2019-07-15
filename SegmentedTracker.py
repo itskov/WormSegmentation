@@ -36,9 +36,9 @@ class SegmentedTracker:
 
     def track(self):
         # Calculating the mean intensity.
-        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 30)
-        _, rawReadFrame,_, _ = self.getFrame(False)
-        initialMeanIntensity = np.mean(rawReadFrame)
+        #self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 30)
+        #_, rawReadFrame,_, _ = self.getFrame(False)
+        #initialMeanIntensity = np.mean(rawReadFrame)
 
         # Going to the first frame.
         self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
@@ -56,8 +56,8 @@ class SegmentedTracker:
                 if (l == 0):
                     continue
 
-                if (np.mean(rawReadFrame) > 20 * initialMeanIntensity):
-                    continue;
+                #if (np.mean(rawReadFrame) > 20 * initialMeanIntensity):
+                #    continue;
 
                 x, y = np.where(labeledFrame == l)
                 centroids[li, :] = np.array((int(np.mean(x)), int(np.mean(y))))
