@@ -35,13 +35,18 @@ class SegmentedTracker:
         self._session = Session()
 
     def track(self):
+        # Calculating the mean intensity.
+        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 30)
+        _, rawReadFrame,_, _ = self.getFrame(False)
+        initialMeanIntensity = np.mean(rawReadFrame)
+
         # Going to the first frame.
         self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
         currentTracks = []
 
         for currentFrameNum in range(self._numOfFrames):
-            readFrame, _, labeledFrame, labelsInds = self.getFrame()
+            readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
 
             # Prepare centroids
@@ -50,6 +55,9 @@ class SegmentedTracker:
             for li, l in enumerate(labelsInds):
                 if (l == 0):
                     continue
+
+                if (np.mean(rawReadFrame) > 20 * initialMeanIntensity):
+                    continue;
 
                 x, y = np.where(labeledFrame == l)
                 centroids[li, :] = np.array((int(np.mean(x)), int(np.mean(y))))
@@ -132,8 +140,8 @@ class SegmentedTracker:
 
                     traj = [(pos[1][1], pos[1][0]) for pos in trajItems if pos[0] <= currentFrameNum]
 
-                    curImSegDraw.line(traj, fill=(255,0,0), width=2)
-                    curImSegDraw.text(traj[-1], "+", (0, 0, 255), font=font)
+                    #curImSegDraw.line(traj, fill=(255,0,0), width=2)
+                    #curImSegDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
                     curImRawDraw.line(traj, fill=(255,0,0), width=2)
                     curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
@@ -186,7 +194,7 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[1])
+    tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
     #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
