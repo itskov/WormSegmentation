@@ -84,14 +84,15 @@ def main():
 
     RESTORE_POINT = sys.argv[1]
     INPUT_DIR = os.path.dirname(sys.argv[2])
+    fileName = os.path.basename(sys.argv[2])[0:-4]
 
     logFile = open(join(INPUT_DIR, 'seg.log'),'a')
 
 
     writeLog(logFile,'Start segmentation')
 
-    inputFile = os.path.join(INPUT_DIR, 'inputFile.mp4')
-    outputFile = os.path.join(INPUT_DIR, 'outputFile.mp4')
+    inputFile = os.path.dirname(sys.argv[2])
+    outputFile = os.path.join(INPUT_DIR, fileName + "_seg.mp4")
 
 
     #print('Opening: ' + inputFile)
