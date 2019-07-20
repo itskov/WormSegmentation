@@ -24,7 +24,11 @@ def main():
     print('Initial file: ' + inputFile )
 
     outputFile = Process(RESTORE_POINT, inputFile)
+    print('Tracking: ' + outputFile)
     segTracker = SegmentedTracker(outputFile, inputFile)
+    segTracker.track()
+    segTracker.saveTracks()
+    segTracker.createTrackedMovie()
 
 
 
