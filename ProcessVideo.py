@@ -93,7 +93,7 @@ def Process(restorePoint, fileToProcess):
     writeLog(logFile,'Start segmentation')
 
 
-    inputFile = os.path.dirname(fileToProcess)
+    inputFile = fileToProcess
     outputFile = os.path.join(INPUT_DIR, fileName + "_seg.mp4")
 
 
