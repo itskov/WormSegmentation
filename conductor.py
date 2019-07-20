@@ -17,6 +17,7 @@ def main():
 
     if (len(files) > 1):
         print('Error: Ambiguous input file.')
+        print(files)
         return
 
     inputFile = files[0]
