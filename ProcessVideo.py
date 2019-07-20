@@ -18,6 +18,9 @@ from skvideo.io import FFmpegWriter
 from skimage import data
 from os.path import join
 
+# Global logger
+logFile = None
+
 
 def readFrame(cap, i, height, width):
     #print('Start Reading frame: ' + str(i))
@@ -75,27 +78,25 @@ def writeLog(logFile, s):
     logFile.writelines([s + os.linesep])
     logFile.flush()
 
-def main():
-    if len(sys.argv) != 3:
-        print('Usage: processVideo.py <RestorePoint> <FileToProcess> ')
-        return
+def Process(restorePoint, fileToProcess):
+    global logFile
 
     BINS = 4
 
-    RESTORE_POINT = sys.argv[1]
-    INPUT_DIR = os.path.dirname(sys.argv[2])
-    fileName = os.path.basename(sys.argv[2])[0:-4]
+    RESTORE_POINT = restorePoint
+    INPUT_DIR = os.path.dirname(fileToProcess)
+    fileName = os.path.basename(fileToProcess)[0:-4]
 
-    logFile = open(join(INPUT_DIR, 'seg.log'),'a')
-
+    global logFile
+    logFile = open(join(INPUT_DIR, 'seg.log'), 'a')
 
     writeLog(logFile,'Start segmentation')
 
-    inputFile = os.path.dirname(sys.argv[2])
+
+    inputFile = os.path.dirname(fileToProcess)
     outputFile = os.path.join(INPUT_DIR, fileName + "_seg.mp4")
 
 
-    #print('Opening: ' + inputFile)
     writeLog(logFile, 'Opening: ' + inputFile)
     writeLog(logFile, 'Wiring into:' + outputFile)
     cap = cv2.VideoCapture(inputFile)
@@ -135,7 +136,7 @@ def main():
         batch = 1
         cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
         #for i in range(0, movieLength, batch):
-        for i in range(0, 6500, batch):
+        for i in range(0, 100, batch):
 
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             writeLog(logFile, 'Frame: ' + str(i) + "/" + str(movieLength))
@@ -192,6 +193,18 @@ def main():
 
 
         videoWriter.close()
+
+        return outputFile
+
+
+
+def main():
+    if len(sys.argv) != 3:
+        print('Usage: processVideo.py <RestorePoint> <FileToProcess> ')
+        return
+
+
+    Process(sys.argv[1], sys.argv[2])
 
 if __name__ == "__main__":
     main()

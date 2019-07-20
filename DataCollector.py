@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/mnt/storageNASRe/tph1/26*Full.mp4'
+        self._GLOB_TERM = '/mnt/storageNASRe/tph1/18.07.19/*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -103,6 +103,8 @@ def saveImage(i):
         imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
     except Exception:
         print('Error creating sample')
+        raise;
+
 
 
     print(str(i))
