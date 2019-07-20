@@ -9,7 +9,7 @@ from SegmentedTracker import SegmentedTracker
 
 
 def main():
-    RESTORE_POINT = ""
+    RESTORE_POINT = "/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation"
 
     # getting the input directory
     inputDir = sys.argv[1]
