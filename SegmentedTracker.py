@@ -47,8 +47,8 @@ class SegmentedTracker:
 
         currentTracks = []
 
-        #for currentFrameNum in range(self._numOfFrames):
-        for currentFrameNum in range(100):
+        for currentFrameNum in range(self._numOfFrames):
+        #for currentFrameNum in range(100):
             startTime = time()	
             readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
