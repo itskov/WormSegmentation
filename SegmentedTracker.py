@@ -92,7 +92,7 @@ class SegmentedTracker:
             [currentTracks.append({currentFrameNum: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
             # Log
-            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(len(labelsInds)) + ". Time: " + str(time - startTime))
+            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(len(labelsInds)) + ". Time: " + str(time() - startTime))
 
         self._tracks += list(currentTracks)
 
