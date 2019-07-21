@@ -47,7 +47,8 @@ class SegmentedTracker:
 
         currentTracks = []
 
-        for currentFrameNum in range(self._numOfFrames):
+        #for currentFrameNum in range(self._numOfFrames):
+        for currentFrameNum in range(100):
             startTime = time()	
             readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
@@ -55,16 +56,19 @@ class SegmentedTracker:
             # Prepare centroids
             centroids = np.zeros((len(labelsInds), 2), dtype=np.int)
             usedCentroids = np.zeros((len(labelsInds), 1))
-            for li, l in enumerate(labelsInds):
-                if (l == 0):
-                    continue
+            #for li, l in enumerate(labelsInds):
+            #    if (l == 0):
+            #        continue
 
                 #if (np.mean(rawReadFrame) > 20 * initialMeanIntensity):
                 #    continue;
 
-                x, y = np.where(labeledFrame == l)
-                centroids[li, :] = np.array((int(np.mean(x)), int(np.mean(y))))
-                usedCentroids[li] = 0
+            #    x, y = np.where(labeledFrame == l)
+            #    centroids[li, :] = np.array((int(np.mean(x)), int(np.mean(y))))
+            #    usedCentroids[li] = 0
+            centroids = np.asarray(measurements.center_of_mass(labeledFrame, labeledFrame))
+
+
 
             if (currentFrameNum > 0):
                 for ti, t in enumerate(currentTracks):
