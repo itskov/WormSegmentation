@@ -2,11 +2,13 @@ import cv2
 import os
 import sys
 
+
 import numpy as np
 
 from scipy.ndimage import measurements, label
 from scipy.spatial.distance import  pdist
 from skvideo.io import FFmpegWriter
+from time import time
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -46,7 +48,8 @@ class SegmentedTracker:
         currentTracks = []
 
         for currentFrameNum in range(self._numOfFrames):
-            readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
+            startTime = time()	
+    	    readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
 
             # Prepare centroids
@@ -89,7 +92,7 @@ class SegmentedTracker:
             [currentTracks.append({currentFrameNum: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
             # Log
-            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(len(labelsInds)))
+            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(len(labelsInds)) + ". Time: " + str(time - startTime))
 
         self._tracks += list(currentTracks)
 
