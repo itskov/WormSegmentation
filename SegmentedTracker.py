@@ -66,7 +66,7 @@ class SegmentedTracker:
             #    x, y = np.where(labeledFrame == l)
             #    centroids[li, :] = np.array((int(np.mean(x)), int(np.mean(y))))
             #    usedCentroids[li] = 0
-            centroids = np.asarray(measurements.center_of_mass(labeledFrame, labeledFrame))
+            centroids = measurements.center_of_mass(labeledFrame, labeledFrame)
 
 
 
