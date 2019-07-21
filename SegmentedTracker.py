@@ -55,7 +55,7 @@ class SegmentedTracker:
 
             # Prepare centroids
             centroids = np.zeros((len(labelsInds), 2), dtype=np.int)
-            usedCentroids = np.zeros((len(labelsInds), 1))
+            usedCentroids = np.zeros((len(labelsInds), 1), dtype=np.bool)
             #for li, l in enumerate(labelsInds):
             #    if (l == 0):
             #        continue
@@ -66,9 +66,10 @@ class SegmentedTracker:
             #    x, y = np.where(labeledFrame == l)
             #    centroids[li, :] = np.array((int(np.mean(x)), int(np.mean(y))))
             #    usedCentroids[li] = 0
-            centroids = measurements.center_of_mass(labeledFrame, labeledFrame)
-            centroids = [np.array(cent) for cent in centroids]
-            print(centroids)
+            centroids = measurements.center_of_mass(labeledFrame, labels=labeledFrame, index=np.unique(labeledFrame))
+            centroids = centroids[1:]
+            centroids = np.asarray([np.array(cent) for cent in centroids])
+
 
 
 
@@ -203,8 +204,8 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
-    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
+    #tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
+    tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
