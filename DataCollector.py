@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/mnt/storageNASRe/tph1/18.07.19/*Full.mp4'
+        self._GLOB_TERM = '/mnt/storageNASRe/tph1/18.07.19/**/*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -111,8 +111,10 @@ def saveImage(i):
 
 
 if __name__ == "__main__":
+    print('Running threads..')
     with Pool(processes=4) as pool:
         pool.map(saveImage, np.random.choice(range(1,5*10**6),100000))
+    print('Done.')
     #saveImage(4)
 
 

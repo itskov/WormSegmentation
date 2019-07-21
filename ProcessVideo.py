@@ -135,9 +135,9 @@ def Process(restorePoint, fileToProcess):
 
         batch = 1
         cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
-        for i in range(0, movieLength, batch):
+        for i in range(1, movieLength, batch):
         #for i in range(0, 10, batch):
-
+1
             #print('Frame: ' + str(i) + "/" + str(movieLength))
             writeLog(logFile, 'Frame: ' + str(i) + "/" + str(movieLength))
 
