@@ -49,7 +49,7 @@ class SegmentedTracker:
 
         for currentFrameNum in range(self._numOfFrames):
             startTime = time()	
-    	    readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
+            readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
 
             # Prepare centroids
