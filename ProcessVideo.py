@@ -16,7 +16,7 @@ from trainModel import  cnn_model_fn,normalizeFrame
 
 from skvideo.io import FFmpegWriter
 from skimage import data
-from os.path import join
+from os.path import join, exists
 
 # Global logger
 logFile = None
@@ -96,6 +96,9 @@ def Process(restorePoint, fileToProcess):
     inputFile = fileToProcess
     outputFile = os.path.join(INPUT_DIR, fileName + "_seg.mp4")
 
+    # If done. Shouldn't redo.
+    if (exists(outputFile)):
+        return outputFile
 
     writeLog(logFile, 'Opening: ' + inputFile)
     writeLog(logFile, 'Wiring into:' + outputFile)
