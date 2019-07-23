@@ -13,7 +13,7 @@ from time import time
 from PIL import Image, ImageDraw, ImageFont
 
 #from tensorflow.contrib.image import connected_components
-from tensorflow import Session
+#from tensorflow import Session
 
 class SegmentedTracker:
     def __init__(self, segmentedFile, rawInputFile):
@@ -30,11 +30,15 @@ class SegmentedTracker:
         self._rawCap = cv2.VideoCapture(self._rawInputFile)
 
         self._numOfFrames = int(self._segmentedCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2
-        # self._numOfFrames = 350
+        #DEBUG
+        #self._numOfFrames = 650
+        self._startFrame = 1
+        #DEBUG
+        #self._startFrame = 2000
 
         self._tracks = []
 
-        self._session = Session()
+        #self._session = Session()
 
     def track(self):
         # Calculating the mean intensity.
@@ -43,7 +47,7 @@ class SegmentedTracker:
         #initialMeanIntensity = np.mean(rawReadFrame)
 
         # Going to the first frame.
-        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, self._startFrame)
 
         currentTracks = []
 
@@ -106,7 +110,7 @@ class SegmentedTracker:
 
     def filterTracks(self):
         lens = np.asarray([len(list(t.values())) for t in self._tracks])
-        self._tracks = np.asarray(self._tracks)[lens > 5]
+        self._tracks = np.asarray(self._tracks)[lens > 25]
 
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
         self._tracks = self._tracks[np.asarray(maxDistances) > 50]
@@ -115,8 +119,8 @@ class SegmentedTracker:
 
     def createTrackedMovie(self):
         # Going to the first frame.
-        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-        self._rawCap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, self._startFrame)
+        self._rawCap.set(cv2.CAP_PROP_POS_FRAMES, self._startFrame )
 
         outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
         outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
@@ -145,7 +149,7 @@ class SegmentedTracker:
             curImRawDraw = ImageDraw.Draw(curImRaw)
 
             for t in self._tracks:
-                if currentFrameNum in t:
+                if currentFrameNum >= np.min(list(t.keys())) and currentFrameNum <= np.max(list(t.keys())):
                     trajItems = list(t.items())
 
                     traj = [(pos[1][1], pos[1][0]) for pos in trajItems if pos[0] <= currentFrameNum]
@@ -185,7 +189,7 @@ class SegmentedTracker:
             initialLabelsInds =  list(range(n))
 
             area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
-            badAreas = np.where((area < 25) | (area > 400))[0]
+            badAreas = np.where((area < 5) | (area > 400))[0]
             labeledFrame[np.isin(labeledFrame, badAreas)] = 0
 
             labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
@@ -205,7 +209,7 @@ class SegmentedTracker:
 
 if __name__ == "__main__":
     tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
-    #tracker = SegmentedTracker('/home/itskov/Temp/outputFile.mp4','/home/itskov/Temp/outputFile.mp4')
+    #tracker = SegmentedTracker('/home/itskov/Temp/example.mp4','/home/itskov/Temp/example.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()
