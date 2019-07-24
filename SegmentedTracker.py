@@ -81,9 +81,9 @@ class SegmentedTracker:
                 for ti, t in enumerate(currentTracks):
                     distances = []
                     if (currentFrameNum - 1) in t:
-                        distances = [np.linalg.norm(cent - t[currentFrameNum - 1]) for cent in centroids]
+                        distances = np.linalg.norm(np.array(centroids) - np.array(t[currentFrameNum - 1]), axis=1)
                     elif (currentFrameNum - 2) in t:
-                        distances = [np.linalg.norm(cent - t[currentFrameNum - 2]) for cent in centroids]
+                        distances = np.linalg.norm(np.array(centroids) - np.array(t[currentFrameNum - 2]), axis=1)
                     else:
                         shouldKeepTracks[ti] = False
 
