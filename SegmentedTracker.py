@@ -156,7 +156,7 @@ class SegmentedTracker:
             curImRawDraw = ImageDraw.Draw(curImRaw)
 
             # Here we
-            shouldRemoveInds = np.zeros(relevantTracks.shape, dtype=np.bool)
+            shouldRemoveInds = np.zeros((len(relevantTracks),), dtype=np.bool)
 
             for tId,t in enumerate(relevantTracks):
                 if currentFrameNum > np.max(list(t.keys())):
