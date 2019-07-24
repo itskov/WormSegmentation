@@ -31,10 +31,10 @@ class SegmentedTracker:
 
         self._numOfFrames = int(self._segmentedCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2
         #DEBUG
-        #self._numOfFrames = 650
+        #self._numOfFrames = 500
         self._startFrame = 1
         #DEBUG
-        #self._startFrame = 2000
+        #self._startFrame = 1600
 
         self._tracks = []
 
@@ -110,7 +110,11 @@ class SegmentedTracker:
 
     def filterTracks(self):
         lens = np.asarray([len(list(t.values())) for t in self._tracks])
+        print('Filtering tracks..')
+        print('Before filtering by length: ' + str(len(self._tracks)) + " tracks.")
         self._tracks = np.asarray(self._tracks)[lens > 25]
+        print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
+
 
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
         self._tracks = self._tracks[np.asarray(maxDistances) > 50]
@@ -136,19 +140,29 @@ class SegmentedTracker:
 
         font = ImageFont.truetype("FreeSans.ttf", 32)
 
+        # We store the relevant tracks so we won't go over irrelevant tracks
+        relevantTracks = self._tracks
+
         for currentFrameNum in range(1, self._numOfFrames):
-            print('Saving frame: ' + str(currentFrameNum))
+            beforeTime = time()
             segReadFrame, rawReadFrame,_,_ = self.getFrame(False)
 
             # The segmented output
             curImSeg = Image.fromarray(segReadFrame).convert('RGB')
-            curImSegDraw = ImageDraw.Draw(curImSeg)
+            #curImSegDraw = ImageDraw.Draw(curImSeg)
 
             # The raw output
             curImRaw = Image.fromarray(rawReadFrame).convert('RGB')
             curImRawDraw = ImageDraw.Draw(curImRaw)
 
-            for t in self._tracks:
+            # Here we
+            shouldRemoveInds = np.zeros(relevantTracks.shape, dtype=np.bool)
+
+            for tId,t in enumerate(relevantTracks):
+                if currentFrameNum > np.max(list(t.keys())):
+                    shouldRemoveInds[tId] = True
+                    continue
+
                 if currentFrameNum >= np.min(list(t.keys())) and currentFrameNum <= np.max(list(t.keys())):
                     trajItems = list(t.items())
 
@@ -161,11 +175,15 @@ class SegmentedTracker:
                     curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
 
+            relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
+
             videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
 
             bothFrame = np.concatenate((np.asarray(curImSeg).copy(), np.asarray(curImRaw).copy()), axis=1)
             videoWriterBoth.writeFrame(bothFrame)
+
+            print('Saving frame: ' + str(currentFrameNum) + " Time: " + str(time() - beforeTime) + " Relevant Tracks: " + str(relevantTracks.shape[0]))
 
         videoWriterSeg.close()
         videoWriterRaw.close()
@@ -203,8 +221,8 @@ class SegmentedTracker:
 
 
     def saveTracks(self):
-        outputFileBoth = os.path.join(self._path, self._baseName + '_tracks')
-        np.save(outputFileBoth, self._tracks)
+        outputFileTracks = os.path.join(self._path, self._baseName + '_tracks')
+        np.save(outputFileTracks, self._tracks)
 
 
 if __name__ == "__main__":
