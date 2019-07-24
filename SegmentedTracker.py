@@ -176,7 +176,7 @@ class SegmentedTracker:
 
 
             if (shouldRemoveInds.size > 0):
-	        relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
+	    	relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
 
             videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
