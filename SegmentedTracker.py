@@ -141,7 +141,7 @@ class SegmentedTracker:
         font = ImageFont.truetype("FreeSans.ttf", 32)
 
         # We store the relevant tracks so we won't go over irrelevant tracks
-        relevantTracks = self._tracks
+        relevantTracks = np.array(self._tracks)
 
         for currentFrameNum in range(1, self._numOfFrames):
             beforeTime = time()
