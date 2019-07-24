@@ -175,7 +175,8 @@ class SegmentedTracker:
                     curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
 
-            relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
+            if (shouldRemoveInds.size > 0):
+	        relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
 
             videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
