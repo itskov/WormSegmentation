@@ -53,7 +53,7 @@ class SegmentedTracker:
 
         for currentFrameNum in range(self._numOfFrames):
         #for currentFrameNum in range(100):
-            startTime = time()
+            startTime = time()	
             readFrame, rawReadFrame, labeledFrame, labelsInds = self.getFrame()
             shouldKeepTracks = np.ones((len(currentTracks),), dtype=np.bool)
 
@@ -176,7 +176,7 @@ class SegmentedTracker:
 
 
             if (shouldRemoveInds.size > 0):
-                relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
+	    	relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
 
             videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
