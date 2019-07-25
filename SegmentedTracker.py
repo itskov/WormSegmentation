@@ -31,10 +31,10 @@ class SegmentedTracker:
 
         self._numOfFrames = int(self._segmentedCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2
         #DEBUG
-        self._numOfFrames = 150
+        #self._numOfFrames = 150
         self._startFrame = 1
         #DEBUG
-        self._startFrame = 1600
+        #self._startFrame = 1600
 
         self._tracks = []
 
