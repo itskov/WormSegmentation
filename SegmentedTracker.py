@@ -31,10 +31,10 @@ class SegmentedTracker:
 
         self._numOfFrames = int(self._segmentedCap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2
         #DEBUG
-        #self._numOfFrames = 500
+        self._numOfFrames = 150
         self._startFrame = 1
         #DEBUG
-        #self._startFrame = 1600
+        self._startFrame = 1600
 
         self._tracks = []
 
@@ -227,8 +227,8 @@ class SegmentedTracker:
 
 
 if __name__ == "__main__":
-    tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
-    #tracker = SegmentedTracker('/home/itskov/Temp/example.mp4','/home/itskov/Temp/example.mp4')
+    #tracker = SegmentedTracker(sys.argv[1], sys.argv[2])
+    tracker = SegmentedTracker('/home/itskov/Temp/example.mp4','/home/itskov/Temp/example.mp4')
     tracker.track()
     tracker.filterTracks()
     tracker.createTrackedMovie()

@@ -28,6 +28,7 @@ def main():
     print('Tracking: ' + outputFile)
     segTracker = SegmentedTracker(outputFile, inputFile)
     segTracker.track()
+    segTracker.filterTracks()
     segTracker.saveTracks()
     segTracker.createTrackedMovie()
 
