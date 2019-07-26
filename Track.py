@@ -14,7 +14,7 @@ class Track:
         trackCords = np.array(list(trackDict.values()))
 
         # Convolving the track to smooth it.
-        convKerel = np.ones((3,))
+        convKerel = np.ones((3,)) * (1/3)
         self._trackCordsSmoothed = np.zeros(trackCords.shape)
         xs = convolve(trackCords[:, 0], convKerel, mode='valid')
         ys = convolve(trackCords[:, 1], convKerel, mode='valid')
@@ -28,7 +28,7 @@ class Track:
             interpXs = interp1d(trackFrames, xs)
             interpYs = interp1d(trackFrames, ys)
 
-            self._trackFrames = range(np.min(trackFrames), np.max(trackFrames) + 1)
+            self._trackFrames = np.array(range(np.min(trackFrames), np.max(trackFrames) + 1))
 
             finalXs = [interpXs(i) for i in self._trackFrames]
             finalYs = [interpYs(i) for i in self._trackFrames]
@@ -96,7 +96,7 @@ class Track:
 
     def getStep(self, frame):
         if (frame in self._trackFrames):
-            return self._trackSteps[self._trackFrames == frame,:]
+            return self._tracksSteps[self._trackFrames == frame,:]
         else:
             return None
 

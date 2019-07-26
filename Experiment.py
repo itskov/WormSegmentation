@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     tracks = [Track(trackDict) for trackDict in tracksDicts]
 
-    exp = Experiment('/home/itskov/Temp/example.mp4', tracks)
+    exp = Experiment('/home/itskov/Temp/outputFile.mp4', tracks)
     exp.addCirclePosition('chem')
     av = AngleVisualizer(exp, tracks[1:5])
     av.visualize()

@@ -18,32 +18,35 @@ class AngleVisualizer:
             return
 
         # First calculate the interesting frames
-        allFrames = np.ravel(np.array([t._trackFrames for t in self._tracks]))
+        allFrames = np.concatenate([tuple(t._trackFrames) for t in self._tracks])
         relevantFrames = range(np.min(allFrames), np.max(allFrames))
 
         cap = self._exp._cap
         cap.set(cv2.CAP_PROP_POS_FRAMES, np.min(allFrames))
 
         for i,frame in enumerate(relevantFrames):
-            _, currentFrame = self._cap.read()
+            _, currentFrame = cap.read()
+            curIm = Image.fromarray(currentFrame).convert('RGB')
 
             for t in self._tracks:
-                if frame in t._trackFrames[0:-1]:
-                    currentPos = t.getPos()
+                if frame in t._trackFrames:
+                    currentPos = t.getPos(frame)
                     currentStep = t.getStep(frame)
 
-                    curIm = Image.fromarray(currentFrame).convert('RGB')
-                    curImDraw = ImageDraw.Draw(curIm)
+                    stepsNorm = np.linalg.norm(currentStep)
 
-                    # Calculate line end point.
-                    endPoint = currentPos + (currentStep / np.linalg.norm(currentStep )) * 25
-                    curImDraw.line((currentPos[0], currentPos[1], endPoint[0], endPoint[1]))
-                    #endPoint[0] = np.maximum(endPoint[0], 0)
-                    #endPoint[1] = np.maximum(endPoint[1], 0)
+                    if (stepsNorm != 0):
+                        curImDraw = ImageDraw.Draw(curIm)
 
-                    #endPoint[0] = np.minimum(endPoint[0], currentFrame.shape[0])
-                    #endPoint[1] = np.minimum(endPoint[1], currentFrame.shape[1])
-                    plt.imshow(curIm)
+                        # Calculate line end point.
+                        endPoint = currentPos + (currentStep / np.linalg.norm(currentStep)) * 350
+                        curImDraw.line((currentPos[0, 0], currentPos[0, 1], endPoint[0, 0], endPoint[0, 1]), fill='red' , width=15)
+                        #endPoint[0] = np.maximum(endPoint[0], 0)
+                        #endPoint[1] = np.maximum(endPoint[1], 0)
+
+                        #endPoint[0] = np.minimum(endPoint[0], currentFrame.shape[0])
+                        #endPoint[1] = np.minimum(endPoint[1], currentFrame.shape[1])
+            plt.imshow(curIm)
 
 
 
