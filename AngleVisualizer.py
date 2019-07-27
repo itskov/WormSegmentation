@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from PIL import Image, ImageDraw, ImageFont
-
+from skvideo.io import FFmpegWriter
 
 class AngleVisualizer:
     def __init__(self, exp, tracks):
@@ -12,6 +12,9 @@ class AngleVisualizer:
         self._tracks = tracks
 
     def visualize(self):
+
+        writer = FFmpegWriter('/home/itskov/Temp/out.mp4', outputdict={'-crf': '15'})
+
         if 'chemPos' not in self._exp._pointsOfInterest or \
                 'chemRad' not in self._exp._pointsOfInterest:
             print('Error: cant find chem point.')
@@ -30,8 +33,11 @@ class AngleVisualizer:
 
             for t in self._tracks:
                 if frame in t._trackFrames:
-                    currentPos = t.getPos(frame)
-                    currentStep = t.getStep(frame)
+                    currentPos = np.fliplr(t.getPos(frame))
+                    currentStep = np.fliplr(t.getStep(frame))
+
+                    if (currentStep[0,0] is None or currentStep[0,1] is None):
+                        continue
 
                     stepsNorm = np.linalg.norm(currentStep)
 
@@ -39,14 +45,12 @@ class AngleVisualizer:
                         curImDraw = ImageDraw.Draw(curIm)
 
                         # Calculate line end point.
-                        endPoint = currentPos + (currentStep / np.linalg.norm(currentStep)) * 350
-                        curImDraw.line((currentPos[0, 0], currentPos[0, 1], endPoint[0, 0], endPoint[0, 1]), fill='red' , width=15)
-                        #endPoint[0] = np.maximum(endPoint[0], 0)
-                        #endPoint[1] = np.maximum(endPoint[1], 0)
+                        endPoint = currentPos + (currentStep / stepsNorm) * 100
+                        curImDraw.line((currentPos[0, 0], currentPos[0, 1], endPoint[0, 0], endPoint[0, 1]), fill='red' , width=3)
+            writer.writeFrame(np.asarray(curIm).copy())
+            print('Visualizing frame: ' + str(i))
 
-                        #endPoint[0] = np.minimum(endPoint[0], currentFrame.shape[0])
-                        #endPoint[1] = np.minimum(endPoint[1], currentFrame.shape[1])
-            plt.imshow(curIm)
+        writer.close()
 
 
 

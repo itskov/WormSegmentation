@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 from Track import Track
 
 from AngleVisualizer import AngleVisualizer
-
+from SegmentedTracker import SegmentedTracker
 
 
 class Experiment:
@@ -21,7 +21,7 @@ class Experiment:
     def addCirclePosition(self, pointName):
         self._cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         success, sampleFrame = self._cap.read()
-        plt.imshow(sampleFrame); plt.show()
+        plt.imshow(sampleFrame);
         newPoints = plt.ginput(2, timeout=-1)
         plt.close()
 
@@ -49,16 +49,27 @@ class Experiment:
 
 
 if __name__ == "__main__":
-    tracksDicts = np.load('/home/itskov/Temp/tracks2.npy')
+    rawFile = '/home/itskov/Temp/21.07.19/NOATRNOLIGHT/21-Jul-2019-10.16.35-MIC2-TPH_1_NO_ATR_NO_LIGHT_EXP_DAM4.avi_0_Compressed.mp4'
+
+    tracksDicts = \
+        np.load('/home/itskov/Temp/21.07.19/NOATRNOLIGHT/21-Jul-2019-10.16.35-MIC2-TPH_1_NO_ATR_NO_LIGHT_EXP_DAM4.avi_0_Full_seg_tracks.npy')
+
+    # TEMP
+    st = SegmentedTracker(rawFile, rawFile)
+    st._tracks = tracksDicts
+    st.filterTracks()
+    tracksDict = st._tracks
+    # TEMP
+
 
     lens = np.asarray([len(list(t.values())) for t in tracksDicts])
-    tracksDicts = tracksDicts[lens > 350][1:10]
+    tracksDicts = tracksDicts[lens > 350]
 
     tracks = [Track(trackDict) for trackDict in tracksDicts]
 
-    exp = Experiment('/home/itskov/Temp/outputFile.mp4', tracks)
+    exp = Experiment(rawFile, tracks)
     exp.addCirclePosition('chem')
-    av = AngleVisualizer(exp, tracks[1:5])
+    av = AngleVisualizer(exp, tracks)
     av.visualize()
 
 
