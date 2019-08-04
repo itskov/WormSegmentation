@@ -11,6 +11,7 @@ from skvideo.io import FFmpegWriter
 from time import time
 
 from PIL import Image, ImageDraw, ImageFont
+from Track import Track
 
 #from tensorflow.contrib.image import connected_components
 #from tensorflow import Session
@@ -117,7 +118,7 @@ class SegmentedTracker:
 
 
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        self._tracks = self._tracks[np.asarray(maxDistances) > 50]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 75]
 
 
 
@@ -223,7 +224,9 @@ class SegmentedTracker:
 
     def saveTracks(self):
         outputFileTracks = os.path.join(self._path, self._baseName + '_tracks')
-        np.save(outputFileTracks, self._tracks)
+
+        tracks = [Track(t) for t in self._tracks]
+        np.save(outputFileTracks, tracks)
 
 
 if __name__ == "__main__":

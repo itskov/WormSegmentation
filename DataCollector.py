@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/mnt/storageNASRe/tph1/18.07.19/**/*Full.mp4'
+        self._GLOB_TERM = '/mnt/storageNASRe/tph1/31.07.19/ATR_TRAIN_IAA3/*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -64,8 +64,20 @@ class DataCollector:
         # Sampling from truncated normal variable.
         heightPos = stats.truncnorm(-1, 1).rvs()
         widthPos = stats.truncnorm(-1, 1).rvs()
+
+        #DEBUG
+        heightPos = stats.truncnorm(0.4, 0.55).rvs()
+        widthPos = stats.truncnorm(0.5, 0.7).rvs()
+
+
         heightPos = int(np.round(heightPos * (height/2 - self._SNIP_SIZE[0]) + height/2))
         widthPos = int(np.round(widthPos * (width / 2 - self._SNIP_SIZE[1]) + width / 2))
+
+
+
+        #plt.imshow(curImage)
+        #d = plt.ginput(1)
+
 
         smallImage = curImage[heightPos:(heightPos + self._SNIP_SIZE[0]),
                      widthPos:(widthPos + self._SNIP_SIZE[1])]
@@ -76,7 +88,7 @@ class DataCollector:
 
     def getSeg(self, curImage):
         thImage = cv2.adaptiveThreshold(curImage, 1, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
-                                        cv2.THRESH_BINARY, 11, 2)
+                                        cv2.THRESH_BINARY, 17, 2)
 
         thImage = np.abs(thImage - 1)
 

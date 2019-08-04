@@ -9,7 +9,7 @@ module load opencv
 
 virtualenv -p python3  --system-site-packages ~/venv
 source ~/venv/bin/activate
-pip install cupy-coda91
+#pip install cupy-coda91
 pip install sk-video
 pip install glob2
 
