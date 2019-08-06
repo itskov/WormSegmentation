@@ -16,6 +16,7 @@ import random
 
 from glob import glob
 from os import path
+from cv2 import blur
 from scipy import io
 
 from sklearn.decomposition import PCA
@@ -102,7 +103,7 @@ def getBatch(batchDir, batchNum, imageSize):
         currentSample = np.load(fileName)
 
         origImages[i, :, :] = currentSample[0]
-        filteredImages[i, :, :] = currentSample[1]
+        filteredImages[i, :, :] = cv2.blur(currentSample[1], (3, 3))
 
     return (origImages, filteredImages)
 
