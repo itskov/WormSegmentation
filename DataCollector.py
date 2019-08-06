@@ -66,8 +66,8 @@ class DataCollector:
         widthPos = stats.truncnorm(-1, 1).rvs()
 
         #DEBUG
-        heightPos = stats.truncnorm(0.4, 0.55).rvs()
-        widthPos = stats.truncnorm(0.5, 0.7).rvs()
+        heightPos = stats.truncnorm(0.5, 0.53).rvs()
+        widthPos = stats.truncnorm(0.5, 0.4).rvs()
 
 
         heightPos = int(np.round(heightPos * (height/2 - self._SNIP_SIZE[0]) + height/2))
