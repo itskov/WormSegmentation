@@ -2,6 +2,7 @@ from ftplib import FTP
 from os import path, mkdir
 
 import re
+import os
 import sys
 import time
 
@@ -11,10 +12,10 @@ from conductor import conduct
 def main():
     userName = 're'
     pwd = 're'
-    extension = 'mat'
+    extension = 'mj2'
 
     remotePath = sys.argv[1]
-    localPath = '/home/itskov/Temp'
+    localPath = sys.argv[2]
 
     # Connecting to data host
     print('Connecting..')
@@ -62,9 +63,10 @@ def main():
             retTime = time.time()
             ftp.retrbinary('RETR %s' % fileName, fileHandle.write)
             retTime = time.time() - retTime
-            print('Done retrieving. in %s minutes' % retTime / 60)
+            print('Done retrieving. in %d minutes' % (retTime / 60))
 
-        conduct(outputLocalDir)
+        #conduct(outputLocalDir)
+        os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
 
 
 
