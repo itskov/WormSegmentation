@@ -3,6 +3,7 @@ from os import path, mkdir
 
 import re
 import sys
+import time
 
 from conductor import conduct
 
@@ -16,19 +17,24 @@ def main():
     localPath = '/home/itskov/Temp'
 
     # Connecting to data host
+    print('Connecting..')
     ftp = FTP('132.64.59.87')
     ftp.login(userName, pwd)
+    print('Connected.')
     ftp.cwd(remotePath)
 
     remoteFiles = ftp.nlst()
     remoteFiles = [file for file in remoteFiles if file.find('.' + extension) != -1]
 
+    print('Going over the following files: %s' % str(remoteFiles))
+
     # Iterate over all of the files.
     for fileName in remoteFiles:
+        print('Current file: %s' % fileName)
         # First extract features from filename
         fileDate = re.findall('\d\d-\w\w\w-\d\d\d\d', fileName)
         expTime = re.findall('-(\d\d\.\d\d\.\d\d)-', fileName)
-        expName = re.findall('-Mic\d-(.*)\.', fileName)
+        expName = re.findall('-M\w\w\d-(.*)\.', fileName)
 
 
         # Checking the format.
@@ -52,7 +58,11 @@ def main():
         # Creating the final destination of the file.
         outputFile = path.join(outputLocalDir, fileName)
         with open(outputFile,'wb') as fileHandle:
+            print('Start retrieving.')
+            retTime = time.time()
             ftp.retrbinary('RETR %s' % fileName, fileHandle.write)
+            retTime = time.time() - retTime
+            print('Done retrieving. in %s minutes' % retTime / 60)
 
         conduct(outputLocalDir)
 
