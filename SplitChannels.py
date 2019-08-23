@@ -52,7 +52,12 @@ def splitChannel(params):
         rElapsed = time() - rTime
 
         if success:
-            channel = readFrame[:, :, wantedChannel]
+            # Take only one chaneel
+            #channel = readFrame[:, :, wantedChannel]
+
+            # Convert 3 channels to one gray channel
+            channel = cv2.cvtColor(readFrame, cv2.COLOR_BGR2GRAY)
+
             wTime = time()
 
             videoWriterUncomprseed.writeFrame(channel)
