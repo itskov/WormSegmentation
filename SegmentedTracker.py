@@ -90,7 +90,7 @@ class SegmentedTracker:
 
                     if (len(distances) > 0):
                         nextPosIndex = np.argmin(distances)
-                        if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 18):
+                        if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 25):
                             t[currentFrameNum] = centroids[np.argmin(distances),:]
                             usedCentroids[nextPosIndex] = 1
 
@@ -104,7 +104,7 @@ class SegmentedTracker:
             [currentTracks.append({currentFrameNum: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
             # Log
-            print('Tracking frame: ' + str(currentFrameNum) + " Entites in frame: " + str(len(labelsInds)) + ". Time: " + str(time() - startTime))
+            print('Tracking frame: ' + str(currentFrameNum) + " Entities in frame: " + str(len(labelsInds)) + ". Time: " + str(time() - startTime))
 
         self._tracks += list(currentTracks)
 
@@ -127,17 +127,17 @@ class SegmentedTracker:
         self._segmentedCap.set(cv2.CAP_PROP_POS_FRAMES, self._startFrame)
         self._rawCap.set(cv2.CAP_PROP_POS_FRAMES, self._startFrame )
 
-        outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
+        #outputFileSeg = os.path.join(self._path,self._baseName +'_seg_tracked.mp4')
         outputFileRaw = os.path.join(self._path,self._baseName +'_raw_tracked.mp4')
         outputFileBoth = os.path.join(self._path,self._baseName +'_both_tracked.mp4')
 
-        print(outputFileSeg)
+        #print(outputFileSeg)
         print(outputFileRaw)
         print(outputFileBoth)
 
-        videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
+        #videoWriterSeg = FFmpegWriter(outputFileSeg, outputdict={'-crf': '0'})
         videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '20'})
-        videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '20'})
+        videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '30'})
 
         font = ImageFont.truetype("FreeSans.ttf", 32)
 
@@ -179,7 +179,7 @@ class SegmentedTracker:
             if (shouldRemoveInds.size > 0):
                 relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
 
-            videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
+            #videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
 
             bothFrame = np.concatenate((np.asarray(curImSeg).copy(), np.asarray(curImRaw).copy()), axis=1)
@@ -187,7 +187,7 @@ class SegmentedTracker:
 
             print('Saving frame: ' + str(currentFrameNum) + " Time: " + str(time() - beforeTime) + " Relevant Tracks: " + str(relevantTracks.shape[0]))
 
-        videoWriterSeg.close()
+        #videoWriterSeg.close()
         videoWriterRaw.close()
         videoWriterBoth.close()
 
