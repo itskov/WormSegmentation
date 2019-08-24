@@ -52,7 +52,7 @@ def splitChannel(params):
         rElapsed = time() - rTime
 
         if success:
-            # Take only one chaneel
+            # Take only one chanel
             #channel = readFrame[:, :, wantedChannel]
 
             # Convert 3 channels to one gray channel

@@ -58,6 +58,10 @@ def main():
 
         # Creating the final destination of the file.
         outputFile = path.join(outputLocalDir, fileName)
+
+        if os.path.exists(outputFile):
+            print('File Exists. Continuing.')
+            
         with open(outputFile,'wb') as fileHandle:
             print('Start retrieving.')
             retTime = time.time()
