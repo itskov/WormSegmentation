@@ -58,6 +58,10 @@ def main():
 
         # Output parent dir
         outputParentDir = path.join(localPath,fileDate) + "_Chris"
+        if os.path.exists(outputParentDir):
+            print('Directory exists. continuing.')
+            continue
+            
         if not path.isdir(outputParentDir):
             mkdir(outputParentDir)
 
