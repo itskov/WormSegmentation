@@ -87,7 +87,7 @@ def main():
 
         #conduct(outputLocalDir)
         os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
-        workedFiles++
+        workedFiles += 1
 
 
 
