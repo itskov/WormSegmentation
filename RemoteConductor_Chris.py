@@ -18,7 +18,7 @@ def main():
     remotePath = sys.argv[1]
     localPath = sys.argv[2]
 
-    WAIT_HOURS = 4
+    WAIT_HOURS = 1
     WAIT_INTERVAL = 5
 
     # Connecting to data host
@@ -51,8 +51,10 @@ def main():
             return
 
         if (workedFiles % WAIT_INTERVAL == 0 and workedFiles != 0):
+            ftp.quit()
             print('Sleeping..')
             time.sleep(WAIT_HOURS * 60 * 60)
+            ftp.login(userName, pwd)
 
 
         fileDate = fileDate[0]
