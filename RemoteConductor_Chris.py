@@ -11,8 +11,8 @@ from conductor import conduct
 
 
 def main():
-    userName = 're'
-    pwd = 're'
+    userName = 'itskov'
+    pwd = 'Password1'
     extension = 'mj2'
 
     remotePath = sys.argv[1]
@@ -23,7 +23,7 @@ def main():
 
     # Connecting to data host
     print('Connecting..')
-    ftp = FTP('132.64.59.87')
+    ftp = FTP('132.64.59.3')
     ftp.login(userName, pwd)
     print('Connected.')
     ftp.cwd(remotePath)
