@@ -33,6 +33,9 @@ def main():
 
     print('Going over the following files: %s' % str(remoteFiles))
 
+
+    workedFiles = 0
+
     # Iterate over all of the files.
     for i, fileName in enumerate(remoteFiles):
         print('Current file: %s' % fileName)
@@ -47,7 +50,7 @@ def main():
             print('ERROR: Bad file format: %s' % fileName)
             return
 
-        if (i % WAIT_INTERVAL == 0 and i != 0):
+        if (workedFiles % WAIT_INTERVAL == 0 and workedFiles != 0):
             print('Sleeping..')
             time.sleep(WAIT_HOURS * 60 * 60)
 
@@ -61,7 +64,7 @@ def main():
         if os.path.exists(outputParentDir):
             print('Directory exists. continuing.')
             continue
-            
+
         if not path.isdir(outputParentDir):
             mkdir(outputParentDir)
 
@@ -84,6 +87,7 @@ def main():
 
         #conduct(outputLocalDir)
         os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
+        workedFiles++
 
 
 
