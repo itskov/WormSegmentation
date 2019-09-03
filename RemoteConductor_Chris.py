@@ -19,7 +19,7 @@ def main():
     localPath = sys.argv[2]
 
     WAIT_HOURS = 1
-    WAIT_INTERVAL = 5
+    WAIT_INTERVAL = 6
 
     # Connecting to data host
     print('Connecting..')
