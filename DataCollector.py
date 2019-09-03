@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/mnt/storageNASRe/tph1/31.07.19/ATR_TRAIN_IAA3/*Full.mp4'
+        self._GLOB_TERM = '/home/itskov/Temp/22-Aug-2019/**/*MIC2*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -30,7 +30,7 @@ class DataCollector:
         # Get frames number
         movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         # DEBUG
-        movieLength *= 0.6
+        movieLength *= 0.8
         # DEBUG
         #length = 5000
 
@@ -66,8 +66,8 @@ class DataCollector:
         widthPos = stats.truncnorm(-1, 1).rvs()
 
         #DEBUG
-        heightPos = stats.truncnorm(0.5, 0.53).rvs()
-        widthPos = stats.truncnorm(0.5, 0.4).rvs()
+        #heightPos = stats.truncnorm(0.2, 0.7).rvs()
+        #widthPos = stats.truncnorm(0.2, 0.7).rvs()
 
 
         heightPos = int(np.round(heightPos * (height/2 - self._SNIP_SIZE[0]) + height/2))
@@ -87,6 +87,9 @@ class DataCollector:
         return smallImage
 
     def getSeg(self, curImage):
+        if curImage is None:
+            return None
+
         thImage = cv2.adaptiveThreshold(curImage, 1, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
                                         cv2.THRESH_BINARY, 17, 2)
 
@@ -106,13 +109,14 @@ def saveImage(i):
         im = dc.getSnip()
         imt = dc.getSeg(im)
 
-        print('Got snip!')
+        if imt is not None:
+            print('Got snip!')
 
-        im_I = Image.fromarray(im)
-        imt_I = Image.fromarray(imt)
+            im_I = Image.fromarray(im)
+            imt_I = Image.fromarray(imt)
 
-        im_I.save(join('./static/RawData/', str(i) + '.orig.png'), compress_level=0)
-        imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
+            im_I.save(join('./static/RawData/', str(i) + '.orig.png'), compress_level=0)
+            imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
     except Exception:
         print('Error creating sample')
         raise;

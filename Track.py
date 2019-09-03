@@ -70,6 +70,9 @@ class Track:
         print('Track created. Time: ' + str(time()  - beforeCreation))
 
 
+    def getDistances(self,  pos):
+        distances = np.linalg.norm(np.array(pos) - self._trackCords, axis=1)
+        return distances
 
     def getSpeed(self, frame):
         if (frame in self._trackFrames):
