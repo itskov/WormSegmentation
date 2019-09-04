@@ -18,8 +18,8 @@ def main():
     remotePath = sys.argv[1]
     localPath = sys.argv[2]
 
-    WAIT_HOURS = 4
-    WAIT_INTERVAL = 5
+    WAIT_HOURS = 0.75
+    WAIT_INTERVAL = 6
 
     # Connecting to data host
     print('Connecting..')
@@ -51,8 +51,11 @@ def main():
             return
 
         if (workedFiles % WAIT_INTERVAL == 0 and workedFiles != 0):
+            ftp.quit()
             print('Sleeping..')
             time.sleep(WAIT_HOURS * 60 * 60)
+            ftp = FTP('132.64.59.3')
+            ftp.login(userName, pwd)
 
 
         fileDate = fileDate[0]
@@ -87,7 +90,7 @@ def main():
 
         #conduct(outputLocalDir)
         os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
-        workedFiles++
+        workedFiles += 1
 
 
 
