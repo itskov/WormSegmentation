@@ -65,15 +65,16 @@ def main():
 
         # Output parent dir
         outputParentDir = path.join(localPath,fileDate) + "_Chris"
-        if os.path.exists(outputParentDir):
-            print('Directory exists. continuing.')
-            continue
 
         if not path.isdir(outputParentDir):
             mkdir(outputParentDir)
 
         # Creating the localdir
         outputLocalDir = path.join(outputParentDir, expName + "_" + expTime)
+        if os.path.exists(outputLocalDir):
+            print('Directory exists. continuing.')
+            continue
+
         mkdir(outputLocalDir)
 
         # Creating the final destination of the file.
