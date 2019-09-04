@@ -18,11 +18,8 @@ def main():
     remotePath = sys.argv[1]
     localPath = sys.argv[2]
 
-<<<<<<< HEAD
+
     WAIT_HOURS = 0.75
-=======
-    WAIT_HOURS = 1
->>>>>>> 728147306bf1fbb8db06ac198e86deba8314ff7b
     WAIT_INTERVAL = 6
 
     # Connecting to data host
@@ -58,10 +55,7 @@ def main():
             ftp.quit()
             print('Sleeping..')
             time.sleep(WAIT_HOURS * 60 * 60)
-<<<<<<< HEAD
             ftp = FTP('132.64.59.3')
-=======
->>>>>>> 728147306bf1fbb8db06ac198e86deba8314ff7b
             ftp.login(userName, pwd)
 
 
