@@ -39,7 +39,8 @@ def main():
 
     # Iterate over all of the files.
     for i, fileName in enumerate(remoteFiles):
-        print('Current file: %s' % fileName)
+        timeOfDay = "%2d:%2d" % (time.localtime().tm_hour, time.localtime().tm_min)
+        print(('Current file: %s' % fileName) + " time: " + timeOfDay)
         # First extract features from filename
         fileDate = re.findall('\d\d-\w\w\w-\d\d\d\d', fileName)
         expTime = re.findall('-(\d\d\.\d\d\.\d\d)-', fileName)
@@ -64,7 +65,7 @@ def main():
         expName = expName[0]
 
         # Output parent dir
-        outputParentDir = path.join(localPath,fileDate) + "_Chris"
+        outputParentDir = path.join(localPath, fileDate) + "_Chris"
 
         if not path.isdir(outputParentDir):
             mkdir(outputParentDir)
@@ -77,22 +78,28 @@ def main():
 
         mkdir(outputLocalDir)
 
-        # Creating the final destination of the file.
-        outputFile = path.join(outputLocalDir, fileName)
+        try:
+            # Creating the final destination of the file.
+            outputFile = path.join(outputLocalDir, fileName)
 
-        if os.path.exists(outputFile):
-            print('File Exists. Continuing.')
-            
-        with open(outputFile,'wb') as fileHandle:
-            print('Start retrieving.')
-            retTime = time.time()
-            ftp.retrbinary('RETR %s' % fileName, fileHandle.write)
-            retTime = time.time() - retTime
-            print('Done retrieving. in %d minutes' % (retTime / 60))
+            if os.path.exists(outputFile):
+                print('File Exists. Continuing.')
 
-        #conduct(outputLocalDir)
-        os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
-        workedFiles += 1
+            with open(outputFile,'wb') as fileHandle:
+                print('Start retrieving.')
+                retTime = time.time()
+                ftp.retrbinary('RETR %s' % fileName, fileHandle.write)
+                retTime = time.time() - retTime
+                print('Done retrieving. in %d minutes' % (retTime / 60))
+
+            #conduct(outputLocalDir)
+            os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
+            workedFiles += 1
+        except:
+            print ('Error. Continuing to the next file.')
+            os.rmdir(outputLocalDir)
+
+
 
 
 
