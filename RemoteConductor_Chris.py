@@ -95,7 +95,8 @@ def main():
             #conduct(outputLocalDir)
             os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
             workedFiles += 1
-        except:
+        except Exception as exp:
+            print(exp)
             print ('Error. Continuing to the next file.')
             os.rmdir(outputLocalDir)
 
