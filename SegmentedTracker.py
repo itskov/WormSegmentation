@@ -109,7 +109,7 @@ class SegmentedTracker:
 
 
 
-    def orderTrack(track, self):
+    def orderTrack(self, track):
         dictItems = list(track.items())
         [frames, poses] = list(zip(*dictItems))
         sortIndices = np.argsort(frames)
