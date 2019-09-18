@@ -54,7 +54,8 @@ def main():
 
         # Creating the localdir
         outputLocalDir = path.join(outputParentDir, expName + "_" + expTime)
-        mkdir(outputLocalDir)
+        if not path.isdir(outputLocalDir):
+            mkdir(outputLocalDir)
 
         # Creating the final destination of the file.
         outputFile = path.join(outputLocalDir, fileName)
