@@ -84,6 +84,7 @@ def main():
 
             if os.path.exists(outputFile):
                 print('File Exists. Continuing.')
+                continue
 
             with open(outputFile,'wb') as fileHandle:
                 print('Start retrieving.')
