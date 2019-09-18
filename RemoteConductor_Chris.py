@@ -84,14 +84,14 @@ def main():
 
             if os.path.exists(outputFile):
                 print('File Exists. Continuing.')
-                continue
 
-            with open(outputFile,'wb') as fileHandle:
-                print('Start retrieving.')
-                retTime = time.time()
-                ftp.retrbinary('RETR %s' % fileName, fileHandle.write)
-                retTime = time.time() - retTime
-                print('Done retrieving. in %d minutes' % (retTime / 60))
+            else:
+                with open(outputFile,'wb') as fileHandle:
+                    print('Start retrieving.')
+                    retTime = time.time()
+                    ftp.retrbinary('RETR %s' % fileName, fileHandle.write)
+                    retTime = time.time() - retTime
+                    print('Done retrieving. in %d minutes' % (retTime / 60))
 
             #conduct(outputLocalDir)
             os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
