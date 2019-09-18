@@ -48,7 +48,7 @@ class Track:
         self._tracksSpeeds = np.sqrt(self._tracksSteps[:,0] ** 2 + self._tracksSteps[:,1] ** 2)
         self._tracksSpeeds = np.append(self._tracksSpeeds, 0)
         # Adding one last fictive step.
-        self._tracksSteps = np.append(self._tracksSteps,[[None,None]],axis=0)
+        self._tracksSteps = np.append(self._tracksSteps,[[None, None]],axis=0)
 
 
 
@@ -62,13 +62,48 @@ class Track:
         angDiffs = np.diff(self._tracksAngles[0:-1])
         angDiffs[angDiffs > np.pi] = 2 * np.pi - angDiffs[angDiffs > np.pi]
 
-        self._tracksReversals = abs(angDiffs) > np.pi / 2
+        self._tracksReversals = abs(angDiffs) > (np.pi / 2.5)
         self._tracksReversals = np.insert(self._tracksReversals, 0, 0)
         self._tracksReversals = np.insert(self._tracksReversals, len(self._tracksReversals), 0)
 
 
         print('Track created. Time: ' + str(time()  - beforeCreation))
 
+
+    def getTrackSegment(self, pos, distanceThr, isBigger):
+        distances = np.linalg.norm(self._trackCords - pos, axis=1)
+
+        if isBigger:
+            intPoses = distances > distanceThr
+        else:
+            intPoses = distances < distanceThr
+
+        interestingPosStart = np.argmax(np.where(intPoses))
+        interestingPosEnd = np.where(not self._trackCords[interestingPosStart:, :])
+
+
+        pass
+
+
+    def getTrackPirouettesMark(self):
+        FILTER_SIZE = 35
+        filter = list((0,) + tuple(np.ones((FILTER_SIZE - 1,))))
+        firstConv = np.convolve(self._tracksReversals, filter, "same")
+        secondConv = np.convolve(np.flip(self._tracksReversals), filter, "same")
+
+        pirMark = (firstConv > 1) & (secondConv > 1)
+
+
+
+        return pirMark
+
+
+    def getMeanProjection(self, pos):
+        beforeDistance = np.linalg.norm(self._trackCords[0,:] - pos)
+        afterDistance = np.linalg.norm(self._trackCords[-1,:] - pos)
+
+        deltaDistance = afterDistance - beforeDistance
+        return (deltaDistance / self._trackCords.shape[0])
 
     def getDistances(self,  pos):
         distances = np.linalg.norm(np.array(pos) - self._trackCords, axis=1)
@@ -80,7 +115,7 @@ class Track:
         else:
             return None
 
-    def getReversal(self, frame):
+    def getAngles(self, frame):
         if (frame in self._trackFrames):
             rev =  self._tracksAngles[self._trackFrames == frame]
             if rev == np.NaN:
@@ -114,6 +149,9 @@ class Track:
         if (np.max(self._trackFrames) < np.min(rangeVals) or np.min(self._trackFrames) > np.max(rangeVals)):
             return False
         return True
+
+    def getMaxDistTravelled(self):
+        return np.max(pdist(self._trackCords))
 
 
 

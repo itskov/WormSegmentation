@@ -16,10 +16,12 @@ class RoiAnalysis:
 
 
     def execute(self):
+        print('Allocating space.')
         countStart = np.zeros((self._exp._numberOfFrames,))
         countEnd = np.zeros((self._exp._numberOfFrames,))
 
-        for track in self._exp._tracks:
+        for i, track in enumerate(self._exp._tracks):
+            #print('Going over track %d' % i)
             frames = track._trackFrames
             distancesStart = track.getDistances(self._exp._regionsOfInterest['startReg']['pos'])
             distancesEnd = track.getDistances(self._exp._regionsOfInterest['endReg']['pos'])
@@ -56,6 +58,44 @@ class RoiAnalysis:
         import matplotlib.pyplot as plt
         plt.plot(self._results['arrivedFrac'])
         pass
+
+
+if __name__ == "__main__":
+    import seaborn
+    import matplotlib.pyplot as plt
+    from Behavior.General import ExpDir
+
+    # Setting the seaborn style.
+    seaborn.set()
+
+    #firstDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_ATR_TRAIN_IAA3.avi_12.23.03'
+    #secondDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_NO_ATR_TRAIN_IAA3.avi_12.21.36'
+
+
+    #firstDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_ATR_TRAIN_IAA3.avi_14.47.06'
+    #secondDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_NO_ATR_TRAIN_IAA3.avi_14.47.22'
+
+
+    firstDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_ATR_TRAIN_NO_IAA3.avi_20.48.41'
+    secondDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3.avi_20.44.37'
+
+    #firstDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_ATR_TRAIN_NO_IAA3.avi_17.25.54'
+    #secondDir = '/home/itskov/Temp/05-Sep-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3.avi_17.24.56'
+
+    firstAnalysis = RoiAnalysis(np.load(ExpDir(firstDir).getExpFile())[0])
+    secondAnalysis = RoiAnalysis(np.load(ExpDir(secondDir).getExpFile())[0])
+
+    firstAnalysis.execute()
+    secondAnalysis.execute()
+
+    plt.close('all')
+    plt.plot(firstAnalysis._results['arrivedFrac']);
+    plt.plot(secondAnalysis._results['arrivedFrac']);
+    plt.xlabel('Frame (~ 1 [sec])')
+    plt.ylabel('Worm Fraction')
+    plt.legend(['ATR+ during training','ATR- during training'])
+    plt.show()
+
 
 
 

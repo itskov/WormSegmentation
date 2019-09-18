@@ -1,7 +1,5 @@
 import cv2
 import os
-import sys
-
 
 import numpy as np
 
@@ -11,10 +9,8 @@ from skvideo.io import FFmpegWriter
 from time import time
 
 from PIL import Image, ImageDraw, ImageFont
-from Track import Track
+from Behavior.General import Track
 
-#from tensorflow.contrib.image import connected_components
-#from tensorflow import Session
 
 class SegmentedTracker:
     def __init__(self, segmentedFile, rawInputFile):
@@ -108,8 +104,23 @@ class SegmentedTracker:
 
         self._tracks += list(currentTracks)
 
+        # Fix frames indices
+        self._tracks = [self.orderTrack(track) for track in self._tracks]
+
+
+
+    def orderTrack(track, self):
+        dictItems = list(track.items())
+        [frames, poses] = list(zip(*dictItems))
+        sortIndices = np.argsort(frames)
+
+        sortedItems = np.array(dictItems)[sortIndices].tolist()
+        track = dict(sortedItems)
+        return track
+
 
     def filterTracks(self):
+        # Then filter them.
         lens = np.asarray([len(list(t.values())) for t in self._tracks])
         print('Filtering tracks..')
         print('Before filtering by length: ' + str(len(self._tracks)) + " tracks.")
@@ -118,7 +129,7 @@ class SegmentedTracker:
 
 
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        self._tracks = self._tracks[np.asarray(maxDistances) > 75]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 100]
 
 
 
