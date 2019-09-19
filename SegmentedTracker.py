@@ -114,8 +114,12 @@ class SegmentedTracker:
         [frames, poses] = list(zip(*dictItems))
         sortIndices = np.argsort(frames)
 
-        sortedItems = np.array(dictItems)[sortIndices].tolist()
-        track = dict(sortedItems)
+        # Sorted frames
+        frames = list(np.array(frames)[sortIndices])
+        poses = np.array(poses)[sortIndices]
+
+        pairs = list(zip(frames, poses))
+        track = dict(pairs)
         return track
 
 
