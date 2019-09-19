@@ -9,7 +9,7 @@ from skvideo.io import FFmpegWriter
 from time import time
 
 from PIL import Image, ImageDraw, ImageFont
-from Behavior.General import Track
+from Behavior.General.Track import Track
 
 
 class SegmentedTracker:
