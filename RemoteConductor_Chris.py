@@ -94,7 +94,7 @@ def main():
                     print('Done retrieving. in %d minutes' % (retTime / 60))
 
             #conduct(outputLocalDir)
-            os.system('sbatch --mem=64g --gres gpu:m60:1 -c4 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
+            os.system('sbatch --mem=64g --gres gpu:m60:1 -c2 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
         except Exception as exp:
             print(exp)
             print ('Error. Continuing to the next file.')
