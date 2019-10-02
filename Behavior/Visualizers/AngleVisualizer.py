@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw, ImageFont
 from skvideo.io import FFmpegWriter
 
+
 class AngleVisualizer:
     def __init__(self, exp, tracks):
         self._exp = exp

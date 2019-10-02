@@ -34,6 +34,7 @@ class Experiment:
         self.__dict__ = d
         # Since we cannot serialize the cv2 object.
         self._cap = cv2.VideoCapture(self._videoFilename)
+        print('Reinitializing.')
 
     def takeScale(self):
         success, sampleFrame = self._cap.read()
@@ -66,6 +67,9 @@ class Experiment:
 
     def getFrameSize(self):
         success, sampleFrame = self._cap.read()
+        if (success == False):
+            print('Error reading from: ' + self._videoFilename)
+
         return (sampleFrame.shape[0:2])
 
     def addCirclePotisionRad(self, pointName, rad):

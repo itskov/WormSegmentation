@@ -8,18 +8,19 @@ class OccupVisualizer():
         self._exp = exp
         self._frameSize = exp.getFrameSize()
 
-    def execute(self):
+    def execute(self, title=""):
         field = np.zeros(self._frameSize)
 
-        for i, track in enumerate(exp._tracks):
-            print('Track %d' % i)
+        for i, track in enumerate(self._exp._tracks):
+            #print('Track %d' % i)
             if track.getMaxDistTravelled() > 250:
                 cords = track._trackCords.astype(np.int)
                 field[cords[:,0], cords[:,1]] += 1
 
         nField = (field - np.min(field)) / (np.max(field) - np.min(field))
-        nField = blur(nField,(12,12))
-        plt.imshow(nField, cmap=plt.get_cmap('hot'))
+        nField = blur(nField,(48,48))
+        plt.imshow(nField, cmap=plt.get_cmap('gnuplot2'))
+        plt.title(title)
         plt.show()
 
 

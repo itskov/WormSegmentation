@@ -1,5 +1,5 @@
 from glob2 import glob
-from os.path import join
+from os.path import join, isfile, exists
 
 class ExpDir:
     def __init__(self, expDir):
@@ -27,6 +27,13 @@ class ExpDir:
             return files[0]
         else:
             return None
+
+
+    def isValid(self):
+        if (exists(self.getVidFile()) and exists(self.getTracksFile()) and exists(self.getExpFile())):
+            return True
+
+        return False
 
 
 

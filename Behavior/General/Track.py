@@ -49,14 +49,14 @@ class Track:
         self._tracksSpeeds = np.append(self._tracksSpeeds, 0)
         # Adding one last fictive step.
         self._tracksSteps = np.append(self._tracksSteps,[[None, None]],axis=0)
-
+        self._tracksSteps = self._tracksSteps.astype(np.float32)
 
 
         # Calculate angles
         self._tracksAngles = np.zeros(self._trackCords.shape[0])
         for i in range(self._tracksSteps.shape[0] - 1):
             curStep = self._tracksSteps[i, :]
-            self._tracksAngles[i]  = np.arctan2(curStep[0], curStep[1])
+            self._tracksAngles[i] = np.arctan2(curStep[0], curStep[1])
 
         # Calculate reversals
         angDiffs = np.diff(self._tracksAngles[0:-1])
@@ -70,6 +70,7 @@ class Track:
         print('Track created. Time: ' + str(time()  - beforeCreation))
 
 
+    # NOT READY
     def getTrackSegment(self, pos, distanceThr, isBigger):
         distances = np.linalg.norm(self._trackCords - pos, axis=1)
 
@@ -78,11 +79,11 @@ class Track:
         else:
             intPoses = distances < distanceThr
 
-        interestingPosStart = np.argmax(np.where(intPoses))
-        interestingPosEnd = np.where(not self._trackCords[interestingPosStart:, :])
+        interestingPosStart = np.argmin(np.where(intPoses))
+        interestingPosEnd = np.argmax(np.where(np.logical_not(intPoses[interestingPosStart:])))
 
 
-        pass
+        return self
 
 
     def getTrackPirouettesMark(self):
@@ -102,20 +103,34 @@ class Track:
         beforeDistance = np.linalg.norm(self._trackCords[0,:] - pos)
         afterDistance = np.linalg.norm(self._trackCords[-1,:] - pos)
 
-        deltaDistance = afterDistance - beforeDistance
+        deltaDistance = beforeDistance - afterDistance
         return (deltaDistance / self._trackCords.shape[0])
 
     def getDistances(self,  pos):
         distances = np.linalg.norm(np.array(pos) - self._trackCords, axis=1)
         return distances
 
+    def getAngles(self, pos):
+        firstVecs = pos - self._trackCords
+        secondVecs = self._tracksSteps.astype(np.float32)
+
+        angles = np.zeros(self._tracksSteps.shape[0] - 1)
+        for i in range(firstVecs.shape[0] - 1):
+            dotProd = np.dot(firstVecs[i,:], secondVecs[i,:])
+            dotProd /= np.linalg.norm(firstVecs[i, :]) * np.linalg.norm(secondVecs[i, :])
+            angles[i] = np.arccos(dotProd)
+
+
+        angles = np.append(angles, [None], axis=0)
+
+        return angles
+
     def getSpeed(self, frame):
         if (frame in self._trackFrames):
             return self._tracksSpeeds[self._trackFrames == frame]
         else:
             return None
-
-    def getAngles(self, frame):
+    def getAbsAngles(self, frame):
         if (frame in self._trackFrames):
             rev =  self._tracksAngles[self._trackFrames == frame]
             if rev == np.NaN:
@@ -157,42 +172,28 @@ class Track:
 
 
 if __name__ == "__main__":
-    tracksDicts = np.load('/home/itskov/Temp/tracks2.npy')
+    exp = np.load('/mnt/storageNASRe/tph1/Results/12-Sep-2019/TPH_1_ATR_TRAIN_IAA3.avi_12.14.20/exp.npy')[0]
+    tracks = exp._tracks
 
-    lens = np.asarray([len(list(t.values())) for t in tracksDicts])
-    tracksDicts = tracksDicts[lens > 150]
-
-    tracks = [Track(trackDict) for trackDict in tracksDicts]
-    tracks = [t for t in tracks if t._maximalDistance > 250]
-
-    frameRange = range(2500,5500)
-    speeds = np.zeros((len(list(frameRange)),))
-    counts = np.zeros((len(list(frameRange)),))
-    reversals = np.zeros((len(list(frameRange)),))
-    revCounts = np.zeros((len(list(frameRange)),))
+    from Behavior.Visualizers.AngPosDensity import AngPosDensity
 
 
-    relevantTracks = [track for track in tracks if track.isInRange(frameRange) == True]
-    for ii,i in enumerate(frameRange):
-        for j,t in enumerate(relevantTracks):
-            curSpeed = t.getSpeed(i)
-            curReversal = t.getReversal(i)
-            if (curSpeed != None):
-                speeds[ii] += curSpeed
-                counts[ii] += 1
-            if (curReversal != None):
-                reversals[ii] += curReversal
-                revCounts[ii] += 1
+    #ap = AngPosDensity(exp)
+    #ap.execute()
 
-    fig, ax1 = plt.subplots()
-    speedsSig = convolve(speeds / counts, np.ones(10,))
-    ax1.plot(speedsSig)
-    ax2 = ax1.twinx()
+    l = [track._trackCords.shape[0] for track in tracks]
+    tracks = tracks[np.array(l) > 500]
 
-    revsSigs = convolve(reversals / revCounts, np.ones(20, ))
-    reversalsSig = convolve(revsSigs, np.ones(5, ))
-    ax2.plot(reversalsSig, color='r')
-    plt.show()
+
+    t = tracks[186]
+    t2 = t.getTrackSegment(exp._regionsOfInterest['endReg']['pos'], 250, True)
+
+    plt.figure();
+    exp.plotTracks([t]);
+    plt.figure();
+    plt.plot(t.getAngles(exp._regionsOfInterest['endReg']['pos']))
+    #plt.show()
+
 
     pass
 

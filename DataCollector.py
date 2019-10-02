@@ -11,7 +11,7 @@ from os.path import join
 
 class DataCollector:
     def __init__(self):
-        self._GLOB_TERM = '/home/itskov/Temp/22-Aug-2019/**/*MIC2*Full.mp4'
+        self._GLOB_TERM = '/mnt/localStorage/TphExpTemp/18-Sep-2019/**/*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)

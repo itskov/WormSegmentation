@@ -6,8 +6,6 @@ import os
 import sys
 import time
 
-from conductor import conduct
-
 
 def main():
     userName = 're'

@@ -3,10 +3,12 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 
-from ggplot import ggplot, aes, geom_density
+from ggplot import ggplot, aes, geom_density, xlab, ylab
 
 
 from Behavior.Visualizers.RoiAnalysis import RoiAnalysis
+from Behavior.Visualizers.OccupVisualizer import OccupVisualizer
+
 
 
 def PairWiseRoi(cond1, firstExp, cond2, secondExp):
@@ -24,6 +26,8 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp):
     print(firstRoi._results)
     plt.plot(firstRoi._results['arrivedFrac'], label=cond1)
     plt.plot(secondRoi._results['arrivedFrac'], label=cond2)
+    plt.xlabel('Frames (2Hz)')
+    plt.ylabel('Worms Arrived')
     plt.legend()
     plt.show()
 
@@ -47,8 +51,16 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     allConds = list(firstDf['cond'].values) + list(secondDf['cond'].values)
     df = pd.DataFrame({'proj' : allProj, 'cond' : allConds})
 
-    df['cond'] = df['cond'].astype('category')
-    g = ggplot(aes(x='proj', color='cond'), data=df) + geom_density(alpha=0.7)
+
+    #df['cond'] = df['cond'].astype('category')
+    g = ggplot(aes(x='proj', color='cond'), data=df) + geom_density(alpha=1) + xlab('Projection') + ylab('Density')
 
     print(g)
     #g.draw()
+
+def PairWiseOccupVisoulatizer(cond1, firstExp, cond2, secondExp):
+    firstOccup = OccupVisualizer(firstExp)
+    secondOccup = OccupVisualizer(secondExp)
+
+    firstOccup.execute(cond1)
+    secondOccup.execute(cond2)
