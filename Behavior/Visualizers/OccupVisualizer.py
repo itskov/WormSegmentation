@@ -13,7 +13,7 @@ class OccupVisualizer():
 
         for i, track in enumerate(self._exp._tracks):
             #print('Track %d' % i)
-            if track.getMaxDistTravelled() > 250:
+            if track.getMaxDistTravelled() > 300:
                 cords = track._trackCords.astype(np.int)
                 field[cords[:,0], cords[:,1]] += 1
 

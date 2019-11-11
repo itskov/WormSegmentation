@@ -9,6 +9,7 @@ from time import time
 
 class Track:
     def __init__(self, trackDict):
+        self._trackDict = trackDict
         beforeCreation = time()
         trackFrames = np.array(list(trackDict.keys()))
         trackCords = np.array(list(trackDict.values()))
@@ -94,17 +95,19 @@ class Track:
 
         pirMark = (firstConv > 1) & (secondConv > 1)
 
-
-
         return pirMark
 
 
     def getMeanProjection(self, pos):
-        beforeDistance = np.linalg.norm(self._trackCords[0,:] - pos)
-        afterDistance = np.linalg.norm(self._trackCords[-1,:] - pos)
+        beforeDistance = np.linalg.norm(self._trackCords[0, :] - pos)
+        afterDistance = np.linalg.norm(self._trackCords[-1, :] - pos)
 
         deltaDistance = beforeDistance - afterDistance
         return (deltaDistance / self._trackCords.shape[0])
+
+    def getMeanSpeed(self):
+        return np.mean(self._tracksSpeeds)
+
 
     def getDistances(self,  pos):
         distances = np.linalg.norm(np.array(pos) - self._trackCords, axis=1)
@@ -142,26 +145,26 @@ class Track:
 
     def getPos(self, frame):
         if (frame in self._trackFrames):
-            return self._trackCords[self._trackFrames == frame,:]
+            return self._trackCords[self._trackFrames == frame, :]
         else:
             return None
 
 
     def getStep(self, frame):
         if (frame in self._trackFrames):
-            return self._tracksSteps[self._trackFrames == frame,:]
+            return self._tracksSteps[self._trackFrames == frame, :]
         else:
             return None
 
     def plotTrack(self):
-        plt.plot(self._trackCords[:,0],self._trackCords[:,1])
+        plt.plot(self._trackCords[:,0],self._trackCords[:, 1])
         plt.show()
 
 
     def isInRange(self, framesRange):
         rangeVals = list(framesRange)
 
-        if (np.max(self._trackFrames) < np.min(rangeVals) or np.min(self._trackFrames) > np.max(rangeVals)):
+        if np.max(self._trackFrames) < np.min(rangeVals) or np.min(self._trackFrames) > np.max(rangeVals):
             return False
         return True
 
