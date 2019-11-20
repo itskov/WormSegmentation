@@ -11,7 +11,11 @@ class ExpDir:
         if len(files) == 1:
             return files[0]
         else:
-            print('Error getting vid file: ' + str(files))
+            files = glob(join(self._expDir, "*Full.mp4"))
+            if len(files) == 1:
+                return files[0]
+            else:
+                print('Error getting vid file: ' + str(files))
 
 
     def getTracksFile(self):
@@ -23,6 +27,13 @@ class ExpDir:
 
     def getExpFile(self):
         files = glob(join(self._expDir, "exp.npy"))
+        if len(files) == 1:
+            return files[0]
+        else:
+            return None
+
+    def getExpSegVid(self):
+        files = glob(join(self._expDir, "*seg.mp4"))
         if len(files) == 1:
             return files[0]
         else:

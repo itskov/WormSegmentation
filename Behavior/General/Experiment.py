@@ -125,31 +125,69 @@ class Experiment:
         np.save(path.join(self._outputDirName, 'exp'), [self], allow_pickle=True)
 
 
+
+def GenerateHMMData(tracks, id):
+    l = np.array([t._trackCords.shape[0] for t in tracks])
+    tracks = tracks[l > 750]
+
+    t = tracks[id]
+    x = np.diff(t._tracksAngles[1:-2])
+    x = np.reshape(x, (-1, 1))
+
+    x2 = t._tracksSpeeds[1:-3]
+    x2 = np.reshape(x2, (-1, 1))
+    x3 = np.convolve(np.ravel(x), (1,) * 10, "same")
+    x3 = np.reshape(x3, (-1, 1))
+
+    X = np.squeeze(np.stack((x, x2, x3), axis=2))
+    return(X)
+
+
+def main():
+    from Behavior.Visualizers.RoiAnalysis import RoiAnalysis
+    from hmmlearn import hmm
+
+    expDir = ExpDir('/home/itskov/Temp/13-Nov-2019/TPH_1_NO_ATR_TRAIN_IAA3.avi_16.31.51')
+
+    exp = np.load(expDir.getExpFile())[0]
+    tracks = exp._tracks
+
+
+    model = hmm.GaussianHMM(n_components=2, init_params="tmcs")
+    model.transmat_ = np.array([[0.5, 0.5],
+                                [0.5, 0.5]])
+
+    X = GenerateHMMData(tracks, 10)
+    model.fit(X)
+    X = GenerateHMMData(tracks, 11)
+    model.fit(X)
+    X = GenerateHMMData(tracks, 13)
+    model.fit(X)
+    X = GenerateHMMData(tracks, 14)
+    model.fit(X)
+
+    t = tracks[16]
+    X = GenerateHMMData(tracks, 16)
+    model.fit(X)
+    z = model.predict(X)
+
+    z = np.insert(z, 0,0)
+    z = np.insert(z, 0, 0)
+    z = np.insert(z, -1,0)
+    z = np.insert(z,-1, 0)
+
+    exp.plotTracks([t], [z])
+
+
+    pass
+
+    #roi = RoiAnalysis(exp)
+    #roi.execute()
+
 if __name__ == "__main__":
-    from glob2 import glob
-    from Behavior.General.Track import Track
+    main()
 
-    expDirs = glob('/home/itskov/Temp/Chris/17-Mar-2019_Chris/*')
 
-    for curDir in expDirs:
-        print(curDir)
-        try:
-            expDir = ExpDir(curDir)
-            exp = np.load(expDir.getExpFile())[0]
-            #exp.takeScale()
-
-            coolTracks = exp._tracks[np.array([track._trackCords.shape[0] for track in exp._tracks]) > 400]
-            t = coolTracks[0].getTrackSegment(exp._regionsOfInterest['startReg']['pos'], 450, True)
-
-            t = coolTracks[190]
-            exp.plotTracks([t], [t.getTrackPirouettesMark()])
-
-            #exp.addCirclePotisionRad('startReg', exp._scale / 2)
-            #exp.addCirclePotisionRad('endReg', exp._scale / 4)
-            #exp.save()
-        except Exception as exp:
-            print('Error: ' + str(exp))
-            continue
 
 
 '''''    from RoiAnalysis import RoiAnalysis

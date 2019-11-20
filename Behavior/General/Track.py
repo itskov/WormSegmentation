@@ -171,10 +171,7 @@ class Track:
     def getMaxDistTravelled(self):
         return np.max(pdist(self._trackCords))
 
-
-
-
-if __name__ == "__main__":
+if __name__  == "__main__":
     exp = np.load('/mnt/storageNASRe/tph1/Results/12-Sep-2019/TPH_1_ATR_TRAIN_IAA3.avi_12.14.20/exp.npy')[0]
     tracks = exp._tracks
 

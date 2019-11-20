@@ -1,13 +1,17 @@
 import sys
 import cv2
 
+import numpy as np
+
 from skvideo.io import FFmpegWriter
 from time import time, sleep
 
 from os import path
 
 
+
 def splitChannel(params):
+    MAX_FRAMES = 8200
     videoFileName = params[0]
     wantedChannel = params[1]
 
@@ -37,6 +41,9 @@ def splitChannel(params):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     frameNumber = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    # Dealing with movie that are too long.
+    frameNumber = np.min((frameNumber, MAX_FRAMES))
 
     print('fourcc: ' + str(fourcc) + ', fps: ' + str(fps) + ', dims: ' + str((height, width)) + ', Frames: ' + str(
         frameNumber))

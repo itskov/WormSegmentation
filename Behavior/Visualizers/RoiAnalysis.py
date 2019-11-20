@@ -1,3 +1,4 @@
+from Behavior.General.TracksFilter import filterTracksForAnalyses
 import numpy as np
 
 
@@ -32,8 +33,8 @@ class RoiAnalysis:
             outEvents = inRegion[0:-2] & outRegion[1:-1]
             inEvents = inRegion[1:-1] & outRegion[0:-2]
 
-            countStart[np.where(outEvents)] -= 1
-            countStart[np.where(inEvents)] += 1
+            countStart[track._trackFrames[np.where(outEvents)]] -= 1
+            countStart[track._trackFrames[np.where(inEvents)]] += 1
 
             # Doing the same for the end region
             inRegion = distancesEnd <=  self._exp._regionsOfInterest['endReg']['rad']
@@ -42,8 +43,8 @@ class RoiAnalysis:
             outEvents = inRegion[0:-2] & outRegion[1:-1]
             inEvents = inRegion[1:-1] & outRegion[0:-2]
 
-            countEnd[np.where(outEvents)] -= 1
-            countEnd[np.where(inEvents)] += 1
+            countEnd[track._trackFrames[np.where(outEvents)]] -= 1
+            countEnd[track._trackFrames[np.where(inEvents)]] += 1
 
 
             pass
@@ -55,9 +56,9 @@ class RoiAnalysis:
         self._results['arrivedFrac'] = self._results['arrived'] / float(self._results['wormCount'])
 
 
-        import matplotlib.pyplot as plt
-        plt.plot(self._results['arrivedFrac'])
-        pass
+        #import matplotlib.pyplot as plt
+        #plt.plot(self._results['arrivedFrac'])
+        #pass
 
 
 if __name__ == "__main__":

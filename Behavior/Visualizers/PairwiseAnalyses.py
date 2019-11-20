@@ -40,9 +40,9 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     print('Start Analyses..')
 
     firstProj = [track.getMeanProjection(firstExp._regionsOfInterest['endReg']['pos']) for
-                 track in firstExp._tracks if track._trackCords.shape[0] >= LENGTH_THR]
+                 track in firstExp._tracks if track._trackCords.shape[0] >= LENGTH_THR and track.getMaxDistTravelled() > 350]
     secondProj = [track.getMeanProjection(secondExp._regionsOfInterest['endReg']['pos']) for
-                  track in secondExp._tracks if track._trackCords.shape[0] >= LENGTH_THR]
+                  track in secondExp._tracks if track._trackCords.shape[0] >= LENGTH_THR and track.getMaxDistTravelled() > 350]
 
     firstDf = pd.DataFrame({'proj' : firstProj, 'cond' : cond1})
     secondDf = pd.DataFrame({'proj': secondProj, 'cond': cond2})
