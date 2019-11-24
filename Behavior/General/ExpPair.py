@@ -137,15 +137,15 @@ class ExpPair:
         # Setting the seaborn style
         sns.set()
 
-        anim = FuncAnimation(fig, updateMovie, frames=range(frameLength), init_func=lambda: updateMovie(-1))
-        anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=40, extra_args=['-vcodec', 'libx264'], dpi=500)
+        anim = FuncAnimation(fig, updateMovie, frames=range(frameLength - 1), init_func=lambda: updateMovie(-1))
+        anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=40, extra_args=['-vcodec', 'libx264'], dpi=200)
         #plt.show()
 
 
 
 def main():
-    firstDir = "/home/itskov/Temp/debug/ATR/exp1.npy"
-    secondDir = "/home/itskov/Temp/debug/NO_ATR/exp2.npy"
+    firstDir = "//mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.22.04/exp.npy"
+    secondDir = "/mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_NO_ATR_TRAIN_IAA3x5.avi_13.21.14/exp.npy"
 
     expPair = ExpPair(firstDir, secondDir)
     expPair.createPairVisualization()

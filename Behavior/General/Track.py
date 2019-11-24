@@ -70,23 +70,6 @@ class Track:
 
         print('Track created. Time: ' + str(time()  - beforeCreation))
 
-
-    # NOT READY
-    def getTrackSegment(self, pos, distanceThr, isBigger):
-        distances = np.linalg.norm(self._trackCords - pos, axis=1)
-
-        if isBigger:
-            intPoses = distances > distanceThr
-        else:
-            intPoses = distances < distanceThr
-
-        interestingPosStart = np.argmin(np.where(intPoses))
-        interestingPosEnd = np.argmax(np.where(np.logical_not(intPoses[interestingPosStart:])))
-
-
-        return self
-
-
     def getTrackPirouettesMark(self):
         FILTER_SIZE = 35
         filter = list((0,) + tuple(np.ones((FILTER_SIZE - 1,))))
@@ -96,7 +79,6 @@ class Track:
         pirMark = (firstConv > 1) & (secondConv > 1)
 
         return pirMark
-
 
     def getMeanProjection(self, pos):
         beforeDistance = np.linalg.norm(self._trackCords[0, :] - pos)
@@ -133,6 +115,7 @@ class Track:
             return self._tracksSpeeds[self._trackFrames == frame]
         else:
             return None
+
     def getAbsAngles(self, frame):
         if (frame in self._trackFrames):
             rev =  self._tracksAngles[self._trackFrames == frame]

@@ -8,6 +8,7 @@ from ggplot import ggplot, aes, geom_density, xlab, ylab
 
 from Behavior.Visualizers.RoiAnalysis import RoiAnalysis
 from Behavior.Visualizers.OccupVisualizer import OccupVisualizer
+from Behavior.Visualizers.RevPosDensity import RevPosDensity
 
 
 
@@ -35,7 +36,6 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp):
 def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     LENGTH_THR = 250
 
-    sns.set()
 
     print('Start Analyses..')
 
@@ -53,10 +53,11 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     df = pd.DataFrame({'proj' : allProj, 'cond' : allConds})
 
 
-    #df['cond'] = df['cond'].astype('category')
-    g = ggplot(aes(x='proj', color='cond'), data=df) + geom_density(alpha=1) + xlab('Projection') + ylab('Density')
+    sns.kdeplot(firstDf['proj'], shade=True, label=cond1)
+    ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
-    print(g)
+    ax.set(xlabel="Projection", ylabel="Density")
+    plt.show()
     #g.draw()
 
 def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
@@ -81,9 +82,13 @@ def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
 
 
     #df['cond'] = df['cond'].astype('category')
-    g = ggplot(aes(x='proj', color='cond'), data=df) + geom_density(alpha=1) + xlab('Speed') + ylab('Density')
+    #g = ggplot(aes(x='proj', color='cond'), data=df) + geom_density(alpha=1) + xlab('Speed') + ylab('Density')
+    sns.kdeplot(firstDf['proj'], shade=True, label=cond1)
+    ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
-    print(g)
+    ax.set(xlabel="Velocity", ylabel="Density")
+    plt.show()
+    #print(g)
     #g.draw()
 
 
@@ -93,3 +98,11 @@ def PairWiseOccupVisoulatizer(cond1, firstExp, cond2, secondExp):
 
     firstOccup.execute(cond1)
     secondOccup.execute(cond2)
+
+def PairWiseRevDistances(cond1, firstExp, cond2, secondExp):
+    rd1 = RevPosDensity(firstExp)
+    rd1.execute(cond1)
+    rd2 = RevPosDensity(secondExp)
+    rd2.execute(cond2)
+    plt.show()
+

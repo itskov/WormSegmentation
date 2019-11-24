@@ -127,13 +127,11 @@ class SegmentedTracker:
         # Then filter them.
         lens = np.asarray([len(list(t.values())) for t in self._tracks])
         print('Filtering tracks..')
-        print('Before filtering by length: ' + str(len(self._tracks)) + " tracks.")
-        self._tracks = np.asarray(self._tracks)[lens > 25]
-        print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
-
-
+        print('Before filtering: ' + str(len(self._tracks)) + " tracks.")
+        #self._tracks = np.asarray(self._tracks)[lens > 25]
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        self._tracks = self._tracks[np.asarray(maxDistances) > 100]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 25]
+        print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
 
 
 
