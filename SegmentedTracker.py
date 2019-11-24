@@ -130,7 +130,7 @@ class SegmentedTracker:
         print('Before filtering: ' + str(len(self._tracks)) + " tracks.")
         #self._tracks = np.asarray(self._tracks)[lens > 25]
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        self._tracks = self._tracks[np.asarray(maxDistances) > 25]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 7]
         print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
 
 
