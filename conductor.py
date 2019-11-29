@@ -1,7 +1,6 @@
 import sys
 
-
-from glob2 import glob, escape
+from glob import glob, escape
 from os import path, remove
 from ProcessVideo import Process
 from SegmentedTracker import SegmentedTracker
