@@ -1,7 +1,7 @@
 import sys
 
 
-from glob2 import glob
+from glob2 import glob, escape
 from os import path, remove
 from ProcessVideo import Process
 from SegmentedTracker import SegmentedTracker
@@ -15,7 +15,7 @@ def conduct(inputDir = None):
     # getting the input directory
     inputDir = sys.argv[1] if inputDir == None else inputDir
 
-    mj2Files = glob(path.join(inputDir, "*.mj2"))
+    mj2Files = glob(path.join(escape(inputDir), "*.mj2"))
     if (len(mj2Files) > 1):
         print('Error: ambiguous mj2 files.')
         return
