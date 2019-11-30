@@ -26,7 +26,7 @@ def conduct(inputDir = None):
         print('Removing mj2.')
         remove(mj2File)
 
-    files = glob(path.join(inputDir, "*_Full.mp4"))
+    files = glob(path.join(escape(inputDir), "*_Full.mp4"))
 
     if (len(files) > 1):
         print('Error: Ambiguous input file.')
