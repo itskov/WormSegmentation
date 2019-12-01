@@ -49,7 +49,7 @@ def splitChannel(params):
         frameNumber))
 
     videoWriterUncomprseed = FFmpegWriter(channelFileUncompressed, outputdict={'-crf': '0' })
-    #videoWriterComprseed = FFmpegWriter(channelFileCompressed, outputdict={'-crf': '25'})
+    videoWriterComprseed = FFmpegWriter(channelFileCompressed, outputdict={'-crf': '25'})
 
 
     for frameNum in range(frameNumber):
@@ -68,7 +68,7 @@ def splitChannel(params):
             wTime = time()
 
             videoWriterUncomprseed.writeFrame(channel)
-            #videoWriterComprseed.writeFrame(channel)
+            videoWriterComprseed.writeFrame(channel)
 
             wElapsed = time() - wTime
 
@@ -77,7 +77,7 @@ def splitChannel(params):
 
         #sleep(0.01)
 
-    #videoWriterComprseed.close()
+    videoWriterComprseed.close()
     videoWriterUncomprseed.close()
 
 
