@@ -9,10 +9,33 @@ from PIL import Image, ImageDraw
 
 
 class Experiment:
-    def __init__(self, videoFilename, tracks=None):
-        self._tracks = tracks
-        self._videoFilename = videoFilename
-        self._cap = cv2.VideoCapture(videoFilename)
+    def __init__(self, expDir):
+        self._tracks = None
+        self._videoFilename = None
+        self._regionsOfInterest = {}
+        self._cap = None
+        self._numberOfFrames = 0
+        self._scale = 1
+        self._positions = None
+        self._outputDirName = None
+
+        self.initialize(expDir, np.load(expDir.getTracksFile()))
+
+    # Legacy constructor.
+    #def __init__(self, videoFilename, tracks):
+    #    expDir = ExpDir(path.dirname(videoFilename))
+
+    #    self.initialize(expDir, tracks)
+
+    def initialize(self, expDir, tracks=None):
+        print('Initializing Experiment with dir: %s and with %d tracks' % (expDir._expDir, len(tracks)))
+
+        # else leave the tracs as is.
+        if (tracks is not None):
+            self._tracks = tracks
+
+        self._videoFilename = expDir.getVidFile()
+        self._cap = cv2.VideoCapture(self._videoFilename)
         self._regionsOfInterest = {}
 
         # Getting the length of the movie.
@@ -28,7 +51,9 @@ class Experiment:
         self._positions = {}
 
         # Here we save directory
-        self._outputDirName = path.dirname(videoFilename)
+        self._outputDirName = path.dirname(self._videoFilename)
+
+
 
     def __setstate__(self, d):
         self.__dict__ = d

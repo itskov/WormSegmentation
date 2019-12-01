@@ -9,6 +9,8 @@ class OccupVisualizer():
         self._frameSize = exp.getFrameSize()
 
     def execute(self, title=""):
+
+
         field = np.zeros(self._frameSize)
 
         for i, track in enumerate(self._exp._tracks):
@@ -21,6 +23,7 @@ class OccupVisualizer():
         nField = blur(nField,(48,48))
         plt.imshow(nField, cmap=plt.get_cmap('gnuplot2'))
         plt.title(title)
+        plt.axis('off')
         plt.show()
 
 

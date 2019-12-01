@@ -13,7 +13,8 @@ from Behavior.Visualizers.RevPosDensity import RevPosDensity
 
 
 def PairWiseRoi(cond1, firstExp, cond2, secondExp):
-    sns.set()
+    #sns.set()
+    plt.style.use("dark_background")
 
     print('Start Analyses..')
     firstRoi = RoiAnalysis(firstExp)
@@ -31,11 +32,15 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp):
     plt.xlabel('Frames (2Hz)')
     plt.ylabel('Worms Arrived')
     plt.legend()
+    plt.axes().grid(alpha=0.2)
+
     plt.show()
 
 def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
-    LENGTH_THR = 250
+    plt.style.use("dark_background")
 
+
+    LENGTH_THR = 250
 
     print('Start Analyses..')
 
@@ -56,14 +61,17 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     sns.kdeplot(firstDf['proj'], shade=True, label=cond1)
     ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
+    plt.gca().grid(alpha=0.2)
     ax.set(xlabel="Projection", ylabel="Density")
+
     plt.show()
     #g.draw()
 
 def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
     LENGTH_THR = 250
+    plt.style.use("dark_background")
 
-    sns.set()
+    #sns.set()
 
     print('Start Analyses..')
 
@@ -87,6 +95,7 @@ def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
     ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
     ax.set(xlabel="Velocity", ylabel="Density")
+    plt.gca().grid(alpha=0.2)
     plt.show()
     #print(g)
     #g.draw()

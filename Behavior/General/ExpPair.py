@@ -50,7 +50,7 @@ class ExpPair:
         np.save(fileName, self)
 
 
-    def createPairVisualization(self):
+    def createPairVisualization(self, numberOfFrames=0):
         # First, running the ROI analyses
         firstRoi = RoiAnalysis(self._firstExp)
         secondRoi = RoiAnalysis(self._secondExp)
@@ -68,6 +68,10 @@ class ExpPair:
 
         # Getting the minimum framecount of the two videos.
         frameLength = np.min((firstMovieLength, secondMovieLength))
+
+        # Getting the requested frame number.
+        frameLength = np.min((numberOfFrames, frameLength))
+
 
         fig = plt.figure(facecolor='black')
         plt.style.use('dark_background')
@@ -144,11 +148,17 @@ class ExpPair:
 
 
 def main():
-    firstDir = "//mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.22.04/exp.npy"
-    secondDir = "/mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_NO_ATR_TRAIN_IAA3x5.avi_13.21.14/exp.npy"
+    import sys
+    sys.path.append('/home/itskov/workspace/lab/DeepSemantic/WormSegmentation')
+
+    firstDir = sys.argv[1]
+    secondDir = sys.argv[2]
+
+    print(firstDir)
+    print(secondDir)
 
     expPair = ExpPair(firstDir, secondDir)
-    expPair.createPairVisualization()
+    expPair.createPairVisualization(4500)
 
 if __name__ == "__main__":
     main()
