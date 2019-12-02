@@ -170,9 +170,9 @@ def main():
         expPair = ExpPair('/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55/exp.npy',
                           '/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55/exp.npy')
 
-        expPair.createPairVisualization(15, dpi=250)
+        expPair.createPairVisualization(4500, dpi=250)
 
-    cProfile.runctx("func()", {'func' : func}, {})
+    func()
 
 
 if __name__ == "__main__":
