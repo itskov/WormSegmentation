@@ -78,7 +78,7 @@ class Track:
 
         newCordsDict = dict(zip(newFrame, newCords))
 
-        if (any.any(keepCords)):
+        if (np.any(keepCords)):
             return Track(newCordsDict)
 
         return None
