@@ -70,6 +70,17 @@ class Track:
 
         print('Track created. Time: ' + str(time()  - beforeCreation))
 
+    def trimTrack(self,endFrame):
+        keepCords = (self._trackFrames < endFrame)
+
+        newFrame = self._trackFrames[keepCords]
+        newCords = self._trackCords[keepCords, :]
+
+        newCordsDict = dict(zip(newFrame, newCords))
+
+        return (Track(newCordsDict))
+
+
     def getTrackPirouettesMark(self):
         FILTER_SIZE = 35
         filter = list((0,) + tuple(np.ones((FILTER_SIZE - 1,))))

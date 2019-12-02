@@ -3,7 +3,7 @@ import numpy as np
 
 
 class RoiAnalysis:
-    def __init__(self, exp):
+    def __init__(self, exp, trimTracksPos = -1):
         if (exp._scale == 1):
             exp.takeScale()
 
@@ -14,6 +14,9 @@ class RoiAnalysis:
 
         self._exp = exp
         self._results = {}
+        # Maybe we don't want to take the whoel track,
+        # but up to certain frame.
+        self._trimTracksPos = trimTracksPos
 
 
     def execute(self):
@@ -27,6 +30,10 @@ class RoiAnalysis:
 
 
         for i, track in enumerate(tracks):
+            # Trimming the track.
+            if self._trimTracksPos != -1:
+                track = track.trimTrack(self._trimTracksPos)
+
             #print('Going over track %d' % i)
             frames = track._trackFrames
             distancesStart = track.getDistances(self._exp._regionsOfInterest['startReg']['pos'])

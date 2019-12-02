@@ -56,12 +56,6 @@ class ExpPair:
 
 
     def createPairVisualization(self, numberOfFrames=0, dpi=200):
-        # First, running the ROI analyses
-        firstRoi = RoiAnalysis(self._firstExp)
-        secondRoi = RoiAnalysis(self._secondExp)
-        firstRoi.execute()
-        secondRoi.execute()
-
         firstCap = cv2.VideoCapture(self._firstExpDir.getExpSegVid())
         secCap = cv2.VideoCapture(self._secondExpDir.getExpSegVid())
 
@@ -76,6 +70,13 @@ class ExpPair:
 
         # Getting the requested frame number.
         frameLength = np.min((numberOfFrames, frameLength))
+
+        # First, running the ROI analyses
+        firstRoi = RoiAnalysis(self._firstExp, trimTracksPos=frameLength)
+        secondRoi = RoiAnalysis(self._secondExp, trimTracksPos=frameLength)
+        firstRoi.execute()
+        secondRoi.execute()
+
 
 
         fig = plt.figure(facecolor='black')
