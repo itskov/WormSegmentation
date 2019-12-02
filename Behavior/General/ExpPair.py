@@ -1,3 +1,8 @@
+#DEBUG
+import sys
+sys.path.append('/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/')
+#DEBUG
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -50,7 +55,7 @@ class ExpPair:
         np.save(fileName, self)
 
 
-    def createPairVisualization(self, numberOfFrames=0):
+    def createPairVisualization(self, numberOfFrames=0, dpi=200):
         # First, running the ROI analyses
         firstRoi = RoiAnalysis(self._firstExp)
         secondRoi = RoiAnalysis(self._secondExp)
@@ -83,6 +88,9 @@ class ExpPair:
         im = None
         vertLine = None
 
+        # The font for the ImageDraw.
+        fnt = ImageFont.truetype("DejaVuSans-Bold.ttf", 96)
+
         def updateMovie(frameNum):
             fig.sca(ax_vid)
             nonlocal im
@@ -90,8 +98,6 @@ class ExpPair:
 
             _, firstFrame = firstCap.read()
             _, secondFrame = secCap.read()
-
-            fnt = ImageFont.truetype("DejaVuSans-Bold.ttf", 96)
 
             firstImSeg = Image.fromarray(firstFrame)
             firstImRawDraw = ImageDraw.Draw(firstImSeg)
@@ -133,7 +139,7 @@ class ExpPair:
 
                 vertLine = ax_fig.axvline(x=frameNum, ymin=0, ymax=1)
 
-            print('Processed Frame %d / %d' % (frameNum, frameLength))
+            print('\rProcessed Frame %d / %d' % (frameNum, frameLength), end="")
 
             return (ax_vid, ax_fig)
 
@@ -142,23 +148,31 @@ class ExpPair:
         sns.set()
 
         anim = FuncAnimation(fig, updateMovie, frames=range(frameLength - 1), init_func=lambda: updateMovie(-1))
-        anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=40, extra_args=['-vcodec', 'libx264'], dpi=200)
+        anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=40, extra_args=['-vcodec', 'libx264'], dpi=dpi)
         #plt.show()
 
 
 
 def main():
+    import cProfile
     import sys
-    sys.path.append('/home/itskov/workspace/lab/DeepSemantic/WormSegmentation')
+    sys.path.append('/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/')
 
-    firstDir = sys.argv[1]
-    secondDir = sys.argv[2]
 
-    print(firstDir)
-    print(secondDir)
+    def func():
+        import sys
+        sys.path.append('/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/')
+        print(sys.path)
 
-    expPair = ExpPair(firstDir, secondDir)
-    expPair.createPairVisualization(4500)
+        from Behavior.General.ExpPair import ExpPair
+
+        expPair = ExpPair('/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55/exp.npy',
+                          '/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55/exp.npy')
+
+        expPair.createPairVisualization(15, dpi=250)
+
+    cProfile.runctx("func()", {'func' : func}, {})
+
 
 if __name__ == "__main__":
     main()

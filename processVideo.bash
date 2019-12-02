@@ -5,7 +5,7 @@ echo $1
 rm -rf ~/Storage/seg.log
 rm -rf ~/venv/
 module load tensorflow
-module load opencv
+#module load opencv
 
 virtualenv -p python3  --system-site-packages ~/venv
 source ~/venv/bin/activate

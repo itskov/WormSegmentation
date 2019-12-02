@@ -1,4 +1,4 @@
-from glob2 import glob
+from glob import glob, escape
 from os.path import join, isfile, exists
 
 class ExpDir:
@@ -7,11 +7,11 @@ class ExpDir:
 
 
     def getVidFile(self):
-        files = glob(join(self._expDir,"*Compressed.mp4"))
+        files = glob(join(escape(self._expDir),"*Compressed.mp4"))
         if len(files) == 1:
             return files[0]
         else:
-            files = glob(join(self._expDir, "*Full.mp4"))
+            files = glob(join(escape(self._expDir), "*Full.mp4"))
             if len(files) == 1:
                 return files[0]
             else:
@@ -19,21 +19,21 @@ class ExpDir:
 
 
     def getTracksFile(self):
-        files = glob(join(self._expDir, "*tracks.npy"))
+        files = glob(join(escape(self._expDir), "*tracks.npy"))
         if len(files) == 1:
             return files[0]
         else:
             print('Error getting tracks file: ' + str(files))
 
     def getExpFile(self):
-        files = glob(join(self._expDir, "exp.npy"))
+        files = glob(join(escape(self._expDir), "exp.npy"))
         if len(files) == 1:
             return files[0]
         else:
             return None
 
     def getExpSegVid(self):
-        files = glob(join(self._expDir, "*seg.mp4"))
+        files = glob(join(escape(self._expDir), "*seg.mp4"))
         if len(files) == 1:
             return files[0]
         else:

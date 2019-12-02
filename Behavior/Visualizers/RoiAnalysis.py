@@ -21,7 +21,12 @@ class RoiAnalysis:
         countStart = np.zeros((self._exp._numberOfFrames,))
         countEnd = np.zeros((self._exp._numberOfFrames,))
 
-        for i, track in enumerate(self._exp._tracks):
+        # Filtering tracks that hasn't moved a lot.
+        tracks = filterTracksForAnalyses(self._exp._tracks, minDistance=10, minSteps=0)
+        print('Filtering tracks. Before %d, After: %d' % (len(self._exp._tracks), len(tracks)))
+
+
+        for i, track in enumerate(tracks):
             #print('Going over track %d' % i)
             frames = track._trackFrames
             distancesStart = track.getDistances(self._exp._regionsOfInterest['startReg']['pos'])
