@@ -77,8 +77,6 @@ class ExpPair:
         firstRoi.execute()
         secondRoi.execute()
 
-
-
         fig = plt.figure(facecolor='black')
         plt.style.use('dark_background')
 
@@ -130,6 +128,7 @@ class ExpPair:
 
                 fontP = FontProperties()
                 fontP.set_size('x-small')
+                plt.axes().grid(alpha=0.2)
                 plt.legend(prop=fontP)
 
                 #plt.legend()
@@ -144,9 +143,6 @@ class ExpPair:
 
             return (ax_vid, ax_fig)
 
-
-        # Setting the seaborn style
-        sns.set()
 
         anim = FuncAnimation(fig, updateMovie, frames=range(frameLength - 1), init_func=lambda: updateMovie(-1))
         anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=40, extra_args=['-vcodec', 'libx264'], dpi=dpi)
@@ -167,8 +163,8 @@ def main():
 
         from Behavior.General.ExpPair import ExpPair
 
-        expPair = ExpPair('/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55/exp.npy',
-                          '/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55/exp.npy')
+        expPair = ExpPair('/home/itskov/Temp/behav/28-Nov-2019/TPH_1_NO_ATR_TRAIN_IAA3x5.avi_13.56.35/exp.npy',
+                          '/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.57.17/exp.npy')
 
         expPair.createPairVisualization(4500, dpi=250)
 
