@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e1243a8-e46d-4aa0-96e4-9efe360b60d5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Behavior/General/ExpPair.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/General/ExpPair.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChristianAnalysis/.ipynb_checkpoints/ChristianAnalysis-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ChristianAnalysis/.ipynb_checkpoints/ChristianAnalysis-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChristianAnalysis/ChristianAnalysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ChristianAnalysis/ChristianAnalysis.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Behavior/General/ExpPair.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="105" column="57" lean-forward="true" selection-start-line="105" selection-start-column="57" selection-end-line="105" selection-end-column="57" />
+            <state relative-caret-position="388">
+              <caret line="130" column="22" selection-start-line="130" selection-start-column="22" selection-end-line="130" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -329,8 +328,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Behavior/General/ExpPair.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="105" column="57" lean-forward="true" selection-start-line="105" selection-start-column="57" selection-end-line="105" selection-end-column="57" />
+        <state relative-caret-position="388">
+          <caret line="130" column="22" selection-start-line="130" selection-start-column="22" selection-end-line="130" selection-end-column="22" />
         </state>
       </provider>
     </entry>

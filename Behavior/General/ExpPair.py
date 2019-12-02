@@ -128,7 +128,7 @@ class ExpPair:
 
                 fontP = FontProperties()
                 fontP.set_size('x-small')
-                plt.axes().grid(alpha=0.2)
+                ax_fig.grid(alpha=0.2)
                 plt.legend(prop=fontP)
 
                 #plt.legend()
