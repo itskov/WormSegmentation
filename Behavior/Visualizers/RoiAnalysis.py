@@ -33,6 +33,8 @@ class RoiAnalysis:
             # Trimming the track.
             if self._trimTracksPos != -1:
                 track = track.trimTrack(self._trimTracksPos)
+                if (track == None):
+                    continue
 
             #print('Going over track %d' % i)
             frames = track._trackFrames

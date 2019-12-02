@@ -78,7 +78,10 @@ class Track:
 
         newCordsDict = dict(zip(newFrame, newCords))
 
-        return (Track(newCordsDict))
+        if (any.any(keepCords)):
+            return Track(newCordsDict)
+
+        return None
 
 
     def getTrackPirouettesMark(self):
