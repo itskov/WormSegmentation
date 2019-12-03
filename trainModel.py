@@ -8,21 +8,11 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 
-import matplotlib.pyplot as plt
-import tempfile
-import pickle
-import shutil
-import random
 
 from glob import glob
 from os import path
-from cv2 import blur
-from scipy import io
 
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import scale
-import re
-import pandas as pd
+
 
 
 def cnn_model_fn(origImages_, filteredImages, imageSize):

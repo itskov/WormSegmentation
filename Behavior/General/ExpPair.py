@@ -54,6 +54,14 @@ class ExpPair:
         fileName = path.join(self._targetDir,'expsPair.npy')
         np.save(fileName, self)
 
+    def alignImage(self, img):
+        # First we roll the image to center the plate.
+        rightBorder = np.min(np.where(img > 0)[1])
+        leftBorder = img.shape[1] - np.max(np.where(img > 0)[1])
+        allBorders = rightBorder + leftBorder
+        correctBorder = np.floor(allBorders / 2)
+        return int(correctBorder - rightBorder)
+
 
     def createPairVisualization(self, numberOfFrames=0, dpi=200):
         firstCap = cv2.VideoCapture(self._firstExpDir.getExpSegVid())
@@ -90,21 +98,59 @@ class ExpPair:
         # The font for the ImageDraw.
         fnt = ImageFont.truetype("DejaVuSans-Bold.ttf", 96)
 
+        firstAlign = 0
+        secondAlign = 0
+
         def updateMovie(frameNum):
             fig.sca(ax_vid)
             nonlocal im
             nonlocal vertLine
+            nonlocal firstAlign
+            nonlocal secondAlign
 
             _, firstFrame = firstCap.read()
             _, secondFrame = secCap.read()
+
+            if (frameNum == -1):
+                firstAlign = self.alignImage(firstFrame)
+                secondAlign = self.alignImage(secondFrame)
+
+            firstFrame = np.roll(firstFrame, +firstAlign, axis=1)
+            secondFrame = np.roll(secondFrame, +secondAlign, axis=1)
 
             firstImSeg = Image.fromarray(firstFrame)
             firstImRawDraw = ImageDraw.Draw(firstImSeg)
             firstImRawDraw.text((0, 0), self._cond1, font=fnt, fill=ImageColor.getrgb(self.FIRST_COLOR))
 
+            chemoPos = np.fliplr(np.atleast_2d(self._firstExp._regionsOfInterest['endReg']['pos']))
+            chemoPos = np.ravel(chemoPos)
+            chemoPos[0] += firstAlign
+            rad = self._firstExp._regionsOfInterest['endReg']['rad']
+
+
             secondImSeg = Image.fromarray(secondFrame)
             secondImRawDraw = ImageDraw.Draw(secondImSeg)
             secondImRawDraw.text((0, 0), self._cond2, font=fnt, fill=ImageColor.getrgb(self.SECOND_COLOR))
+
+            width = 10
+            for d in range(width):
+                firstImRawDraw.arc((chemoPos[0] - (rad + d),
+                                    chemoPos[1] - (rad + d),
+                                    chemoPos[0] + (rad + d),
+                                    chemoPos[1] + (rad + d)),
+                              0,
+                              360,
+                              fill=ImageColor.getrgb(self.FIRST_COLOR))
+
+                secondImRawDraw.arc((chemoPos[0] - (rad + d),
+                                    chemoPos[1] - (rad + d),
+                                    chemoPos[0] + (rad + d),
+                                    chemoPos[1] + (rad + d)),
+                              0,
+                              360,
+                              fill=ImageColor.getrgb(self.SECOND_COLOR))
+
+
 
             firstFrame = np.asarray(firstImSeg)
             secondFrame = np.asarray(secondImSeg)
@@ -159,7 +205,6 @@ def main():
     def func():
         import sys
         sys.path.append('/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/')
-        print(sys.path)
 
         from Behavior.General.ExpPair import ExpPair
 

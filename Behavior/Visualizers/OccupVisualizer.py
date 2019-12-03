@@ -21,7 +21,6 @@ class OccupVisualizer():
         rightBorder = np.min(np.where(field > 0)[1])
         leftBorder = field.shape[1] - np.max(np.where(field > 0)[1])
         allBorders = rightBorder + leftBorder
-
         correctBorder = np.floor(allBorders / 2)
         field = np.roll(field, int(correctBorder - rightBorder), axis=1)
 

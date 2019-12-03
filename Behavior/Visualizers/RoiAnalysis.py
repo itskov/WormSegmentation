@@ -21,8 +21,8 @@ class RoiAnalysis:
 
     def execute(self):
         print('Allocating space.')
-        countStart = np.zeros((self._exp._numberOfFrames,))
-        countEnd = np.zeros((self._exp._numberOfFrames,))
+        countStart = np.zeros((np.min((self._exp._numberOfFrames, self._trimTracksPos)),))
+        countEnd = np.zeros((np.min((self._exp._numberOfFrames, self._trimTracksPos)),))
 
         # Filtering tracks that hasn't moved a lot.
         tracks = filterTracksForAnalyses(self._exp._tracks, minDistance=10, minSteps=0)
