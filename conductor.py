@@ -12,7 +12,7 @@ def conduct(inputDir = None):
     RESTORE_POINT = "/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation"
 
     # getting the input directory
-    inputDir = sys.argv[1] if inputDir == None else inputDir
+    inputDir = sys.argv[1] if inputDir is None else inputDir
 
     # Lookign to see if the experiment is not ready already.
     tracksFiles = glob(path.join(escape(inputDir), "*tracks.npy"))
