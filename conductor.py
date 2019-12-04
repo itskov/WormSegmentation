@@ -13,7 +13,7 @@ def conduct(inputDir = None):
 
 
     # Lookign to see if the experiment is not ready already.
-    tracksFiles = glob(path.join(escape(inputDir), "*tracjs.npy"))
+    tracksFiles = glob(path.join(escape(inputDir), "*tracks.npy"))
 
     if len(tracksFiles) > 0:
         print('--== Tracks already analyzed. Exiting. ==--')
