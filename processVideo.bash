@@ -5,13 +5,14 @@ echo $1
 rm -rf ~/Storage/seg.log
 rm -rf ~/venv/
 module load tensorflow
-#module load opencv
+module load opencv
+module load cuda/10.0
 
 virtualenv -p python3  --system-site-packages ~/venv
 source ~/venv/bin/activate
-#pip install cupy-coda91
+pip install cupy-coda91
 pip install sk-video
-pip install glob2
+#pip install glob2
 
 echo $1
 python ./conductor.py $1
