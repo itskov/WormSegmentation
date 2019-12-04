@@ -11,6 +11,8 @@ from SplitChannels import splitChannel
 def conduct(inputDir = None):
     RESTORE_POINT = "/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation"
 
+    # getting the input directory
+    inputDir = sys.argv[1] if inputDir == None else inputDir
 
     # Lookign to see if the experiment is not ready already.
     tracksFiles = glob(path.join(escape(inputDir), "*tracks.npy"))
@@ -19,9 +21,6 @@ def conduct(inputDir = None):
         print('--== Tracks already analyzed. Exiting. ==--')
         return
 
-
-    # getting the input directory
-    inputDir = sys.argv[1] if inputDir == None else inputDir
 
     mj2Files = glob(path.join(escape(inputDir), "*.mj2"))
     if (len(mj2Files) > 1):
