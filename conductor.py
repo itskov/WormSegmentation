@@ -11,6 +11,15 @@ from SplitChannels import splitChannel
 def conduct(inputDir = None):
     RESTORE_POINT = "/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation"
 
+
+    # Lookign to see if the experiment is not ready already.
+    tracksFiles = glob(path.join(escape(inputDir), "*tracjs.npy"))
+
+    if len(tracksFiles) > 0:
+        print('--== Tracks already analyzed. Exiting. ==--')
+        return
+
+
     # getting the input directory
     inputDir = sys.argv[1] if inputDir == None else inputDir
 
