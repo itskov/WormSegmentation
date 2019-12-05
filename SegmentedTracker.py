@@ -71,10 +71,7 @@ class SegmentedTracker:
             centroids = centroids[1:]
             centroids = np.asarray([np.array(cent) for cent in centroids])
 
-
-
-
-            if (currentFrameNum > 0):
+            if currentFrameNum > 0 and centroids.size > 0:
                 for ti, t in enumerate(currentTracks):
                     distances = []
                     if (currentFrameNum - 1) in t:

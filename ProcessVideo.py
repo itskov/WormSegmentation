@@ -1,6 +1,4 @@
 # @title Process Movie
-from multiprocessing import Pool
-
 import cv2
 import os
 import sys
@@ -9,13 +7,9 @@ import numpy as np
 import tensorflow as tf
 import time
 
-import logging
-
-
 from trainModel import  cnn_model_fn,normalizeFrame
 
 from skvideo.io import FFmpegWriter
-from skimage import data
 from os.path import join, exists
 
 # Global logger
