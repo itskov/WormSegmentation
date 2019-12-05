@@ -94,7 +94,8 @@ class SegmentedTracker:
                 currentTracks = list(np.asanyarray(currentTracks)[shouldKeepTracks])
 
             # Adding unmatched centroids as tracks.
-            [currentTracks.append({currentFrameNum: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
+            if centroids.size > 0:
+                [currentTracks.append({currentFrameNum: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
             # Log
             print('Tracking frame: ' + str(currentFrameNum) + " Entities in frame: " + str(len(labelsInds)) + ". Time: " + str(time() - startTime))
