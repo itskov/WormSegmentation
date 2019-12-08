@@ -23,7 +23,12 @@ class Artifacts:
 
     def getArtifact(self, name):
         artifactName = path.join(self._artifactsDir, name + ".npy")
-        return np.load(artifactName)[0]
+
+        if not path.exists(artifactName):
+            print('Cant find requested artifact.')
+            return None
+        else:
+            return np.load(artifactName)[0]
 
 
 
