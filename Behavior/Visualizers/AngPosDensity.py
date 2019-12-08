@@ -6,6 +6,7 @@ class AngPosDensity:
     def __init__(self, exp):
         self._exp = exp
         self._tracks = exp._tracks
+        self._results = {}
 
     def execute(self):
             df = pd.DataFrame(columns=['dist','ang'])

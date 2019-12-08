@@ -79,9 +79,14 @@ class ExpPair:
         # Getting the requested frame number.
         frameLength = np.min((numberOfFrames, frameLength))
 
+        # Trimming the experiments
+        #self._firstExp.trimExperiment(numberOfFrames)
+        #self._secondExp.trimExperiment(numberOfFrames)
+        #
+
         # First, running the ROI analyses
-        firstRoi = RoiAnalysis(self._firstExp, trimTracksPos=frameLength)
-        secondRoi = RoiAnalysis(self._secondExp, trimTracksPos=frameLength)
+        firstRoi = RoiAnalysis(self._firstExp)
+        secondRoi = RoiAnalysis(self._secondExp)
         firstRoi.execute()
         secondRoi.execute()
 
@@ -208,10 +213,24 @@ def main():
 
         from Behavior.General.ExpPair import ExpPair
 
-        expPair = ExpPair('/home/itskov/Temp/behav/28-Nov-2019/TPH_1_NO_ATR_TRAIN_IAA3x5.avi_13.56.35/exp.npy',
-                          '/home/itskov/Temp/behav/28-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.57.17/exp.npy')
+        expPair = ExpPair('/home/itskov/Temp/behav/04-Dec-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_11.15.02/exp.npy',
+                          '/home/itskov/Temp/behav/04-Dec-2019/TPH_1_NO_ATR_TRAIN_IAA3x5.avi_11.15.51/exp.npy')
 
-        expPair.createPairVisualization(4500, dpi=250)
+        #expPair.createPairVisualization(4500, dpi=250)
+
+        from Behavior.Visualizers.PairwiseAnalyses import PairWiseRoi
+        from Behavior.Visualizers.PairwiseAnalyses import  PairWiseProjectionDensity
+        from Behavior.Visualizers.PairwiseAnalyses import PairWiseSpeedDensity
+
+        expPair._firstExp.trimExperiment(4500)
+        expPair._secondExp.trimExperiment(4500)
+
+        sns.set_context("talk")
+
+        #PairWiseProjectionDensity('IAA-', expPair._firstExp,'IAA+', expPair._secondExp)
+        PairWiseSpeedDensity('IAA-', expPair._firstExp,'IAA+', expPair._secondExp)
+
+
 
     func()
 

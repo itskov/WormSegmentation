@@ -7,6 +7,8 @@ class RoiAnalysis:
         if (exp._scale == 1):
             exp.takeScale()
 
+
+
         if ('startReg' not in exp._regionsOfInterest):
             exp.addCirclePotisionRad('startReg', exp._scale / 5)
             exp.addCirclePotisionRad('endReg', exp._scale / 5)
@@ -21,8 +23,14 @@ class RoiAnalysis:
 
     def execute(self):
         print('Allocating space.')
-        countStart = np.zeros((np.min((self._exp._numberOfFrames, self._trimTracksPos)),))
-        countEnd = np.zeros((np.min((self._exp._numberOfFrames, self._trimTracksPos)),))
+
+        if (self._trimTracksPos != -1):
+            countStart = np.zeros((np.min((self._exp._numberOfFrames, self._trimTracksPos)),))
+            countEnd = np.zeros((np.min((self._exp._numberOfFrames, self._trimTracksPos)),))
+        else:
+            countStart = np.zeros((self._exp._numberOfFrames,))
+            countEnd = np.zeros((self._exp._numberOfFrames,))
+
 
         # Filtering tracks that hasn't moved a lot.
         tracks = filterTracksForAnalyses(self._exp._tracks, minDistance=10, minSteps=0)

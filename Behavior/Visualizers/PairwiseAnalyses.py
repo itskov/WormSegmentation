@@ -39,14 +39,13 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp):
 def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     plt.style.use("dark_background")
 
-
     LENGTH_THR = 250
 
     print('Start Analyses..')
 
-    firstProj = [track.getMeanProjection(firstExp._regionsOfInterest['endReg']['pos']) for
+    firstProj = [track.getMeanProjection(firstExp._regionsOfInterest['endReg']['pos']) / firstExp._scale  for
                  track in firstExp._tracks if track._trackCords.shape[0] >= LENGTH_THR and track.getMaxDistTravelled() > 350]
-    secondProj = [track.getMeanProjection(secondExp._regionsOfInterest['endReg']['pos']) for
+    secondProj = [track.getMeanProjection(secondExp._regionsOfInterest['endReg']['pos']) / secondExp._scale for
                   track in secondExp._tracks if track._trackCords.shape[0] >= LENGTH_THR and track.getMaxDistTravelled() > 350]
 
     firstDf = pd.DataFrame({'proj' : firstProj, 'cond' : cond1})
@@ -62,7 +61,7 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
     plt.gca().grid(alpha=0.2)
-    ax.set(xlabel="Projection", ylabel="Density")
+    ax.set(xlabel="Projection [au / sec]", ylabel="Density")
 
     plt.show()
     #g.draw()
@@ -94,7 +93,7 @@ def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
     sns.kdeplot(firstDf['proj'], shade=True, label=cond1)
     ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
-    ax.set(xlabel="Velocity", ylabel="Density")
+    ax.set(xlabel="Velocity [au/sec]", ylabel="Density")
     plt.gca().grid(alpha=0.2)
     plt.show()
     #print(g)

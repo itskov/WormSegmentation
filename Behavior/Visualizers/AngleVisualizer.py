@@ -12,6 +12,7 @@ class AngleVisualizer:
         self._exp = exp
         self._tracks = tracks
 
+
     def visualize(self):
 
         writer = FFmpegWriter('/home/itskov/Temp/out.mp4', outputdict={'-crf': '15'})

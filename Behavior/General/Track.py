@@ -68,7 +68,7 @@ class Track:
         self._tracksReversals = np.insert(self._tracksReversals, len(self._tracksReversals), 0)
 
 
-        print('Track created. Time: ' + str(time()  - beforeCreation))
+        #print('Track created. Time: ' + str(time()  - beforeCreation))
 
     def trimTrack(self,endFrame):
         keepCords = (self._trackFrames < endFrame)

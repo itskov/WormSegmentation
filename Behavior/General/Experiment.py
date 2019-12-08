@@ -28,11 +28,11 @@ class Experiment:
     #    self.initialize(expDir, tracks)
 
     def initialize(self, expDir, tracks=None):
-        print('Initializing Experiment with dir: %s and with %d tracks' % (expDir._expDir, len(tracks)))
-
         # else leave the tracs as is.
-        if (tracks is not None):
+        if tracks is not None:
             self._tracks = tracks
+
+        print('Initializing Experiment with dir: %s and with %d tracks' % (expDir._expDir, len(self._tracks)))
 
         self._videoFilename = expDir.getVidFile()
         self._cap = cv2.VideoCapture(self._videoFilename)
@@ -43,9 +43,6 @@ class Experiment:
 
         # Setting the movie to be in the first frame ( a length process ).
         self._cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-
-        # Take a scale so we can compare between different experimental settings.
-        self._scale = 1
 
         # Here we store important positions.
         self._positions = {}
@@ -69,6 +66,23 @@ class Experiment:
 
         self._scale = np.linalg.norm(np.array(newPoints[0]) - np.array(newPoints[1]))
 
+    def trimExperiment(self, trimTime):
+
+        # Getting the length of the movie.
+        trueLength = int(self._cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+        trimTime = np.min((trimTime, trueLength))
+        print('Trimming Experiment to %d frames.' % (trimTime,))
+
+        self._numberOfFrames = trimTime
+
+        # Trimming the track.
+        newTracks = self._tracks
+        for i,t in enumerate(self._tracks):
+            newTracks[i] = t.trimTrack(trimTime)
+
+        newTracks = np.array([t for t in newTracks if t is not None])
+        self._tracks = newTracks
 
     def plotTracks(self, tracks, marks=None):
         success, sampleFrame = self._cap.read()
