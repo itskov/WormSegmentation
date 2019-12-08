@@ -58,6 +58,8 @@ def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
         timePointResults = np.array(currentExpResults)[interestingTimePoints]
         secoundGroupResults[i, :] = timePointResults
 
+    firstGroupResults = firstGroupResults[not np.all(firstGroupResults == 0, axis=1),:]
+    secoundGroupResults = secoundGroupResults[not np.all(secoundGroupResults == 0, axis=1),:]
 
     flattenFirstGroup = firstGroupResults.flatten(order='C')
     flattenSecondGroup = secoundGroupResults.flatten(order='C')

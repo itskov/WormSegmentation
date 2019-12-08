@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4e1243a8-e46d-4aa0-96e4-9efe360b60d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Behavior/Tools/Artifacts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="619">
-              <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+            <state relative-caret-position="1155">
+              <caret line="77" selection-start-line="77" selection-end-line="77" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -99,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="53" column="30" lean-forward="true" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+            <state relative-caret-position="443">
+              <caret line="61" column="92" selection-start-line="61" selection-start-column="92" selection-end-line="61" selection-end-column="92" />
             </state>
           </provider>
         </entry>
@@ -140,8 +141,8 @@
         <option value="$PROJECT_DIR$/Behavior/General/Track.py" />
         <option value="$PROJECT_DIR$/SegmentedTracker.py" />
         <option value="$PROJECT_DIR$/Behavior/General/ExpPair.py" />
-        <option value="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" />
         <option value="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" />
+        <option value="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" />
       </list>
     </option>
   </component>
@@ -408,20 +409,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="53" column="30" lean-forward="true" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Behavior/Tools/Artifacts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+        <state relative-caret-position="1155">
+          <caret line="77" selection-start-line="77" selection-end-line="77" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="61" column="92" selection-start-line="61" selection-start-column="92" selection-end-line="61" selection-end-column="92" />
         </state>
       </provider>
     </entry>

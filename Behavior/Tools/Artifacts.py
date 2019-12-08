@@ -75,7 +75,7 @@ if __name__ == "__main__":
             art.addArtifact('roi', roiAnalyses._results)
             art.addArtifact('proj', projectionAnalyses._results)
             art.addArtifact('occup', occupAnalyses._results)
-            
+
         except Exception as exp:
             print('Error:' + str(exp))
 
