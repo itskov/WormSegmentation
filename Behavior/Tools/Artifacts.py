@@ -52,25 +52,30 @@ if __name__ == "__main__":
     for fileName in Path(rootDir).rglob('TPH_1_ATR_TRAIN_IAA*/exp.npy'):
         print(fileName)
 
-        # load experiment.
-        exp = np.load(fileName)[0]
-        exp.trimExperiment(4500)
+        try:
+            # load experiment.
+            exp = np.load(fileName)[0]
+            exp.trimExperiment(4500)
 
-        # Create an artifact folder.
-        art = Artifacts(exp)
+            # Create an artifact folder.
+            art = Artifacts(exp)
 
-        # Checking for artifact dirs.
-        art.checkForArtifactsDir()
+            # Checking for artifact dirs.
+            art.checkForArtifactsDir()
 
-        roiAnalyses = RoiAnalysis(exp)
-        projectionAnalyses = ProjectionAnalyses(exp)
-        occupAnalyses = OccupVisualizer(exp)
+            roiAnalyses = RoiAnalysis(exp)
+            projectionAnalyses = ProjectionAnalyses(exp)
+            occupAnalyses = OccupVisualizer(exp)
 
-        roiAnalyses.execute()
-        projectionAnalyses.execute()
-        occupAnalyses.execute(showPlot=False)
+            roiAnalyses.execute()
+            projectionAnalyses.execute()
+            occupAnalyses.execute(showPlot=False)
 
 
-        art.addArtifact('roi', roiAnalyses._results)
-        art.addArtifact('proj', projectionAnalyses._results)
-        art.addArtifact('occup', occupAnalyses._results)
+            art.addArtifact('roi', roiAnalyses._results)
+            art.addArtifact('proj', projectionAnalyses._results)
+            art.addArtifact('occup', occupAnalyses._results)
+            
+        except Exception as exp:
+            print('Error:' + str(exp))
+
