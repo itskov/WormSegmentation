@@ -33,7 +33,7 @@ def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
         arts = Artifacts(expLocation=expDirName)
 
         roiResults = arts.getArtifact('roi')
-        currentExpResults = roiResults._results['arrivedFrac']
+        currentExpResults = roiResults['arrivedFrac']
         timePointResults = np.array(currentExpResults)[interestingTimePoints]
         firstGroupResults[i, :] = timePointResults
 
