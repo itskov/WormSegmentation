@@ -5,7 +5,7 @@ from os import path, mkdir
 class Artifacts:
     def __init__(self, exp):
         _expDir = exp._expDir
-        _currentDir = self._expDir._expDir
+        _currentDir = path.dirname(self._videoFilename)
         _artifactsDir = path.join(self._currentDir, 'artifacts')
 
     def checkForArtifactsDir(self):
