@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e1243a8-e46d-4aa0-96e4-9efe360b60d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Behavior/General/Experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/General/Experiment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Behavior/Visualizers/RoiAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Visualizers/RoiAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChristianAnalysis/.ipynb_checkpoints/ChristianAnalysis-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ChristianAnalysis/.ipynb_checkpoints/ChristianAnalysis-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChristianAnalysis/ChristianAnalysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ChristianAnalysis/ChristianAnalysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,18 +13,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DataCollector.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RemoteConductor.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -103,14 +88,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Behavior/Tools/Artifacts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+            <state relative-caret-position="439">
+              <caret line="44" column="58" selection-start-line="44" selection-start-column="58" selection-end-line="44" selection-end-column="58" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="509">
+              <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -148,6 +142,7 @@
         <option value="$PROJECT_DIR$/SegmentedTracker.py" />
         <option value="$PROJECT_DIR$/Behavior/General/ExpPair.py" />
         <option value="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" />
+        <option value="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" />
       </list>
     </option>
   </component>
@@ -416,11 +411,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Behavior/Tools/Artifacts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+        <state relative-caret-position="439">
+          <caret line="44" column="58" selection-start-line="44" selection-start-column="58" selection-end-line="44" selection-end-column="58" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
         </state>
       </provider>
     </entry>

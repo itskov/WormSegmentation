@@ -9,36 +9,53 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 from Behavior.Visualizers.RoiAnalysis import RoiAnalysis
+from Behavior.Tools.Artifacts import Artifacts
 
+from pathlib import Path
 from os import path
 
-def meanProjectionMean(firstGroupExps, secondGroupExps, firstCondName, secondCondName):
+def meanProjectionMean(firstGroupName, secondGroupName, path):
+
+    firstExperimentsFiles = Path('*' + firstGroupName + '*').rglob('exp.npy')
+    secondExperimentsFiles = Path('*' + secondGroupName + '*').rglob('exp.npy')
 
     interestingTimePoints = [0,1000, 2000, 3000,4000]
-    firstGroupResults = np.zeros((len(firstGroupExps), len(interestingTimePoints)))
-    secoundGroupResults = np.zeros((len(secondGroupExps), len(interestingTimePoints)))
+    firstGroupResults = np.zeros((len(firstExperimentsFiles), len(interestingTimePoints)))
+    secoundGroupResults = np.zeros((len(secondExperimentsFiles), len(interestingTimePoints)))
 
-    for i, exp in enumerate(firstGroupExps):
-        roiResults = RoiAnalysis(exp, trimTracksPos=(interestingTimePoints[-1] + 500))
-        roiResults.execute()
+
+    print('First Group:')
+    for i, filename in enumerate(firstExperimentsFiles):
+        print('Going over experiment: %s' % (filename,))
+
+        # Getting the dirname of the experiment.
+        expDirName = path.dirname(filename)
+        arts = Artifacts(expDirName)
+
+        roiResults = arts.getArtifact('roi')
         currentExpResults = roiResults._results['arrivedFrac']
-
         timePointResults = np.array(currentExpResults)[interestingTimePoints]
         firstGroupResults[i, :] = timePointResults
 
-    for i, exp in enumerate(secondGroupExps):
-        roiResults = RoiAnalysis(exp, trimTracksPos=(interestingTimePoints[-1] + 500))
-        roiResults.execute()
-        currentExpResults = roiResults._results['arrivedFrac']
+    print('Second Group:')
+    for i, filename in enumerate(secondExperimentsFiles):
+        print('Going over experiment: %s' % (filename,))
 
+        # Getting the dirname of the experiment.
+        expDirName = path.dirname(filename)
+        arts = Artifacts(expDirName)
+
+        roiResults = arts.getArtifact('roi')
+        currentExpResults = roiResults._results['arrivedFrac']
         timePointResults = np.array(currentExpResults)[interestingTimePoints]
         secoundGroupResults[i, :] = timePointResults
+
 
     flattenFirstGroup = firstGroupResults.flatten(order='C')
     flattenSecondGroup = secoundGroupResults.flatten(order='C')
 
     fracitons = tuple(flattenFirstGroup) + tuple(flattenSecondGroup)
-    conds = (firstCondName,) * flattenFirstGroup.size + (secondCondName,) * flattenSecondGroup.size
+    conds = (firstGroupName,) * flattenFirstGroup.size + (secondGroupName,) * flattenSecondGroup.size
 
     timePoints = int((len(fracitons)) /
                      len(interestingTimePoints)) * tuple(interestingTimePoints)
@@ -47,23 +64,14 @@ def meanProjectionMean(firstGroupExps, secondGroupExps, firstCondName, secondCon
     sns.set(style='darkgrid')
     plt.style.use("dark_background")
     sns.pointplot(x='time', y='Fraction Arrived', data=df, hue='Cond')
-
-
-
-    #DEBUG
-
-def experiemntsFromFileList(fileList, condName):
-    exps = [np.load(f)[0] for f in fileList]
-    [exp.trimExperiment(4500) for exp in exps]
-
-    print('Saving batch experiments..')
-    #np.save(path.join('/home/itskov/Temp/', condName), exps,  allow_pickle=False)
+    plt.show()
     print('Done.')
 
-    return exps
+
+
 
 if __name__ == "__main__":
-    firstGroupFiles = ['/mnt/storageNASRe/tph1/Results/28-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.57.17/exp.npy',
+    '''firstGroupFiles = ['/mnt/storageNASRe/tph1/Results/28-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.57.17/exp.npy',
                        '/mnt/storageNASRe/tph1/Results/24-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_18.11.35/exp.npy',
                        '/mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_10.36.51/exp.npy',
                        '/mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_ATR_TRAIN_IAA3x5.avi_13.22.04/exp.npy',
@@ -89,7 +97,6 @@ if __name__ == "__main__":
                         '/mnt/storageNASRe/tph1/Results/03-Nov-2019/TPH_1_NO_ATR_TRAIN_IAA3.avi_14.59.57/exp.npy',
                         '/mnt/storageNASRe/tph1/Results/27-Oct-2019/TPH_1_NO_ATR_TRAIN_IAA3.avi_11.49.55/exp.npy',]
 
+    '''
 
-    meanProjectionMean(experiemntsFromFileList(firstGroupFiles[0:1],'ATR_AND_IAA'),
-                       experiemntsFromFileList(secondGroupFiles[0:1],'NO_ATR_AND_IAA'),
-                       'ATR+(with IAA)', 'IAA-(with IAA)')
+    meanProjectionMean('TPH_1_ATR_IAA','TPH_1_NO_ATR_IAA','/mnt/storageNASRe/tph1/Results')
