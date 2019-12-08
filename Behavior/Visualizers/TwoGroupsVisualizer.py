@@ -47,7 +47,7 @@ def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
 
         # Getting the dirname of the experiment.
         expDirName = path.dirname(filename)
-        arts = Artifacts(expDirName)
+        arts = Artifacts(expLocation=expDirName)
 
         roiResults = arts.getArtifact('roi')
 
