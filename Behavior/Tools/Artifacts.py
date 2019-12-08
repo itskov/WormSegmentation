@@ -3,8 +3,14 @@ import numpy as np
 from os import path, mkdir
 
 class Artifacts:
-    def __init__(self, exp):
-        self._currentDir = path.dirname(exp._videoFilename)
+    def __init__(self, exp=None, expLocation=None):
+        if exp is not None:
+            self._currentDir = path.dirname(exp._videoFilename)
+        elif expLocation is not None:
+            self._currentDir = expLocation
+        else:
+            print('Error: Cant instaitiate Artifacts.')
+
         self._artifactsDir = path.join(self._currentDir, 'artifacts')
 
     def checkForArtifactsDir(self):
@@ -14,6 +20,11 @@ class Artifacts:
     def addArtifact(self, name, obj):
         artifactName = path.join(self._artifactsDir, name)
         np.save(artifactName, [obj])
+
+    def getArtifact(self, name):
+        artifactName = path.join(self._artifactsDir, name)
+        return np.load(artifactName)[0]
+
 
 
 
@@ -31,7 +42,7 @@ if __name__ == "__main__":
 
     import numpy as np
 
-    rootDir = '/mnt/storageNASRe/tph1/Results/19-Nov-2019/'
+    rootDir = '/mnt/storageNASRe/tph1/Results/28-Nov-2019/'
 
     for fileName in Path(rootDir).rglob('exp.npy'):
         print(fileName)

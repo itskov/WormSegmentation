@@ -7,8 +7,6 @@ class RoiAnalysis:
         if (exp._scale == 1):
             exp.takeScale()
 
-
-
         if ('startReg' not in exp._regionsOfInterest):
             exp.addCirclePotisionRad('startReg', exp._scale / 5)
             exp.addCirclePotisionRad('endReg', exp._scale / 5)
