@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e1243a8-e46d-4aa0-96e4-9efe360b60d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Tools/Artifacts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -103,8 +102,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+            <state relative-caret-position="184">
+              <caret line="22" column="90" lean-forward="true" selection-start-line="22" selection-start-column="90" selection-end-line="22" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -421,8 +420,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Behavior/Visualizers/TwoGroupsVisualizer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+        <state relative-caret-position="184">
+          <caret line="22" column="90" lean-forward="true" selection-start-line="22" selection-start-column="90" selection-end-line="22" selection-end-column="90" />
         </state>
       </provider>
     </entry>

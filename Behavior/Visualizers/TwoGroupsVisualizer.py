@@ -20,8 +20,8 @@ def meanProjectionMean(firstGroupName, secondGroupName, path):
     secondExperimentsFiles = Path('*' + secondGroupName + '*').rglob('exp.npy')
 
     interestingTimePoints = [0,1000, 2000, 3000,4000]
-    firstGroupResults = np.zeros((len(firstExperimentsFiles), len(interestingTimePoints)))
-    secoundGroupResults = np.zeros((len(secondExperimentsFiles), len(interestingTimePoints)))
+    firstGroupResults = np.zeros((firstExperimentsFiles.size, len(interestingTimePoints)))
+    secoundGroupResults = np.zeros((secondExperimentsFiles.size, len(interestingTimePoints)))
 
 
     print('First Group:')
