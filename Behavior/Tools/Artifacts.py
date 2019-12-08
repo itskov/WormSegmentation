@@ -4,9 +4,8 @@ from os import path, mkdir
 
 class Artifacts:
     def __init__(self, exp):
-        _expDir = exp._expDir
-        _currentDir = path.dirname(self._videoFilename)
-        _artifactsDir = path.join(self._currentDir, 'artifacts')
+        self._currentDir = path.dirname(exp._videoFilename)
+        self._artifactsDir = path.join(self._currentDir, 'artifacts')
 
     def checkForArtifactsDir(self):
         if not path.exists(self._artifactsDir):
@@ -39,6 +38,7 @@ if __name__ == "__main__":
 
         # load experiment.
         exp = np.load(fileName)[0]
+        exp.trimExperiment(4500)
 
         # Create an artifact folder.
         art = Artifacts(exp)
@@ -49,6 +49,11 @@ if __name__ == "__main__":
         roiAnalyses = RoiAnalysis(exp)
         projectionAnalyses = ProjectionAnalyses(exp)
         occupAnalyses = OccupVisualizer(exp)
+
+        roiAnalyses.execute()
+        projectionAnalyses.execute()
+        occupAnalyses.execute(showPlot=False)
+
 
         art.addArtifact('roi', roiAnalyses._results)
         art.addArtifact('proj', projectionAnalyses._results)
