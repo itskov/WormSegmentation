@@ -99,4 +99,4 @@ if __name__ == "__main__":
 
     '''
 
-    meanProjectionMean('TPH_1_ATR_IAA','TPH_1_NO_ATR_IAA','/mnt/storageNASRe/tph1/Results')
+    meanProjectionMean('TPH_1_ATR_TRAIN_IAA','TPH_1_NO_ATR_TRAIN_IAA','/mnt/storageNASRe/tph1/Results')
