@@ -33,6 +33,10 @@ def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
         arts = Artifacts(expLocation=expDirName)
 
         roiResults = arts.getArtifact('roi')
+
+        if roiResults == None:
+            continue
+
         currentExpResults = roiResults['arrivedFrac']
         timePointResults = np.array(currentExpResults)[interestingTimePoints]
         firstGroupResults[i, :] = timePointResults
@@ -46,7 +50,11 @@ def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
         arts = Artifacts(expDirName)
 
         roiResults = arts.getArtifact('roi')
-        currentExpResults = roiResults._results['arrivedFrac']
+
+        if roiResults == None:
+            continue
+
+        currentExpResults = roiResults['arrivedFrac']
         timePointResults = np.array(currentExpResults)[interestingTimePoints]
         secoundGroupResults[i, :] = timePointResults
 
