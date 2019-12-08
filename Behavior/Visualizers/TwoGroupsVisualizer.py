@@ -16,7 +16,7 @@ from os import path
 
 def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
 
-    firstExperimentsFiles = list(rootPath).rglob(Path(firstGroupName + '*/exp.npy'))
+    firstExperimentsFiles = list(Path(rootPath).rglob(firstGroupName + '*/exp.npy'))
     secondExperimentsFiles = list(Path(rootPath).rglob(secondGroupName + '*/exp.npy'))
 
     interestingTimePoints = [0,1000, 2000, 3000,4000]
