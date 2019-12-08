@@ -44,9 +44,6 @@ class Experiment:
         # Setting the movie to be in the first frame ( a length process ).
         self._cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
-        # Here we store important positions.
-        self._positions = {}
-
         # Here we save directory
         self._outputDirName = path.dirname(self._videoFilename)
 
