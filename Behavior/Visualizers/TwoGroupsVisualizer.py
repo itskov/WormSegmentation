@@ -14,10 +14,10 @@ from Behavior.Tools.Artifacts import Artifacts
 from pathlib import Path
 from os import path
 
-def meanProjectionMean(firstGroupName, secondGroupName, path):
+def meanProjectionMean(firstGroupName, secondGroupName, rootPath):
 
-    firstExperimentsFiles = list(Path(firstGroupName + '*').rglob('exp.npy'))
-    secondExperimentsFiles = list(Path(secondGroupName + '*').rglob('exp.npy'))
+    firstExperimentsFiles = list(rootPath).rglob(Path(firstGroupName + '*/exp.npy'))
+    secondExperimentsFiles = list(Path(rootPath).rglob(secondGroupName + '*/exp.npy'))
 
     interestingTimePoints = [0,1000, 2000, 3000,4000]
     firstGroupResults = np.zeros((len(firstExperimentsFiles), len(interestingTimePoints)))
