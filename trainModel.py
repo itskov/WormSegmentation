@@ -18,7 +18,7 @@ from os import path
 def cnn_model_fn(origImages_, filteredImages, imageSize):
     input_layer = tf.reshape(origImages_, [-1, imageSize[0], imageSize[1], 1])
     filtered_images = tf.reshape(filteredImages, [-1, imageSize[0], imageSize[1], 1])
-    
+
     conv1 = tf.layers.conv2d(
         inputs=input_layer,
         filters=16,
@@ -45,24 +45,24 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     dconv1 = tf.layers.conv2d_transpose(
         inputs=conv3,
-        filters=16,
+        filters=64,
         kernel_size=(3, 3),
         strides=(2, 2),
         padding="same",
         activation=tf.nn.relu)
-    
+
     dconv1 = tf.concat((dconv1, conv2), axis=3)
 
     dconv2 = tf.layers.conv2d_transpose(
         inputs=dconv1,
-        filters=32,
+        filters=64,
         kernel_size=(3, 3),
         strides=(2, 2),
         padding="same",
         activation=tf.nn.relu)
-    
+
     dconv2 = tf.concat((dconv2, conv1), axis=3)
-    
+
     dconv3 = tf.layers.conv2d_transpose(
         inputs=dconv2,
         filters=64,
@@ -71,7 +71,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
         padding="same",
         activation=tf.nn.relu)
 
-    dconv3 = tf.concat((dconv3, input_layer), axis=3)  
+    dconv3 = tf.concat((dconv3, input_layer), axis=3)
 
     output = tf.layers.conv2d(
         inputs=dconv3,

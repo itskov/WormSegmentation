@@ -47,9 +47,9 @@ if __name__ == "__main__":
 
     import numpy as np
 
-    rootDir = '/mnt/storageNASRe/tph1/Results/'
+    rootDir = '/home/itskov/Temp/behav/04-Dec-2019'
 
-    for fileName in Path(rootDir).rglob('TPH_1_ATR_TRAIN_IAA*/exp.npy'):
+    for fileName in Path(rootDir).rglob('*/exp.npy'):
         print(fileName)
 
         try:

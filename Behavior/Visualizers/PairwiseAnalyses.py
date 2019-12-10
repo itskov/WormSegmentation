@@ -15,6 +15,7 @@ from Behavior.Visualizers.RevPosDensity import RevPosDensity
 def PairWiseRoi(cond1, firstExp, cond2, secondExp):
     #sns.set()
     plt.style.use("dark_background")
+    sns.set_context("talk")
 
     print('Start Analyses..')
     firstRoi = RoiAnalysis(firstExp)
@@ -38,6 +39,7 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp):
 
 def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     plt.style.use("dark_background")
+    sns.set_context("talk")
 
     LENGTH_THR = 250
 
