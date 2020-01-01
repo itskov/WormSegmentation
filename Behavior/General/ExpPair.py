@@ -127,6 +127,15 @@ class ExpPair:
             firstImRawDraw = ImageDraw.Draw(firstImSeg)
             firstImRawDraw.text((0, 0), self._cond1, font=fnt, fill=ImageColor.getrgb(self.FIRST_COLOR))
 
+            # DEBUG
+            countStr = "%d \ %d (%d%%)" % \
+                       (int(firstRoi._results['arrived'][frameNum]),
+                        int(firstRoi._results['wormCount']),
+                        int((firstRoi._results['arrived'][frameNum] * 100) / firstRoi._results['wormCount']))
+
+            firstImRawDraw.text((0, 120), countStr, font=fnt, fill=ImageColor.getrgb(self.FIRST_COLOR))
+            # DEBUG
+
             chemoPos = np.fliplr(np.atleast_2d(self._firstExp._regionsOfInterest['endReg']['pos']))
             chemoPos = np.ravel(chemoPos)
             chemoPos[0] += firstAlign
@@ -136,6 +145,16 @@ class ExpPair:
             secondImSeg = Image.fromarray(secondFrame)
             secondImRawDraw = ImageDraw.Draw(secondImSeg)
             secondImRawDraw.text((0, 0), self._cond2, font=fnt, fill=ImageColor.getrgb(self.SECOND_COLOR))
+
+            # DEBUG
+            countStr = "%d \ %d (%d%%)" % \
+                       (int(secondRoi._results['arrived'][frameNum]),
+                        int(secondRoi._results['wormCount']),
+                        int((secondRoi._results['arrived'][frameNum] * 100) / secondRoi._results['wormCount']))
+
+            secondImRawDraw.text((0, 120), countStr, font=fnt, fill=ImageColor.getrgb(self.SECOND_COLOR))
+            # DEBUG
+
 
             width = 10
             for d in range(width):
@@ -180,7 +199,7 @@ class ExpPair:
                 fontP = FontProperties()
                 fontP.set_size('x-small')
                 ax_fig.grid(alpha=0.2)
-                plt.legend(prop=fontP)
+                #plt.legend(prop=fontP)
 
                 #plt.legend()
                 #plt.show()
@@ -213,22 +232,24 @@ def main():
 
         from Behavior.General.ExpPair import ExpPair
 
-        expPair = ExpPair('/home/itskov/Temp/behav/04-Dec-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_11.15.02/exp.npy',
-                          '/home/itskov/Temp/behav/04-Dec-2019/TPH_1_NO_ATR_TRAIN_IAA3x5.avi_11.15.51/exp.npy')
+        expPair = ExpPair('/home/itskov/Temp/behav/10-Dec-2019/TPH_1_ATR_TRAIN_30M_NO_IAA3x5.avi_13.09.23/exp.npy',
+                          '/home/itskov/Temp/behav/10-Dec-2019/NAIVE.avi_13.08.48/exp.npy')
 
-        #expPair.createPairVisualization(4500, dpi=250)
+        #expPair._firstExp.trimExperiment(4500)
+        #expPair._secondExp.trimExperiment(4500)
+
+
+        expPair.createPairVisualization(8000, dpi=250)
 
         from Behavior.Visualizers.PairwiseAnalyses import PairWiseRoi
         from Behavior.Visualizers.PairwiseAnalyses import  PairWiseProjectionDensity
         from Behavior.Visualizers.PairwiseAnalyses import PairWiseSpeedDensity
 
-        expPair._firstExp.trimExperiment(4500)
-        expPair._secondExp.trimExperiment(4500)
 
-        sns.set_context("talk")
+        #sns.set_context("talk")
 
         #PairWiseProjectionDensity('IAA-', expPair._firstExp,'IAA+', expPair._secondExp)
-        PairWiseSpeedDensity('IAA-', expPair._firstExp,'IAA+', expPair._secondExp)
+        #PairWiseSpeedDensity('IAA-', expPair._firstExp,'IAA+', expPair._secondExp)
 
 
 

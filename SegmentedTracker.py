@@ -154,6 +154,7 @@ class SegmentedTracker:
 
         # We store the relevant tracks so we won't go over irrelevant tracks
         relevantTracks = np.array(self._tracks)
+        relevantTracksMaxFrame = [t.keys()[-1] for t in relevantTracks]
 
         for currentFrameNum in range(1, self._numOfFrames):
             beforeTime = time()
@@ -170,8 +171,9 @@ class SegmentedTracker:
             # Here we
             shouldRemoveInds = np.zeros((len(relevantTracks),), dtype=np.bool)
 
-            for tId,t in enumerate(relevantTracks):
-                if currentFrameNum > np.max(list(t.keys())):
+            for tId, t in enumerate(relevantTracks):
+                #if currentFrameNum > np.max(list(t.keys())):
+                if (currentFrameNum > relevantTracksMaxFrame[tId]):
                     shouldRemoveInds[tId] = True
                     continue
 
@@ -183,12 +185,13 @@ class SegmentedTracker:
                     #curImSegDraw.line(traj, fill=(255,0,0), width=2)
                     #curImSegDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
-                    curImRawDraw.line(traj, fill=(255,0,0), width=2)
+                    curImRawDraw.line(traj, fill=(255, 0, 0), width=2)
                     curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
 
             if shouldRemoveInds.size > 0:
                 relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
+                relevantTracksMaxFrame = relevantTracksMaxFrame[np.logical_not(shouldRemoveInds)]
 
             #videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
