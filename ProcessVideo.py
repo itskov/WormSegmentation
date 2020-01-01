@@ -91,7 +91,7 @@ def Process(restorePoint, fileToProcess):
     outputFile = os.path.join(INPUT_DIR, fileName + "_seg.mp4")
 
     # If done. Shouldn't redo.
-    if (exists(outputFile)):
+    if exists(outputFile):
         return outputFile
 
     writeLog(logFile, 'Opening: ' + inputFile)
