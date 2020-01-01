@@ -154,7 +154,7 @@ class SegmentedTracker:
 
         # We store the relevant tracks so we won't go over irrelevant tracks
         relevantTracks = np.array(self._tracks)
-        relevantTracksMaxFrame = [list(t.keys())[-1] for t in relevantTracks]
+        relevantTracksMaxFrame = np.array([list(t.keys())[-1] for t in relevantTracks])
 
         for currentFrameNum in range(1, self._numOfFrames):
             beforeTime = time()

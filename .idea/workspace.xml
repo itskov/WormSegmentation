@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e1243a8-e46d-4aa0-96e4-9efe360b60d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ChristianAnalysis/.ipynb_checkpoints/ChristianAnalysis-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ChristianAnalysis/.ipynb_checkpoints/ChristianAnalysis-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChristianAnalysis/ChristianAnalysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ChristianAnalysis/ChristianAnalysis.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SegmentedTracker.py" beforeDir="false" afterPath="$PROJECT_DIR$/SegmentedTracker.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SegmentedTracker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="155" column="47" lean-forward="true" selection-start-line="155" selection-start-column="47" selection-end-line="155" selection-end-column="47" />
+            <state relative-caret-position="519">
+              <caret line="156" column="87" selection-start-line="156" selection-start-column="87" selection-end-line="156" selection-end-column="87" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -339,13 +337,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RemoteConductor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RemoteConductor_Chris.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -417,10 +408,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/RemoteConductor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SegmentedTracker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="155" column="47" lean-forward="true" selection-start-line="155" selection-start-column="47" selection-end-line="155" selection-end-column="47" />
+        <state relative-caret-position="519">
+          <caret line="156" column="87" selection-start-line="156" selection-start-column="87" selection-end-line="156" selection-end-column="87" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
