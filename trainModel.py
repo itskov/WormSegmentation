@@ -82,7 +82,7 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     loss = tf.reduce_mean(tf.norm(tf.subtract(output, filtered_images)))
 
-    return (loss, output)
+    return loss, output
 
 def getBatch(batchDir, batchNum, imageSize):
     npyFiles = glob(path.join(batchDir, '*.npy'))

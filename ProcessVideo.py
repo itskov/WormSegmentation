@@ -7,7 +7,7 @@ import numpy as np
 import tensorflow as tf
 import time
 
-from trainModel import  cnn_model_fn,normalizeFrame
+from trainModel import  cnn_model_fn, normalizeFrame
 
 from skvideo.io import FFmpegWriter
 from os.path import join, exists
@@ -189,6 +189,7 @@ def Process(restorePoint, fileToProcess):
 
 
 
+        print('Closing segmented video.')
         videoWriter.close()
 
         return outputFile
