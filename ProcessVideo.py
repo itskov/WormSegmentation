@@ -84,7 +84,7 @@ def Process(restorePoint, fileToProcess):
     global logFile
     logFile = open(join(INPUT_DIR, 'seg.log'), 'a')
 
-    writeLog(logFile,'Start segmentation')
+    writeLog(logFile, 'Start segmentation')
 
 
     inputFile = fileToProcess
@@ -92,6 +92,7 @@ def Process(restorePoint, fileToProcess):
 
     # If done. Shouldn't redo.
     if exists(outputFile):
+        print('Found Segmentation. Skipping.')
         return outputFile
 
     writeLog(logFile, 'Opening: ' + inputFile)

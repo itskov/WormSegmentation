@@ -43,7 +43,7 @@ def conduct(inputDir = None):
 
     inputFile = files[0]
 
-    print('Initial file: ' + inputFile )
+    print('Initial file: ' + inputFile)
 
     outputFile = Process(RESTORE_POINT, inputFile)
     print('Tracking: ' + outputFile)
