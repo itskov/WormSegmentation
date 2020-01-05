@@ -3,7 +3,8 @@ from os import path
 
 import cv2
 
-class SplitChannels(AnalysisStep):
+
+class SplitChannelsStep(AnalysisStep):
     # Each child should implement these
     def process(self, artifacts):
         if 'mj2_cap' not in artifacts:
@@ -15,6 +16,7 @@ class SplitChannels(AnalysisStep):
                 return None
 
             artifacts['mj2_cap'] = mj2_cap
+            artifacts['frame_num'] = 0
 
         if 'full_vid_filename' not in artifacts:
             inputPath = path.dirname(mj2_path)
@@ -35,6 +37,7 @@ class SplitChannels(AnalysisStep):
             artifacts['compressed_vid_filename'] = channelFileCompressed
 
         mj2_cap = artifacts['mj2_cap']
+        artifacts['frame_num'] += 1
 
         success, read_frame = mj2_cap.read()
 

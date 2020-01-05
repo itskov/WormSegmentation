@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 from scipy.ndimage import measurements, label
-from scipy.spatial.distance import  pdist
+from scipy.spatial.distance import pdist
 from skvideo.io import FFmpegWriter
 from time import time
 
@@ -155,6 +155,7 @@ class SegmentedTracker:
         # We store the relevant tracks so we won't go over irrelevant tracks
         relevantTracks = np.array(self._tracks)
         relevantTracksMaxFrame = np.array([list(t.keys())[-1] for t in relevantTracks])
+        relevantTracksMinFrame = np.array([list(t.keys())[0] for t in relevantTracks])
 
         for currentFrameNum in range(1, self._numOfFrames):
             beforeTime = time()
@@ -177,7 +178,7 @@ class SegmentedTracker:
                     shouldRemoveInds[tId] = True
                     continue
 
-                if currentFrameNum >= np.min(list(t.keys())) and currentFrameNum <= np.max(list(t.keys())):
+                if relevantTracksMinFrame[tId] <= currentFrameNum <= relevantTracksMaxFrame[tId]:
                     trajItems = list(t.items())
 
                     traj = [(pos[1][1], pos[1][0]) for pos in trajItems if pos[0] <= currentFrameNum]
@@ -192,6 +193,7 @@ class SegmentedTracker:
             if shouldRemoveInds.size > 0:
                 relevantTracks = relevantTracks[np.logical_not(shouldRemoveInds)]
                 relevantTracksMaxFrame = relevantTracksMaxFrame[np.logical_not(shouldRemoveInds)]
+                relevantTracksMinFrame = relevantTracksMinFrame[np.logical_not(shouldRemoveInds)]
 
             #videoWriterSeg.writeFrame(np.asarray(curImSeg).copy())
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
@@ -233,7 +235,7 @@ class SegmentedTracker:
 
         success, rawReadFrame = self._rawCap.read()
 
-        return (segReadFrame, rawReadFrame, labeledFrame, labelsInds)
+        return segReadFrame, rawReadFrame, labeledFrame, labelsInds
 
 
     def saveTracks(self):

@@ -8,7 +8,7 @@ from os import path
 import cv2
 
 
-class Segment(AnalysisStep):
+class SegmentStep(AnalysisStep):
     def __init__(self):
         self._BINS = 4
 
@@ -17,7 +17,7 @@ class Segment(AnalysisStep):
         restore_point = artifacts['restore_points']
 
 
-        height, width, _ = current_frame.shape
+        height, width = current_frame.shape
 
         if 'sess' not in artifacts:
             currentFrame_ = tf.placeholder(tf.float32, [None, int(height / self._BINS), int(width / self._BINS)])
@@ -45,23 +45,23 @@ class Segment(AnalysisStep):
             artifacts['sess_current_frame'] = currentFrame_
             artifacts['sess_current_filtered_frame'] = filteredFrame_
 
-            current_frame = np.reshape(artifacts['current_frame'], (1, height, width))
-            splitted_frame = self.splitBatch(current_frame, self._BINS)
+        current_frame = np.reshape(artifacts['current_frame'], (1, height, width))
+        splitted_frame = self.splitBatch(current_frame, self._BINS)
 
-            procDict = {artifacts['sess_current_frame']: splitted_frame,
-                        artifacts['sess_current_filtered_frame']: splitted_frame}
+        procDict = {artifacts['sess_current_frame']: splitted_frame,
+                    artifacts['sess_current_filtered_frame']: splitted_frame}
 
-            # The actual forward move.
-            outputVal = artifacts['sess_output'].eval(procDict)
+        # The actual forward move.
+        output_val = artifacts['sess_output'].eval(procDict, session=artifacts['sess'])
 
-            output_val = self.mergeBatch(outputVal, self._BINS)
-            output_val = normalizeFrame(np.reshape(output_val, (1, height, width)))
+        output_val = self.mergeBatch(output_val, self._BINS)
+        output_val = normalizeFrame(np.reshape(output_val, (1, height, width)))
 
-            output_val[0, :, :] = cv2.blur(outputVal[0, :, :], (3, 3))
-            output_val[output_val < 125] = 0
-            output_val[output_val >= 125] = 1 * 255
+        output_val[0, :, :] = cv2.blur(output_val[0, :, :], (3, 3))
+        output_val[output_val < 125] = 0
+        output_val[output_val >= 125] = 1 * 255
 
-            artifacts['segmented_frame'] = output_val
+        artifacts['segmented_frame'] = output_val
 
         return artifacts
 

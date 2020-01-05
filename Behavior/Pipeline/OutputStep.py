@@ -2,7 +2,7 @@ from Behavior.Pipeline.AnalysisStep import AnalysisStep
 
 from skvideo.io import FFmpegWriter
 
-class Output(AnalysisStep):
+class OutputStep(AnalysisStep):
 
     # Return None if failed.
     def process(self, artifacts):
@@ -14,6 +14,7 @@ class Output(AnalysisStep):
             artifacts['compressed_vid_handle'] = compressed_vid_handle
         if 'seg_vid_handle' not in artifacts:
             seg_vid_handle = FFmpegWriter(artifacts['seg_vid_filename'], outputdict={'-crf': '0'})
+            artifacts['seg_vid_handle'] = seg_vid_handle
 
         artifacts['full_vid_handle'].writeFrame(artifacts['current_frame'])
         artifacts['compressed_vid_handle'].writeFrame(artifacts['current_frame'])
