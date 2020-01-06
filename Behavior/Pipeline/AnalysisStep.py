@@ -27,9 +27,9 @@ class AnalysisStep:
 
 def process(pipline, artifacts):
     while artifacts['frame_num'] < 8000:
+        print('Frame: %d' % (artifacts['frame_num'],))
         for i, proc in enumerate(pipline):
             all_time_before = time()
-            print('Frame: %d' % (artifacts['frame_num'],))
             before_time = time()
             artifacts = proc.process(artifacts)
             duration_time = time() - before_time
