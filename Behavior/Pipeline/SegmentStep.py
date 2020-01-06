@@ -91,7 +91,7 @@ class SegmentStep(AnalysisStep):
             print("Error splitting: " + str((batchDataSize[0], batchDataSize[1])) + " do  not divide by " + str(bins))
             return
 
-        print((batchDataSize[1], batchDataSize[2], batchDataSize[0]))
+        #print((batchDataSize[1], batchDataSize[2], batchDataSize[0]))
         # batchData = np.reshape(batchData, (batchDataSize[1],batchDataSize[2],batchDataSize[0]))
         batchDataSize = batchData.shape
 

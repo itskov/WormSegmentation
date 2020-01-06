@@ -50,7 +50,7 @@ class TrackStep(AnalysisStep):
             [self._currentTracks.append({frame_num: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
         # Log
-        print('Tracking frame: ' + str(frame_num) + " Entities in frame: " + str(len(labelsInds)))
+        # print('Tracking frame: ' + str(frame_num) + " Entities in frame: " + str(len(labelsInds)))
 
         return artifacts
 
