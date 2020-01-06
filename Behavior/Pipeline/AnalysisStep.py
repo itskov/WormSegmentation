@@ -31,7 +31,7 @@ def process(pipline, artifacts):
             before_time = time()
             artifacts = proc.process(artifacts)
             duration_time = time() - before_time
-            print('$d. %s time: %d' % (i, proc.stepName(artifacts), duration_time))
+            print('%d. %s time: %d' % (i, proc.stepName(artifacts), duration_time))
 
 if __name__ == '__main__':
     import sys
