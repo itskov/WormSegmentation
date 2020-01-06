@@ -74,6 +74,13 @@ class TrackStep(AnalysisStep):
 
         np.save(outputFile, tracks)
 
+        # Temp. Create the tracking files.
+        from SegmentedTracker import SegmentedTracker
+        st = SegmentedTracker(artifacts['seg_vid_filename'], artifacts['full_vid_filename'])
+        st._tracks = self._tracks
+        st.createTrackedMovie()
+
+
 
 
     def stepName(self, artifacts):
@@ -95,7 +102,7 @@ class TrackStep(AnalysisStep):
             initialLabelsInds =  list(range(n))
 
             area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
-            badAreas = np.where((area < 5) | (area > 400))[0]
+            badAreas = np.where((area < 8) | (area > 400))[0]
             labeledFrame[np.isin(labeledFrame, badAreas)] = 0
 
             labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))

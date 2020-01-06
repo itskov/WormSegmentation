@@ -15,6 +15,7 @@ class SplitChannelsStep(AnalysisStep):
                 self.log("Couldn't open the mj2 file.")
                 return None
 
+            mj2_cap.set(cv2.CAP_PROP_POS_FRAMES, self._startFrame)
             artifacts['mj2_cap'] = mj2_cap
             artifacts['frame_num'] = 0
 

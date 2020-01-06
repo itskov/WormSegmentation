@@ -27,7 +27,8 @@ class AnalysisStep:
 
 def process(pipline, artifacts):
     start_time = time()
-    while artifacts['frame_num'] < 8000:
+    # Change to 8000
+    while artifacts['frame_num'] < 3000:
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'],so_far_time / 60))
         all_time_before = time()
@@ -42,7 +43,7 @@ def process(pipline, artifacts):
         print('\tOverall: %f s' %(all_time_duration,))
 
     print('Closing..')
-    [p.close for p in pipline]
+    [p.close() for p in pipline]
 
 if __name__ == '__main__':
     import sys
@@ -59,7 +60,7 @@ if __name__ == '__main__':
     artifacts['restore_points'] = '/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation'
     artifacts['frame_num'] = 0
 
-    pipline = [SplitChannelsStep(), SegmentStep(), TrackStep(), OutputStep()]
+    pipline = [SplitChannelsStep(), SegmentStep(), OutputStep(), TrackStep()]
     process(pipline, artifacts)
 
     '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
