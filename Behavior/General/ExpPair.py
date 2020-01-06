@@ -127,49 +127,53 @@ class ExpPair:
             firstImRawDraw = ImageDraw.Draw(firstImSeg)
             firstImRawDraw.text((0, 0), self._cond1, font=fnt, fill=ImageColor.getrgb(self.FIRST_COLOR))
 
-            # DEBUG
             countStr = "%d \ %d (%d%%)" % \
                        (int(firstRoi._results['arrived'][frameNum]),
                         int(firstRoi._results['wormCount']),
                         int((firstRoi._results['arrived'][frameNum] * 100) / firstRoi._results['wormCount']))
 
             firstImRawDraw.text((0, 120), countStr, font=fnt, fill=ImageColor.getrgb(self.FIRST_COLOR))
-            # DEBUG
 
-            chemoPos = np.fliplr(np.atleast_2d(self._firstExp._regionsOfInterest['endReg']['pos']))
-            chemoPos = np.ravel(chemoPos)
-            chemoPos[0] += firstAlign
-            rad = self._firstExp._regionsOfInterest['endReg']['rad']
+
+            firstChemoPos = np.fliplr(np.atleast_2d(self._firstExp._regionsOfInterest['endReg']['pos']))
+            firstChemoPos  = np.ravel(firstChemoPos )
+            firstChemoPos[0] += firstAlign
+            firstRad = self._firstExp._regionsOfInterest['endReg']['rad']
+
+            secChemoPos = np.fliplr(np.atleast_2d(self._secondExp._regionsOfInterest['endReg']['pos']))
+            secChemoPos = np.ravel(secChemoPos)
+            secChemoPos[0] += secondAlign
+            secRad = self._firstExp._regionsOfInterest['endReg']['rad']
+
 
 
             secondImSeg = Image.fromarray(secondFrame)
             secondImRawDraw = ImageDraw.Draw(secondImSeg)
             secondImRawDraw.text((0, 0), self._cond2, font=fnt, fill=ImageColor.getrgb(self.SECOND_COLOR))
 
-            # DEBUG
+
             countStr = "%d \ %d (%d%%)" % \
                        (int(secondRoi._results['arrived'][frameNum]),
                         int(secondRoi._results['wormCount']),
                         int((secondRoi._results['arrived'][frameNum] * 100) / secondRoi._results['wormCount']))
 
             secondImRawDraw.text((0, 120), countStr, font=fnt, fill=ImageColor.getrgb(self.SECOND_COLOR))
-            # DEBUG
 
 
             width = 10
             for d in range(width):
-                firstImRawDraw.arc((chemoPos[0] - (rad + d),
-                                    chemoPos[1] - (rad + d),
-                                    chemoPos[0] + (rad + d),
-                                    chemoPos[1] + (rad + d)),
+                firstImRawDraw.arc((firstChemoPos[0] - (firstRad + d),
+                                    firstChemoPos[1] - (firstRad + d),
+                                    firstChemoPos[0] + (firstRad + d),
+                                    firstChemoPos[1] + (firstRad + d)),
                               0,
                               360,
                               fill=ImageColor.getrgb(self.FIRST_COLOR))
 
-                secondImRawDraw.arc((chemoPos[0] - (rad + d),
-                                    chemoPos[1] - (rad + d),
-                                    chemoPos[0] + (rad + d),
-                                    chemoPos[1] + (rad + d)),
+                secondImRawDraw.arc((secChemoPos[0] - (secRad + d),
+                                    secChemoPos[1] - (secRad + d),
+                                    secChemoPos[0] + (secRad + d),
+                                    secChemoPos[1] + (secRad + d)),
                               0,
                               360,
                               fill=ImageColor.getrgb(self.SECOND_COLOR))

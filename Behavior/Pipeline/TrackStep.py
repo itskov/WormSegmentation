@@ -68,6 +68,11 @@ class TrackStep(AnalysisStep):
         outputFile = path.join(inputPath, baseName + "_tracks")
         np.save(outputFile, self._tracks)
 
+        # Now create the movies.
+        from SegmentedTracker import SegmentedTracker
+
+
+
     def stepName(self, artifacts):
         return 'Tracking'
 

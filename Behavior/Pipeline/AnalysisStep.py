@@ -1,3 +1,5 @@
+from time import time
+
 class AnalysisStep:
     # Each child should implement these
 
@@ -23,8 +25,27 @@ class AnalysisStep:
         print(msg)
 
 
+def process(pipline, artifacts):
+    while artifacts['frame_num'] < 8000:
+        for i, proc in enumerate(pipline):
+            before_time = time()
+            artifacts = proc.process(artifacts)
+            duration_time = time() - before_time
+            print('$d. %s time: %d', (i, proc.stepName(), duration_time))
+
 if __name__ == '__main__':
+    import sys
     from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
+    from Behavior.Pipeline.SegmentStep import SegmentStep
+    from Behavior.Pipeline.TrackStep import TrackStep
+    from Behavior.Pipeline.OutputStep import OutputStep
+
+    artifacts = {}
+    artifacts['mj2_path'] = sys.argv[1]
+    pipline = [SplitChannelsStep(), SegmentStep(), TrackStep(), OutputStep()]
+    process(pipline, artifacts)
+
+    '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
     from Behavior.Pipeline.OutputStep import OutputStep
 
@@ -42,6 +63,6 @@ if __name__ == '__main__':
     os.process(artifacts)
     os.process(artifacts)
     os.process(artifacts)
-    os.close()
+    os.close()'''
 
 
