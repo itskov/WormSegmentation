@@ -26,8 +26,10 @@ class AnalysisStep:
 
 
 def process(pipline, artifacts):
+    start_time = time()
     while artifacts['frame_num'] < 8000:
-        print('Frame: %d' % (artifacts['frame_num'],))
+        so_far_time = time() - start_time
+        print('Frame: %d Time: %f m' % (artifacts['frame_num'],so_far_time / 60))
         all_time_before = time()
         for i, proc in enumerate(pipline):
 
@@ -35,9 +37,12 @@ def process(pipline, artifacts):
             artifacts = proc.process(artifacts)
             duration_time = time() - before_time
             print('\t%d. %s time: %f s' % (i, proc.stepName(artifacts), duration_time))
-            
+
         all_time_duration = time() - all_time_before
         print('\tOverall: %f s' %(all_time_duration,))
+
+    print('Closing..')
+    [p.close for p in pipline]
 
 if __name__ == '__main__':
     import sys
