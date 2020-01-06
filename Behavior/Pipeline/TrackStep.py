@@ -43,11 +43,11 @@ class TrackStep(AnalysisStep):
 
         if (shouldKeepTracks.size > 0):
             self._tracks += list(np.asanyarray(self._currentTracks)[np.logical_not(shouldKeepTracks)])
-            currentTracks = list(np.asanyarray(self._currentTracks)[shouldKeepTracks])
+            self._currentTracks = list(np.asanyarray(self._currentTracks)[shouldKeepTracks])
 
         # Adding unmatched centroids as tracks.
         if centroids.size > 0:
-            [currentTracks.append({frame_num: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
+            [self._currentTracks.append({frame_num: cent}) for cent in centroids[np.ravel(usedCentroids) == 0, :]]
 
         # Log
         print('Tracking frame: ' + str(frame_num) + " Entities in frame: " + str(len(labelsInds)))
