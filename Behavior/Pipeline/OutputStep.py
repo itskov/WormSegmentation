@@ -19,6 +19,7 @@ class OutputStep(AnalysisStep):
         artifacts['full_vid_handle'].writeFrame(artifacts['current_frame'])
         artifacts['compressed_vid_handle'].writeFrame(artifacts['current_frame'])
         artifacts['seg_vid_handle'].writeFrame(artifacts['segmented_frame'])
+        return artifacts
 
 
     def close(self, artifacts):

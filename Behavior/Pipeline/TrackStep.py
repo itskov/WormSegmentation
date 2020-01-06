@@ -52,6 +52,8 @@ class TrackStep(AnalysisStep):
         # Log
         print('Tracking frame: ' + str(frame_num) + " Entities in frame: " + str(len(labelsInds)))
 
+        return artifacts
+
 
 
     def close(self, artifacts):
