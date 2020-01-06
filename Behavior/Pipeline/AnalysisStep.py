@@ -45,6 +45,7 @@ if __name__ == '__main__':
 
     artifacts = {}
     artifacts['mj2_path'] = sys.argv[1]
+    artifacts['restore_points'] = '/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation'
     artifacts['frame_num'] = 0
 
     pipline = [SplitChannelsStep(), SegmentStep(), TrackStep(), OutputStep()]
