@@ -82,7 +82,8 @@ class TrackStep(AnalysisStep):
 
 
     def getFrame(self, segFrame, shouldLabel=True):
-        segReadFrame = cv2.cvtColor(segFrame, cv2.COLOR_BGR2GRAY)
+        #segReadFrame = cv2.cvtColor(segFrame, cv2.COLOR_BGR2GRAY)
+        segReadFrame = segFrame
 
         if (shouldLabel):
             labeledFrame, n = label(np.uint16(segReadFrame))
