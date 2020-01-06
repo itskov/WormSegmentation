@@ -1,4 +1,5 @@
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
+from Behavior.General.Track import Track
 from scipy.ndimage import measurements, label
 from os import path
 
@@ -68,10 +69,10 @@ class TrackStep(AnalysisStep):
         baseName = ".".join(path.basename(mj2_path).split(".")[0:-1])
 
         outputFile = path.join(inputPath, baseName + "_tracks")
-        np.save(outputFile, self._tracks)
 
-        # Now create the movies.
-        from SegmentedTracker import SegmentedTracker
+        tracks = [Track(t) for t in self._tracks]
+
+        np.save(outputFile, tracks)
 
 
 
