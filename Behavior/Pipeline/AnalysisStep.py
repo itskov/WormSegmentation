@@ -47,7 +47,7 @@ if __name__ == '__main__':
     artifacts['mj2_path'] = sys.argv[1]
     artifacts['frame_num'] = 0
 
-    pipline = [SplitChannelsStep(), SegmentStep(artifacts), TrackStep(), OutputStep()]
+    pipline = [SplitChannelsStep(), SegmentStep(), TrackStep(), OutputStep()]
     process(pipline, artifacts)
 
     '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
