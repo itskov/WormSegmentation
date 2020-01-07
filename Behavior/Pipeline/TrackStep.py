@@ -68,7 +68,7 @@ class TrackStep(AnalysisStep):
 
     def close(self, artifacts):
         self._sess.close()
-        
+
         self._tracks += list(self._currentTracks)
 
         # Fix frames indices
