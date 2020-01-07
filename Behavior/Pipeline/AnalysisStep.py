@@ -28,7 +28,8 @@ class AnalysisStep:
 def process(pipline, artifacts):
     start_time = time()
     # Change to 8000
-    while artifacts['frame_num'] < 3000:
+    while artifacts['frame_num'] < 8000\
+            :
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'],so_far_time / 60))
         all_time_before = time()
@@ -50,7 +51,7 @@ if __name__ == '__main__':
 
     sys.path.append('/cs/phd/itskov/WormSegmentation')
 
-    from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
+    '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
     from Behavior.Pipeline.TrackStep import TrackStep
     from Behavior.Pipeline.OutputStep import OutputStep
@@ -61,11 +62,12 @@ if __name__ == '__main__':
     artifacts['frame_num'] = 0
 
     pipline = [SplitChannelsStep(), SegmentStep(), OutputStep(), TrackStep()]
-    process(pipline, artifacts)
+    process(pipline, artifacts)'''
 
-    '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
+    from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
     from Behavior.Pipeline.OutputStep import OutputStep
+    from Behavior.Pipeline.TrackStep import TrackStep
 
     artifacts = {'mj2_path' : '/mnt/storageNASRe/tph1/31.12.19/31-Dec-2019-13.42.39-Mic1-TPH_1_NO_ATR_TRAIN_35M_NO_IAA3x5.avi.mj2',
                  'restore_points' : '/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/WormSegmentatioNetworks/WormSegmentation'}
@@ -73,14 +75,21 @@ if __name__ == '__main__':
     sc = SplitChannelsStep()
     seg = SegmentStep()
     os = OutputStep()
+    ts = TrackStep()
 
     artifacts = sc.process(artifacts)
     artifacts = seg.process(artifacts)
+    artifacts = ts.process(artifacts)
     artifacts = sc.process(artifacts)
     artifacts = seg.process(artifacts)
+    artifacts = ts.process(artifacts)
+    artifacts = sc.process(artifacts)
+    artifacts = seg.process(artifacts)
+    artifacts = ts.process(artifacts)
+
     os.process(artifacts)
     os.process(artifacts)
     os.process(artifacts)
-    os.close()'''
+    os.close(artifacts)
 
 

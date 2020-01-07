@@ -4,14 +4,19 @@ from scipy.ndimage import measurements, label
 from os import path
 
 import numpy as np
+import tensorflow as tf
 
-import cv2
+
 
 class TrackStep(AnalysisStep):
 
     def __init__(self):
         self._tracks = []
         self._currentTracks = []
+
+
+        self._sess = tf.Session()
+        self._sess.run(tf.global_variables_initializer())
 
     # Return None if failed.
     def process(self, artifacts):
@@ -30,9 +35,13 @@ class TrackStep(AnalysisStep):
             for ti, t in enumerate(self._currentTracks):
                 distances = []
                 if (frame_num - 1) in t:
-                    distances = np.linalg.norm(np.array(centroids) - np.array(t[frame_num - 1]), axis=1)
+                    #distances = np.linalg.norm(np.array(centroids) - np.array(t[frame_num - 1]), axis=1)
+                    cur_mat = np.array(centroids) - np.array(t[frame_num - 1])
+                    distances = self._sess.run(tf.norm(tf.convert_to_tensor(cur_mat), axis=1))
                 elif (frame_num - 2) in t:
-                    distances = np.linalg.norm(np.array(centroids) - np.array(t[frame_num - 2]), axis=1)
+                    #distances = np.linalg.norm(np.array(centroids) - np.array(t[frame_num - 2]), axis=1)
+                    cur_mat = np.array(centroids) - np.array(t[frame_num - 2])
+                    distances = self._sess.run(tf.norm(tf.convert_to_tensor(cur_mat), axis=1))
                 else:
                     shouldKeepTracks[ti] = False
 
@@ -58,6 +67,8 @@ class TrackStep(AnalysisStep):
 
 
     def close(self, artifacts):
+        self._sess.close()
+        
         self._tracks += list(self._currentTracks)
 
         # Fix frames indices
