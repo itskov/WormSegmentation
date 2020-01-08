@@ -44,7 +44,7 @@ def process(pipline, artifacts):
         print('\tOverall: %f s' %(all_time_duration,))
 
     print('Closing..')
-    [p.close() for p in pipline]
+    [p.close(artifacts) for p in pipline]
 
 if __name__ == '__main__':
     import sys
