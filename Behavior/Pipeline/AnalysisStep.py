@@ -49,7 +49,7 @@ def process(pipline, artifacts):
 if __name__ == '__main__':
     import sys
 
-    sys.path.append('/cs/phd/itskov/WormSegmentation')
+    '''sys.path.append('/cs/phd/itskov/WormSegmentation')
 
     from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
@@ -62,9 +62,9 @@ if __name__ == '__main__':
     artifacts['frame_num'] = 0
 
     pipline = [SplitChannelsStep(), SegmentStep(), OutputStep(), TrackStep()]
-    process(pipline, artifacts)
+    process(pipline, artifacts)'''
 
-    '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
+    from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
     from Behavior.Pipeline.OutputStep import OutputStep
     from Behavior.Pipeline.TrackStep import TrackStep
@@ -90,6 +90,6 @@ if __name__ == '__main__':
     os.process(artifacts)
     os.process(artifacts)
     os.process(artifacts)
-    os.close(artifacts)'''
+    os.close(artifacts)
 
 
