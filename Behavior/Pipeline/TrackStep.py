@@ -92,8 +92,6 @@ class TrackStep(AnalysisStep):
         st.createTrackedMovie()
 
 
-
-
     def stepName(self, artifacts):
         return 'Tracking'
 
@@ -109,41 +107,14 @@ class TrackStep(AnalysisStep):
         if (shouldLabel):
             labeledFrame, n = label(np.uint16(segReadFrame))
 
-            # Perform analysis of labels.
-            it = np.nditer(labeledFrame, flags=['multi_index'])
-            entitiesDict = {}
+            n = len(np.unique(labeledFrame))
+            initialLabelsInds =  list(range(n))
 
-            while not it.finished:
-                val = int(it[0])
-                if val > 0:
-                    if val in entitiesDict:
-                        entitiesDict[val][0].append(it.multi_index[1])
-                        entitiesDict[val][1].append(it.multi_index[2])
-                    else:
-                        entitiesDict[val] = [[it.multi_index[1]], [it.multi_index[2]]]
+            area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
+            badAreas = np.where((area < 8) | (area > 400))[0]
+            labeledFrame[np.isin(labeledFrame, badAreas)] = 0
 
-                it.iternext()
-
-            labelsInds = []
-            for name, reg in zip(entitiesDict.keys(), entitiesDict.values()):
-                area = len(reg[0])
-
-                if area < 8 or area > 400:
-                    labeledFrame[0, reg[0], reg[1]] = 0
-                else:
-                    labelsInds.append(name)
-
-
-
-
-            #n = len(np.unique(labeledFrame))
-            #initialLabelsInds =  list(range(n))
-
-            #area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
-            #badAreas = np.where((area < 8) | (area > 400))[0]
-            #labeledFrame[np.isin(labeledFrame, badAreas)] = 0
-
-            #labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
+            labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
         else:
             labeledFrame = segReadFrame
             labelsInds = []

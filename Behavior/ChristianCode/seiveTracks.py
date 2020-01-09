@@ -16,7 +16,7 @@ def seiveTracks(exp):
     BIG_PROP = 1 - SMALL_PROP
     FRAMES = 4500
 
-    small_raius = SMALL_PROP * 2
+    small_radius = SMALL_PROP * 2
     big_radius = BIG_PROP * 2
 
     # Getting the tracks.
@@ -34,9 +34,17 @@ def seiveTracks(exp):
             continue
 
         # Sieving by position
-        distances = np.linalg.norm(t._trackCords - exp.regionsOfInterest['endReg']['pos'], axis=1)
+        distances = np.linalg.norm(t._trackCords - exp._regionsOfInterest['endReg']['pos'], axis=1)
+        t = subset_track(t, np.logical_not(distances < small_radius))
+        t = subset_track(t, np.logical_not(distances > big_radius))
+
+        if t._trackCords.shape[0] == 0:
+            continue
 
 
 
 
 
+if __name__ == "__main__":
+    exp = np.load('/home/itskov/Temp/behav/12-Dec-2019/STAV_CHOICETEST.avi_13.51.29/exp.npy')[0]
+    seiveTracks(exp)
