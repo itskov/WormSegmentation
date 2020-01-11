@@ -57,8 +57,8 @@ class SplitChannelsStep(AnalysisStep):
     def close(self, artifacts):
         mj2_cap = artifacts['mj2_cap']
 
-        vid_compressed_ffmpeg.close()
-        vid_full_ffmpeg.close()
+        #vid_compressed_ffmpeg.close()
+        #vid_full_ffmpeg.close()
         mj2_cap.release()
 
 

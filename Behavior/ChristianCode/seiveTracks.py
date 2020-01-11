@@ -23,6 +23,9 @@ def seiveTracks(exp):
     tracks = exp._tracks
     good_tracks = np.array([])
 
+    # horizontal line
+
+
     for i, t in enumerate(tracks):
         # Filter in time.
         interesting_poses = t._trackFrames < FRAMES
@@ -40,6 +43,8 @@ def seiveTracks(exp):
 
         if t._trackCords.shape[0] == 0:
             continue
+
+
 
 
 
