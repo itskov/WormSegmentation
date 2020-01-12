@@ -100,6 +100,21 @@ class TrackStep(AnalysisStep):
             raise Exception('Cant find segmented_frame in artifacts.')
 
 
+    def orderTrack(self, track):
+        dictItems = list(track.items())
+        [frames, poses] = list(zip(*dictItems))
+        sortIndices = np.argsort(frames)
+
+        # Sorted frames
+        frames = list(np.array(frames)[sortIndices])
+        poses = np.array(poses)[sortIndices]
+
+        pairs = list(zip(frames, poses))
+        track = dict(pairs)
+        return track
+
+
+
     def getFrame(self, segFrame, shouldLabel=True):
         #segReadFrame = cv2.cvtColor(segFrame, cv2.COLOR_BGR2GRAY)
         segReadFrame = segFrame
