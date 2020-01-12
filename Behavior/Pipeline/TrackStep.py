@@ -127,7 +127,7 @@ class TrackStep(AnalysisStep):
 
             area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
             badAreas = np.where((area < 8) | (area > 400))[0]
-            labeledFrame[np.isin(labeledFrame, badAreas)] = 0
+            labeledFrame[np.isin(labeledFrame, set(badAreas))] = 0
 
             labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
         else:
