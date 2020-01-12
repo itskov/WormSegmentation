@@ -1,6 +1,7 @@
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
 from Behavior.General.Track import Track
 from scipy.ndimage import measurements, label
+from scipy.spatial.distance import pdist
 from os import path
 
 import numpy as np
@@ -45,7 +46,7 @@ class TrackStep(AnalysisStep):
                 else:
                     shouldKeepTracks[ti] = False
 
-                if (len(distances) > 0):
+                if len(distances) > 0:
                     nextPosIndex = np.argmin(distances)
                     if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 25):
                         t[frame_num] = centroids[np.argmin(distances), :]
@@ -65,6 +66,16 @@ class TrackStep(AnalysisStep):
         return artifacts
 
 
+    def filterTracks(self):
+        # Then filter them.
+        lens = np.asarray([len(list(t.values())) for t in self._tracks])
+        print('Filtering tracks..')
+        print('Before filtering: ' + str(len(self._tracks)) + " tracks.")
+        self._tracks = np.asarray(self._tracks)[lens > 5]
+        maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 7]
+        print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
+
 
     def close(self, artifacts):
         #self._sess.close()
@@ -72,6 +83,7 @@ class TrackStep(AnalysisStep):
         self._tracks += list(self._currentTracks)
 
         # Fix frames indices
+        self.filterTracks()
         self._tracks = [self.orderTrack(track) for track in self._tracks]
 
         # Writing the tracks files
@@ -121,20 +133,24 @@ class TrackStep(AnalysisStep):
 
         if (shouldLabel):
             labeledFrame, n = label(np.uint16(segReadFrame))
+            labeledFrame = np.squeeze(labeledFrame)
 
             n = len(np.unique(labeledFrame))
-            initialLabelsInds =  list(range(n))
+            initialLabelsInds = set(range(n))
 
             area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
-            badAreas = np.where((area < 8) | (area > 400))[0]
-            labeledFrame[np.isin(labeledFrame, set(badAreas))] = 0
+            badAreas = (np.where((area < 8) | (area > 400))[0])
+            labeledFrame[np.isin(labeledFrame, badAreas)] = 0
+            #eraseFunc = lambda p: 0 if p in badAreas else p
+            #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
 
-            labelsInds = set(list(initialLabelsInds)).difference(set(list(badAreas)))
+
+            labelsInds = initialLabelsInds.difference(badAreas)
         else:
             labeledFrame = segReadFrame
             labelsInds = []
 
-        return segReadFrame, np.squeeze(labeledFrame), labelsInds
+        return segReadFrame, labeledFrame, labelsInds
 
 
 
