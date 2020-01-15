@@ -78,7 +78,7 @@ class Track:
 
         newCordsDict = dict(zip(newFrame, newCords))
 
-        if (np.any(keepCords)):
+        if np.sum(keepCords) > 5:
             return Track(newCordsDict)
 
         return None

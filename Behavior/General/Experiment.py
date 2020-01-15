@@ -154,7 +154,7 @@ class Experiment:
         plt.imshow(np.array(sampleImage))
 
         # Saving the point.
-        newRegion = {'pos' : np.fliplr(newPoints[0]), 'rad' : newPoints[1]}
+        newRegion = {'pos' : np.fliplr(np.atleast_2d(newPoints[0])), 'rad' : newPoints[1]}
         self._regionsOfInterest[pointName] = newRegion
 
     def save(self):
