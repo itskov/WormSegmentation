@@ -28,7 +28,7 @@ class AnalysisStep:
 def process(pipline, artifacts):
     start_time = time()
     # Change to 8000
-    while artifacts['frame_num'] < 7500:
+    while artifacts['frame_num'] < 6480:
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'],so_far_time / 60))
         all_time_before = time()
