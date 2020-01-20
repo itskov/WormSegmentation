@@ -219,7 +219,7 @@ class ExpPair:
 
 
         anim = FuncAnimation(fig, updateMovie, frames=range(frameLength - 1), init_func=lambda: updateMovie(-1))
-        anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=40, extra_args=['-vcodec', 'libx264'], dpi=dpi)
+        anim.save(path.join(self._targetPath, 'exp_pair_vis.mp4'), fps=70, extra_args=['-vcodec', 'libx264'], dpi=dpi)
         #plt.show()
 
 

@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     import numpy as np
 
-    rootDir = '/home/itskov/Temp/behav/04-Dec-2019'
+    rootDir = '/home/itskov/Temp/behav/15-Jan-2020'
 
     for fileName in Path(rootDir).rglob('*/exp.npy'):
         print(fileName)

@@ -12,7 +12,7 @@ from Behavior.Visualizers.RevPosDensity import RevPosDensity
 
 
 
-def PairWiseRoi(cond1, firstExp, cond2, secondExp):
+def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=True):
     #sns.set()
     plt.style.use("dark_background")
     sns.set_context("talk")
@@ -28,16 +28,23 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp):
 
     print(firstRoi._results)
     print(secondRoi._results)
-    plt.plot(firstRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond1, firstRoi._results['wormCount']))
-    plt.plot(secondRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond2, secondRoi._results['wormCount']))
+
+    if show_count:
+        plt.gca().plot(firstRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond1, firstRoi._results['wormCount']))
+        plt.gca().plot(secondRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond2, secondRoi._results['wormCount']))
+    else:
+        plt.gca().plot(firstRoi._results['arrivedFrac'], label=cond1)
+        plt.gca().plot(secondRoi._results['arrivedFrac'], label=cond2)
+
     plt.xlabel('Frames (2Hz)')
     plt.ylabel('Worms Arrived')
-    plt.legend()
-    plt.axes().grid(alpha=0.2)
+    plt.gca().legend(loc="lower right")
+    plt.gca().grid(alpha=0.2)
 
-    plt.show()
+    if showShow:
+        plt.show()
 
-def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
+def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp, showShow=True):
     plt.style.use("dark_background")
     sns.set_context("talk")
 
@@ -65,10 +72,12 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp):
     plt.gca().grid(alpha=0.2)
     ax.set(xlabel="Projection [au / sec]", ylabel="Density")
 
-    plt.show()
+
+    if showShow:
+        plt.show()
     #g.draw()
 
-def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
+def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp, showShow=True):
     LENGTH_THR = 250
     plt.style.use("dark_background")
 
@@ -95,9 +104,11 @@ def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp):
     sns.kdeplot(firstDf['proj'], shade=True, label=cond1)
     ax = sns.kdeplot(secondDf['proj'], shade=True, label=cond2)
 
-    ax.set(xlabel="Velocity [au/sec]", ylabel="Density")
+    ax.set(xlabel="Speed [au/sec]", ylabel="Density")
     plt.gca().grid(alpha=0.2)
-    plt.show()
+
+    if showShow:
+        plt.show()
     #print(g)
     #g.draw()
 
@@ -109,10 +120,12 @@ def PairWiseOccupVisoulatizer(cond1, firstExp, cond2, secondExp):
     firstOccup.execute(cond1)
     secondOccup.execute(cond2)
 
-def PairWiseRevDistances(cond1, firstExp, cond2, secondExp):
+def PairWiseRevDistances(cond1, firstExp, cond2, secondExp, showShow=True):
     rd1 = RevPosDensity(firstExp)
     rd1.execute(cond1)
     rd2 = RevPosDensity(secondExp)
     rd2.execute(cond2)
-    plt.show()
+
+    if showShow:
+        plt.show()
 

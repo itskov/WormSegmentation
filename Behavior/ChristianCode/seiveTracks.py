@@ -27,7 +27,7 @@ def seiveTracks(exp):
     good_tracks = np.array([])
 
     # horizontal line
-    horiz_line = np.array(exp._regionsOfInterest['endReg']['pos']) - np.array(exp._regionsOfInterest['startReg']['pos'])
+    horiz_line = np.array(exp._regionsOfInterest['startReg']['pos']) - np.array(exp._regionsOfInterest['endReg']['pos'])
     horiz_line /= np.linalg.norm(horiz_line)
 
     # Perp line
@@ -42,6 +42,11 @@ def seiveTracks(exp):
 
     for i, t in enumerate(tracks):
         # Filter in time.
+        if t._trackCords.shape[0] < 200:
+            continue
+
+        if t.getMaxDistTravelled() < 200:
+            continue
 
         # First, Trimming the track.
         t = t.trimTrack(FRAMES)
@@ -64,9 +69,14 @@ def seiveTracks(exp):
         if t._trackCords.shape[0] == 0:
             continue
 
-        newCords = np.matmul(np.linalg.inv(new_basis), t._trackCords.T)
+        trans = np.linalg.inv(new_basis)
+        newCords = np.matmul(trans, t._trackCords.T)
+        newCords = newCords.T
+        new_end_point = np.matmul(trans, exp._regionsOfInterest['endReg']['pos'])
 
-        t = subset_track(t, np.abs(newCords[0, :]) < 200)
+
+        y_boundaries = (newCords[:, 1] - np.array(new_end_point[1])) * np.tan(np.pi / 8)
+        t = subset_track(t, np.abs(newCords[:, 0] - np.array(new_end_point[0])) < y_boundaries)
         if t._trackCords.shape[0] == 0:
             continue
 
@@ -78,6 +88,7 @@ def seiveTracks(exp):
     exp._tracks = newTracks
     oc = OccupVisualizer(exp)
     oc.execute()
+    pass
 
 
 
