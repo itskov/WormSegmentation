@@ -28,7 +28,7 @@ class AnalysisStep:
 def process(pipline, artifacts):
     import cv2
     import numpy as np
-    ן
+    
     cap = cv2.VideoCapture(artifacts['mj2_path'])
     total_frames = np.min(int(cap.get(cv2.CAP_PROP_FRAME_COUNT)), 6500)
     cap.release()
