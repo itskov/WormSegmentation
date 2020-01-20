@@ -69,7 +69,7 @@ def main():
                 print('Done retrieving. in %d minutes' % (retTime / 60))
 
         #conduct(outputLocalDir)
-        os.system('sbatch --mem=64g --gres gpu:m60:1 -c2 --time=0-12 ./RunNew.bash %s' % outputFile)
+        os.system('sbatch --mem=64g --gres gpu:m60:1 -c2 --time=0-10 ./RunNew.bash %s' % outputFile)
 
 
 if __name__ ==  "__main__":

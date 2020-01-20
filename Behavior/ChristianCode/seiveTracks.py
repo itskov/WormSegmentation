@@ -17,10 +17,10 @@ def seiveTracks(exp):
     SMALL_PROP = 0.2
     BIG_PROP = 1 - SMALL_PROP
     FRAMES = 4500
-    ANGLE = 120 * (np.pi / 180)
+    ANGLE = np.pi / 3
 
-    small_radius = (SMALL_PROP * 2) * exp._scale
-    big_radius = (BIG_PROP * 2) * exp._scale
+    small_radius = (SMALL_PROP) * exp._scale
+    big_radius = (BIG_PROP) * exp._scale
 
     # Getting the tracks.
     tracks = exp._tracks
@@ -42,10 +42,10 @@ def seiveTracks(exp):
 
     for i, t in enumerate(tracks):
         # Filter in time.
-        if t._trackCords.shape[0] < 200:
+        if t._trackCords.shape[0] < 50:
             continue
 
-        if t.getMaxDistTravelled() < 200:
+        if t.getMaxDistTravelled() < 75:
             continue
 
         # First, Trimming the track.
@@ -75,7 +75,7 @@ def seiveTracks(exp):
         new_end_point = np.matmul(trans, exp._regionsOfInterest['endReg']['pos'])
 
 
-        y_boundaries = (newCords[:, 1] - np.array(new_end_point[1])) * np.tan(np.pi / 8)
+        y_boundaries = (newCords[:, 1] - np.array(new_end_point[1])) * np.tan(ANGLE)
         t = subset_track(t, np.abs(newCords[:, 0] - np.array(new_end_point[0])) < y_boundaries)
         if t._trackCords.shape[0] == 0:
             continue
@@ -85,7 +85,9 @@ def seiveTracks(exp):
         print('Gone over track:%d' % (i,))
 
 
-    exp._tracks = newTracks
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    exp._tracks = np.array(newTracks)
     oc = OccupVisualizer(exp)
     oc.execute()
     pass
