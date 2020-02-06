@@ -14,7 +14,7 @@ def day_summary_plots(exp_pairs, titles, legends):
 
     plt.style.use("dark_background")
     fig, axs = plt.subplots(number_of_exps, 3)
-    sns.set_context("talk")
+    sns.set_context("paper")
 
 
     axs = np.atleast_2d(axs)
@@ -28,18 +28,24 @@ def day_summary_plots(exp_pairs, titles, legends):
         plt.sca(axs[i][0])
         PairWiseRoi('ATR+',  exp_pair[0], 'ATR-', exp_pair[1], showShow=False, show_count=False)
         #plt.title(titles[i])
+        plt.legend(fontsize='xx-small', title_fontsize='40')
 
         # Projection plot
         plt.sca(axs[i][1])
         PairWiseProjectionDensity('ATR+',  exp_pair[0], 'ATR-', exp_pair[1], showShow=False)
         #plt.title(titles[i])
+        plt.legend(fontsize='xx-small', title_fontsize='40')
 
         # Speed plot
         plt.sca(axs[i][2])
         PairWiseSpeedDensity('ATR+',  exp_pair[0], 'ATR-', exp_pair[1], showShow=False)
         #plt.title(titles[i])
+        plt.legend(fontsize='xx-small', title_fontsize='40')
+
+
 
     #fig.tight_layout()
+
     plt.show()
 
 
@@ -51,26 +57,26 @@ def main():
 
 
 
-    exp1 = np.load('/home/itskov/Temp/behav/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/exp.npy')[0]
-    exp2 = np.load('/home/itskov/Temp/behav/TPH_1_NO_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.56.12/exp.npy')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.56.12/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
     plot_titles.append('0m')
 
-    exp1 = np.load('/home/itskov/Temp/behav/TPH_1_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.29.04/exp.npy')[0]
-    exp2 = np.load('/home/itskov/Temp/behav/TPH_1_NO_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.28.03/exp.npy')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.29.04/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.28.03/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
     plot_titles.append('0m')
 
-    exp1 = np.load('/home/itskov/Temp/behav/TPH_1_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.52/exp.npy')[0]
-    exp2 = np.load('/home/itskov/Temp/behav/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.04/exp.npy')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.52/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.04/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
     plot_titles.append('0m')
 
-    exp1 = np.load('/home/itskov/Temp/behav/TPH_1_NO_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.11.34/exp.npy')[0]
-    exp2 = np.load('')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.12.12/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.11.34/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
     plot_titles.append('0m')

@@ -115,7 +115,7 @@ class Track:
 
         angles = np.zeros(self._tracksSteps.shape[0] - 1)
         for i in range(firstVecs.shape[0] - 1):
-            dotProd = np.dot(firstVecs[i,:], secondVecs[i,:])
+            dotProd = np.dot(firstVecs[i, :], secondVecs[i, :])
             dotProd /= np.linalg.norm(firstVecs[i, :]) * np.linalg.norm(secondVecs[i, :])
             angles[i] = np.arccos(dotProd)
 
@@ -166,7 +166,10 @@ class Track:
         return True
 
     def getMaxDistTravelled(self):
-        return np.max(pdist(self._trackCords))
+        if self._trackCords.shape[0] > 3:
+            return np.max(pdist(self._trackCords))
+        else:
+            return 0
 
 if __name__  == "__main__":
     exp = np.load('/mnt/storageNASRe/tph1/Results/12-Sep-2019/TPH_1_ATR_TRAIN_IAA3.avi_12.14.20/exp.npy')[0]
