@@ -12,7 +12,7 @@ from os.path import join
 class DataCollector:
     def __init__(self):
         print('Starting..')
-        self._GLOB_TERM = '/home/itskov/Temp/*Full.mp4'
+        self._GLOB_TERM = '/home/itskov/Temp/behav/20-Feb-2020/**/*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -20,12 +20,32 @@ class DataCollector:
         # The coordinate of the small images
         self._SNIP_SIZE = (100, 100)
 
+        # If the user wants a smaller region
+        self._regions = None
+
         print('Found %d relevant files.' % len(self._videoFiles))
+
+    def setRegions(self):
+        for i, video_file in enumerate(self._videoFiles):
+            cap = cv2.VideoCapture(video_file)
+            _, frame = cap.read()
+            plt.imshow(frame)
+            new_points = plt.ginput(2, timeout=-1)
+            new_points = np.fliplr(new_points).astype(np.int)
+            self._regions = [new_points] if self._regions is None else self._regions.append(new_points)
+            plt.close()
+
+            cap.release()
+
+
+
 
 
     def fetchImage(self):
         # Fetching a file to read from.
-        fetchedFile = np.random.choice(self._videoFiles)
+        choiced = np.random.choice(range(len(self._videoFiles)))
+
+        fetchedFile = self._videoFiles[choiced]
 
         # Read file
         cap = cv2.VideoCapture(fetchedFile)
@@ -47,6 +67,12 @@ class DataCollector:
 
         cap.set(cv2.CAP_PROP_POS_FRAMES, frameNum)
         success, readFrame = cap.read()
+
+        if self._regions is not None:
+            region = self._regions[choiced]
+
+            readFrame = readFrame[region[0,0]:region[1,0], region[0,1]:region[1,1]]
+
 
         return readFrame, fetchedFile, frameNum
 
@@ -105,6 +131,7 @@ class DataCollector:
 from multiprocessing import Pool
 
 dc = DataCollector()
+dc.setRegions()
 
 def saveImage(i):
 

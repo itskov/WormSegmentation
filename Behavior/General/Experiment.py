@@ -36,14 +36,18 @@ class Experiment:
         print('Initializing Experiment with dir: %s and with %d tracks' % (expDir._expDir, len(self._tracks)))
         print(self._regionsOfInterest)
 
-        self._videoFilename = expDir.getVidFile()
-        self._cap = cv2.VideoCapture(self._videoFilename)
+        vid_file = expDir.getVidFile()
 
-        # Getting the length of the movie.
-        self._numberOfFrames = int(self._cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        # If we dont have a video attached.
+        if vid_file != None:
+            self._videoFilename = expDir.getVidFile()
+            self._cap = cv2.VideoCapture(self._videoFilename)
 
-        # Setting the movie to be in the first frame ( a length process ).
-        self._cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+            # Getting the length of the movie.
+            self._numberOfFrames = int(self._cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+            # Setting the movie to be in the first frame ( a length process ).
+            self._cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
         # Here we save directory
         self._outputDirName = path.dirname(self._videoFilename)

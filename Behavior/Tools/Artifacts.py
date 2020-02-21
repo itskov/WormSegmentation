@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     import numpy as np
 
-    rootDir = '/mnt/storageNASRe/ChristianData/ChrisNewTracks/'
+    rootDir = '/home/itskov/Temp/Chris/'
 
     for fileName in Path(rootDir).rglob('*/exp.npy'):
         print(fileName)
@@ -71,6 +71,11 @@ if __name__ == "__main__":
             projectionAnalyses.execute()
             occupAnalyses.execute(showPlot=False)
 
+
+            #DEBUG Chris
+            exp._regionsOfInterest['startReg']['rad'] = exp._scale / 4
+            exp._regionsOfInterest['endReg']['rad'] = exp._scale / 3
+            #DEBUG Chris
 
             art.addArtifact('roi', roiAnalyses._results)
             art.addArtifact('proj', projectionAnalyses._results)

@@ -6,11 +6,14 @@ from os import path
 import seaborn as sns
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 def main():
     folder = '/home/itskov/Temp/Chris'
 
-    conds = ['LTAV.','MOCK_LTAV.','LTAP.','MOCK_STAP.', 'NAIVE']
+    #folder = '/mnt/storageNASRe/ChristianData/ChrisNewTracks'
+
+    conds = ['LTAP.','LTAV.','STAP.','STAV.', 'NAIVE']
 
 
     df = None
@@ -25,24 +28,25 @@ def main():
             if current_roi is None:
                 continue
 
-
-            if current_roi['wormCount'] < 25:
+            if current_roi['wormCount'] < 20:
                 print('Not enough worms: %d. Continuing.' % (current_roi['wormCount'],))
                 continue
 
 
+            TIME = 1500
             frames = range(1, len(current_roi['arrivedFrac']) + 1)
-            current_df = pd.DataFrame({'frame': range(1, 1501), 'arrived_frac': current_roi['arrivedFrac'][0:1500], 'cond' : cond})
+            arrived_frac = np.maximum(0, current_roi['arrivedFrac'][0:TIME])
+            current_df = pd.DataFrame({'frame': range(1, TIME + 1), 'arrived_frac': arrived_frac, 'cond' : cond})
 
-            #DEBUG
-            #sns.lineplot(x='frame', y='arrived_frac', hue='cond', data=current_df, estimator=np.median)
-            #DEBUG
-
-            df = current_df if df is None else pd.concat((df,current_df), ignore_index=True)
+            df = current_df if df is None else pd.concat((df, current_df), ignore_index=True)
 
 
-    sns.lineplot(x='frame',y='arrived_frac', hue='cond', data=df, estimator=np.median, ci=None)
-    #sns.plt.show()
+    sns.set()
+    sns.lineplot(x='frame',y='arrived_frac', hue='cond', data=df, estimator=np.median, ci=68, n_boot=100)
+    plt.ylim([-0.001, 0.15])
+    plt.xlabel('Frame [2hz]')
+    plt.ylabel('Arrived Fraction')
+    plt.show()
 
     pass
 
