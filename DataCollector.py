@@ -27,15 +27,21 @@ class DataCollector:
 
     def setRegions(self):
         for i, video_file in enumerate(self._videoFiles):
-            cap = cv2.VideoCapture(video_file)
-            _, frame = cap.read()
-            plt.imshow(frame)
-            new_points = plt.ginput(2, timeout=-1)
-            new_points = np.fliplr(new_points).astype(np.int)
-            self._regions = [new_points] if self._regions is None else self._regions.append(new_points)
-            plt.close()
+            try:
+                cap = cv2.VideoCapture(video_file)
+                _, frame = cap.read()
+                plt.imshow(frame)
+                new_points = plt.ginput(2, timeout=-1)
+                new_points = np.fliplr(new_points).astype(np.int)
+                plt.close()
+                cap.release()
+            except:
+                new_points = [1000, 1000]
+                print('Error setting region.')
 
-            cap.release()
+            self._regions = np.array([new_points]) if self._regions is None else \
+                np.concatenate((self._regions, np.reshape(new_points, (-1,) + new_points.shape)))
+
 
 
 
@@ -61,7 +67,7 @@ class DataCollector:
         #frameNum = np.random.choice(range(length))
 
         # Sample from a truncated normal distribution.
-        frameNum = stats.truncnorm(-1,1).rvs()
+        frameNum = stats.truncnorm(-1, 1).rvs()
         frameNum = np.round(frameNum * (movieLength / 2) + movieLength / 2)
 
 
@@ -71,7 +77,7 @@ class DataCollector:
         if self._regions is not None:
             region = self._regions[choiced]
 
-            readFrame = readFrame[region[0,0]:region[1,0], region[0,1]:region[1,1]]
+            readFrame = readFrame[region[0, 0]:region[1, 0], region[0, 1]:region[1, 1]]
 
 
         return readFrame, fetchedFile, frameNum
@@ -131,6 +137,7 @@ class DataCollector:
 from multiprocessing import Pool
 
 dc = DataCollector()
+print('Setting regions..')
 dc.setRegions()
 
 def saveImage(i):
@@ -159,7 +166,7 @@ def saveImage(i):
 if __name__ == "__main__":
     print('Running threads..')
     with Pool(processes=4) as pool:
-        pool.map(saveImage, np.random.choice(range(1,5*10**6),100000))
+        pool.map(saveImage, np.random.choice(range(1, 5*10**6),100000))
     print('Done.')
     #saveImage(4)
 
