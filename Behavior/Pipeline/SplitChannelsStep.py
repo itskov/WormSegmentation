@@ -46,7 +46,11 @@ class SplitChannelsStep(AnalysisStep):
             self.log('Error reading from mj2 file.')
             return None
 
-        current_frame = cv2.cvtColor(read_frame, cv2.COLOR_BGR2GRAY)
+        if not artifacts['take_first_channel']:
+            current_frame = cv2.cvtColor(read_frame, cv2.COLOR_BGR2GRAY)
+        else:
+            current_frame = read_frame[:, :, 0]
+
 
         # Saving the current frame for future processing
         artifacts['current_frame'] = current_frame

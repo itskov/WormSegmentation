@@ -31,7 +31,7 @@ class RoiAnalysis:
 
 
         # Filtering tracks that hasn't moved a lot.
-        tracks = filterTracksForAnalyses(self._exp._tracks, minDistance=10, minSteps=0)
+        tracks = filterTracksForAnalyses(self._exp._tracks, minSteps=20, minDistance=50)
         print('Filtering tracks. Before: %d, After: %d' % (len(self._exp._tracks), len(tracks)))
 
 

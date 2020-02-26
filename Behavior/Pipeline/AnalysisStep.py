@@ -66,6 +66,8 @@ if __name__ == '__main__':
     artifacts['mj2_path'] = sys.argv[1]
     artifacts['restore_points'] = '/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation'
     artifacts['frame_num'] = 0
+    artifacts['take_first_channel'] = sys.argv == 'first_channel'
+    print('Channel: ' + 'first_channel.' if artifacts['take_first_channel'] is True else 'Combined.')
 
     pipline = [SplitChannelsStep(), SegmentStep(), OutputStep(), TrackStep()]
     process(pipline, artifacts)
