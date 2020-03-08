@@ -77,8 +77,11 @@ if __name__ == '__main__':
     from Behavior.Pipeline.OutputStep import OutputStep
     from Behavior.Pipeline.TrackStep import TrackStep
 
-    artifacts = {'mj2_path' : '/mnt/storageNASRe/tph1/31.12.19/31-Dec-2019-13.42.39-Mic1-TPH_1_NO_ATR_TRAIN_35M_NO_IAA3x5.avi.mj2',
+    artifacts = {'mj2_path' : '/mnt/storageNASRe/tph1/01.03.20/01/01-Mar-2020-10.38.56-MIC2-TPH_1_ATR_ONLINE[NO_IAA].avi.mj2',
                  'restore_points' : '/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/WormSegmentatioNetworks/WormSegmentation'}
+
+    artifacts['take_first_channel'] = False
+    print('Channel: ' + 'first_channel.' if artifacts['take_first_channel'] is True else 'Combined.')
 
     sc = SplitChannelsStep()
     seg = SegmentStep()

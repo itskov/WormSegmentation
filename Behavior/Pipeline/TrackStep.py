@@ -150,6 +150,7 @@ class TrackStep(AnalysisStep):
             print(segFrame.shape)
             filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 4, 4))).astype(np.int16)
             labeledFrame, n = label(np.uint16(filtered_frame))
+            labeledFrame = labeledFrame * filtered_frame
             labelsInds = set(range(n))
 
             #labelsInds = initialLabelsInds.difference(badAreas)
@@ -157,7 +158,7 @@ class TrackStep(AnalysisStep):
             filtered_frame = segReadFrame
             labelsInds = []
 
-        return segReadFrame, filtered_frame, labelsInds
+        return segReadFrame, labeledFrame, labelsInds
 
 
 
