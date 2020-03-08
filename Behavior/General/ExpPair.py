@@ -43,8 +43,8 @@ class ExpPair:
         self._cond2 = re.search('.+-(.+)\.avi.*', fn2)[1]
 
         #DEBUG!!!
-        self._cond1 = 'Trained'
-        self._cond2 = 'Mock Trained'
+        #self._cond1 = 'Trained'
+        #self._cond2 = 'Mock Trained'
         #DEBUG!!
         
         if targetPath is None:

@@ -70,8 +70,16 @@ class Track:
 
         #print('Track created. Time: ' + str(time()  - beforeCreation))
 
-    def trimTrack(self,endFrame):
-        keepCords = (self._trackFrames < endFrame)
+    '''
+    Creating a new track dictionary. Some procedures expect
+    the track to be a dict.
+    '''
+    def getTrackDict(self):
+        track_dict = dict(zip(self._trackFrames, self._trackCords))
+        return track_dict
+
+    def trimTrack(self, endFrame, startFrame=0):
+        keepCords = np.bitwise_and(self._trackFrames >= startFrame, self._trackFrames <= endFrame)
 
         newFrame = self._trackFrames[keepCords]
         newCords = self._trackCords[keepCords, :]

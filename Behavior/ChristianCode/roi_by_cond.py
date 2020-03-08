@@ -41,12 +41,12 @@ def main():
             df = current_df if df is None else pd.concat((df, current_df), ignore_index=True)
 
 
-    sns.set()
-    sns.lineplot(x='frame',y='arrived_frac', hue='cond', data=df, estimator=np.median, ci=68, n_boot=100)
-    plt.ylim([-0.001, 0.15])
-    plt.xlabel('Frame [2hz]')
-    plt.ylabel('Arrived Fraction')
-    plt.show()
+    #sns.set()
+    #sns.lineplot(x='frame',y='arrived_frac', hue='cond', data=df, estimator=np.median, ci=68, n_boot=100)
+    #plt.ylim([-0.001, 0.15])
+    #plt.xlabel('Frame [2hz]')
+    #plt.ylabel('Arrived Fraction')
+    #plt.show()
 
     pass
 

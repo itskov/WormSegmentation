@@ -1,10 +1,12 @@
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
 from Behavior.General.Track import Track
-from scipy.ndimage import measurements, label
+from scipy.ndimage import measurements
 from scipy.spatial.distance import pdist
+from scipy import ndimage
 from os import path
 
 import numpy as np
+
 #import tensorflow as tf
 
 
@@ -132,25 +134,25 @@ class TrackStep(AnalysisStep):
         segReadFrame = segFrame
 
         if (shouldLabel):
-            labeledFrame, n = label(np.uint16(segReadFrame))
-            labeledFrame = np.squeeze(labeledFrame)
+            #labeledFrame, n = label(np.uint16(segReadFrame))
+            #labeledFrame = np.squeeze(labeledFrame)
 
-            n = len(np.unique(labeledFrame))
-            initialLabelsInds = set(range(n))
+            #n = len(np.unique(labeledFrame))
+            #initialLabelsInds = set(range(n))
 
-            area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
-            badAreas = (np.where((area < 8) | (area > 400))[0])
-            labeledFrame[np.isin(labeledFrame, badAreas)] = 0
+            #area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
+            #badAreas = (np.where((area < 8) | (area > 400))[0])
+            #labeledFrame[np.isin(labeledFrame, badAreas)] = 0
+
             #eraseFunc = lambda p: 0 if p in badAreas else p
             #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
-
-
-            labelsInds = initialLabelsInds.difference(badAreas)
+            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((4, 4))).astype(np.int32)
+            #labelsInds = initialLabelsInds.difference(badAreas)
         else:
-            labeledFrame = segReadFrame
+            filtered_frame = segReadFrame
             labelsInds = []
 
-        return segReadFrame, labeledFrame, labelsInds
+        return segReadFrame, filtered_frame, labelsInds
 
 
 

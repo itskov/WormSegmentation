@@ -105,6 +105,13 @@ class SegmentedTracker:
         # Fix frames indices
         self._tracks = [self.orderTrack(track) for track in self._tracks]
 
+    def alignImage(self, img):
+        # First we roll the image to center the plate.
+        rightBorder = np.min(np.where(img > 0)[1])
+        leftBorder = img.shape[1] - np.max(np.where(img > 0)[1])
+        allBorders = rightBorder + leftBorder
+        correctBorder = np.floor(allBorders / 2)
+        return int(correctBorder - rightBorder)
 
 
     def orderTrack(self, track):
@@ -157,7 +164,9 @@ class SegmentedTracker:
         relevantTracksMaxFrame = np.array([list(t.keys())[-1] for t in relevantTracks])
         relevantTracksMinFrame = np.array([list(t.keys())[0] for t in relevantTracks])
 
+        align_count = 0
         for currentFrameNum in range(1, self._numOfFrames):
+        #for currentFrameNum in range(1, 1000):
             beforeTime = time()
             segReadFrame, rawReadFrame,_,_ = self.getFrame(False)
 
@@ -199,6 +208,12 @@ class SegmentedTracker:
             videoWriterRaw.writeFrame(np.asarray(curImRaw).copy())
 
             bothFrame = np.concatenate((np.asarray(curImSeg).copy(), np.asarray(curImRaw).copy()), axis=1)
+
+            # Aligning the frame to the middle.
+            if currentFrameNum == 1:
+                align_count = self.alignImage(bothFrame)
+
+            bothFrame = np.roll(bothFrame, align_count, axis=1)
             videoWriterBoth.writeFrame(bothFrame)
 
             print('Saving frame: ' + str(currentFrameNum) + " Time: " + str(time() - beforeTime) + " Relevant Tracks: " + str(relevantTracks.shape[0]))

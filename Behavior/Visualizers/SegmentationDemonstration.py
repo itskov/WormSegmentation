@@ -1,6 +1,6 @@
 import numpy as np
 
-import sys
+from os import path
 import cv2
 
 from skvideo.io import FFmpegWriter
@@ -17,10 +17,11 @@ def alignImage(img):
 
 def create_segmentation_demonstration_movie(first_movie_path, second_movie_path):
     # Some constants
-    bar_width_frac = 1 / 40
+    bar_width_frac = 1 / 80
     frames_per_screen = 25
 
-    output_file = FFmpegWriter('/home/itskov/Temp/test.mp4', outputdict={'-crf': '20'})
+    output_filename = path.join(path.dirname(first_movie_path), "seg_demo.mp4")
+    output_file = FFmpegWriter(output_filename, outputdict={'-crf': '20'})
 
     first_vid = cv2.VideoCapture(first_movie_path)
     second_vid = cv2.VideoCapture(second_movie_path)
@@ -83,8 +84,8 @@ def main():
     #first_movie_path = sys.argv[1]
     #second_movie_path = sys.argv[1]
 
-    create_segmentation_demonstration_movie('/home/itskov/Temp/behav/16-Feb-2020/TPH_1_ATR_TRAIN_65M_D60IAA.avi_17.38.18/16-Feb-2020-17.38.18-MIC2-TPH_1_ATR_TRAIN_65M_D60IAA.avi_Compressed.mp4',
-                                            '/home/itskov/Temp/behav/16-Feb-2020/TPH_1_ATR_TRAIN_65M_D60IAA.avi_17.38.18/16-Feb-2020-17.38.18-MIC2-TPH_1_ATR_TRAIN_65M_D60IAA.avi_seg.mp4')
+    create_segmentation_demonstration_movie('/home/itskov/Temp/behav/27-Feb-2020/TPH_1_ATR_TRAIN_75M_0D.avi_14.20.27/27-Feb-2020-14.20.27-MIC2-TPH_1_ATR_TRAIN_75M_0D.avi_seg_raw_tracked.mp4',
+                                            '/home/itskov/Temp/behav/27-Feb-2020/TPH_1_ATR_TRAIN_75M_0D.avi_14.20.27/27-Feb-2020-14.20.27-MIC2-TPH_1_ATR_TRAIN_75M_0D.avi_seg.mp4')
 
 
 
