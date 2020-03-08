@@ -1,6 +1,6 @@
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
 from Behavior.General.Track import Track
-from scipy.ndimage import measurements
+from scipy.ndimage import measurements, label
 from scipy.spatial.distance import pdist
 from scipy import ndimage
 from os import path
@@ -134,11 +134,11 @@ class TrackStep(AnalysisStep):
         segReadFrame = segFrame
 
         if (shouldLabel):
-            #labeledFrame, n = label(np.uint16(segReadFrame))
+
             #labeledFrame = np.squeeze(labeledFrame)
 
             #n = len(np.unique(labeledFrame))
-            #initialLabelsInds = set(range(n))
+
 
             #area = measurements.sum(labeledFrame != 0, labeledFrame, index=list(range(n)))
             #badAreas = (np.where((area < 8) | (area > 400))[0])
@@ -147,7 +147,11 @@ class TrackStep(AnalysisStep):
             #eraseFunc = lambda p: 0 if p in badAreas else p
             #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
             segFrame[segFrame != 0] = 1
-            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((4, 4))).astype(np.int32)
+            print(segFrame.shape)
+            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((4, 4))).astype(np.int16)
+            labeledFrame, n = label(np.uint16(filtered_frame))
+            labelsInds = set(range(n))
+
             #labelsInds = initialLabelsInds.difference(badAreas)
         else:
             filtered_frame = segReadFrame

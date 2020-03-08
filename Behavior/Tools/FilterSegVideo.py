@@ -18,7 +18,8 @@ def main(filename):
 
     for i in range(frame_count):
         _, current_frame = cap.read()
-        current_frame = current_frame[:, :, 0]
+        current_frame = current_frame
+        current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
         #labeled_frame, n = label(current_frame)
         labeled_frame = current_frame
 
