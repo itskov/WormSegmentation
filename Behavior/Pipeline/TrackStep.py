@@ -146,6 +146,7 @@ class TrackStep(AnalysisStep):
 
             #eraseFunc = lambda p: 0 if p in badAreas else p
             #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
+            segFrame[segFrame != 0] = 1
             filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((4, 4))).astype(np.int32)
             #labelsInds = initialLabelsInds.difference(badAreas)
         else:
