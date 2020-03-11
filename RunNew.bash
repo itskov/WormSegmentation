@@ -23,7 +23,7 @@ echo "Done installting sk-video."
 #pip install glob2
 
 echo $1
-python ~/WormSegmentation/Behavior/Pipeline/AnalysisStep.py $1
+python ~/WormSegmentation/Behavior/Pipeline/AnalysisStep.py $1 first_channel
 deactivate
 echo "Deactivating venv."
 rm -rf $venvNam
