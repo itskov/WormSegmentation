@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     sys.path.append('/cs/phd/itskov/WormSegmentation')
 
-    '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
+    from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
     from Behavior.Pipeline.TrackStep import TrackStep
     from Behavior.Pipeline.OutputStep import OutputStep
@@ -70,9 +70,9 @@ if __name__ == '__main__':
     print('Channel: ' + 'first_channel.' if artifacts['take_first_channel'] is True else 'Combined.')
 
     pipline = [SplitChannelsStep(), SegmentStep(), OutputStep(), TrackStep()]
-    process(pipline, artifacts)'''
+    process(pipline, artifacts)
 
-    from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
+    '''from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
     from Behavior.Pipeline.OutputStep import OutputStep
     from Behavior.Pipeline.TrackStep import TrackStep
@@ -101,6 +101,6 @@ if __name__ == '__main__':
     os.process(artifacts)
     os.process(artifacts)
     os.process(artifacts)
-    os.close(artifacts)
+    os.close(artifacts)'''
 
 
