@@ -149,7 +149,7 @@ class TrackStep(AnalysisStep):
             #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
             before = time()
             segFrame[segFrame != 0] = 1
-            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 4, 4))).astype(np.int16)
+            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 5, 5))).astype(np.int16)
             labeledFrame, n = label(np.uint16(filtered_frame))
 
             # Take only one channel
