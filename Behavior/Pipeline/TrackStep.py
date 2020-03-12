@@ -4,6 +4,7 @@ from scipy.ndimage import measurements, label
 from scipy.spatial.distance import pdist
 from scipy import ndimage
 from os import path
+from time import time
 
 import numpy as np
 
@@ -146,6 +147,7 @@ class TrackStep(AnalysisStep):
 
             #eraseFunc = lambda p: 0 if p in badAreas else p
             #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
+            before = time()
             segFrame[segFrame != 0] = 1
             filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 5, 5))).astype(np.int16)
             labeledFrame, n = label(np.uint16(filtered_frame))
@@ -155,6 +157,8 @@ class TrackStep(AnalysisStep):
                 labeledFrame = labeledFrame[0, :, :]
 
             labelsInds = set(range(n))
+            after = time() - before()
+            print('Time to get frame: %f' % (after,))
 
             #labelsInds = initialLabelsInds.difference(badAreas)
         else:
