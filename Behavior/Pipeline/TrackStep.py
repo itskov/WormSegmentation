@@ -158,7 +158,7 @@ class TrackStep(AnalysisStep):
 
             labelsInds = set(range(n))
             after = time() - before
-            print('Time to get frame: %f' % (after,))
+            print('\tTime to get frame: %f' % (after,))
 
             #labelsInds = initialLabelsInds.difference(badAreas)
         else:
