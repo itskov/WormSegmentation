@@ -149,6 +149,11 @@ class TrackStep(AnalysisStep):
             segFrame[segFrame != 0] = 1
             filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 5, 5))).astype(np.int16)
             labeledFrame, n = label(np.uint16(filtered_frame))
+
+            # Take only one channel
+            if len(labeledFrame.shape) > 2:
+                labeledFrame = labeledFrame[0, :, :]
+
             labelsInds = set(range(n))
 
             #labelsInds = initialLabelsInds.difference(badAreas)
