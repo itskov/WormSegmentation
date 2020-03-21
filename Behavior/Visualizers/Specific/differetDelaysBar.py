@@ -3,17 +3,17 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-art_120a = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/')
-art_120na = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.56.12/')
+art_120a = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/')
+art_120na = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.56.12/')
 
-art_180a = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.29.04/')
-art_180na = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.28.03/')
+art_180a = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.29.04/')
+art_180na = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.28.03/')
 
-art_240a = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.52/')
-art_240na = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.04/')
+art_240a = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.52/')
+art_240na = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.04/')
 
-art_300a = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.12.12/')
-art_300na = Artifacts(expLocation='/home/itskov/Temp/behav/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.11.34/')
+art_300a = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.12.12/')
+art_300na = Artifacts(expLocation='/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.11.34/')
 
 
 art_120a_frac = art_120a.getArtifact('roi')['arrivedFrac'][4499]

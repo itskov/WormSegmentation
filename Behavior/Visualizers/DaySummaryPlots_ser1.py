@@ -57,33 +57,23 @@ def main():
 
 
 
-    exp1 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/exp.npy')[0]
-    exp2 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.56.12/exp.npy')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/15-Mar-2020/TS1_ATR_TRAIN_75M_0D.avi_11.17.28/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/15-Mar-2020/TS1_NO_ATR_TRAIN_75M_0D.avi_11.15.58/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
-    plot_titles.append('0m')
+    plot_titles.append('Exp')
 
-    exp1 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.29.04/exp.npy')[0]
-    exp2 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.28.03/exp.npy')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/15-Mar-2020/TS1_ATR_TRAIN_75M_0D.avi_12.31.55/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/15-Mar-2020/TS1_NO_ATR_TRAIN_75M_0D.avi_12.31.00/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
-    plot_titles.append('0m')
+    plot_titles.append('Exp')
 
-    exp1 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.52/exp.npy')[0]
-    exp2 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.04/exp.npy')[0]
+    exp1 = np.load('/home/itskov/Temp/behav/15-Mar-2020/TS1_ATR_TRAIN_75M_0D.avi_13.52.55/exp.npy')[0]
+    exp2 = np.load('/home/itskov/Temp/behav/15-Mar-2020/TS1_NO_ATR_TRAIN_75M_0D.avi_13.51.37/exp.npy')[0]
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+', 'ATR-'))
-    plot_titles.append('0m')
-
-    exp1 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.12.12/exp.npy')[0]
-    exp2 = np.load('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.11.34/exp.npy')[0]
-    plots_pairs.append((exp1, exp2))
-    plot_legends.append(('ATR+', 'ATR-'))
-    plot_titles.append('0m')
-
-
-
-
+    plot_titles.append('Exp')
 
 
     day_summary_plots(plots_pairs, plot_legends, plot_titles)
