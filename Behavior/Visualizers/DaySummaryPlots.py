@@ -45,6 +45,7 @@ def day_summary_plots(exp_pairs, titles, legends):
 
 
     #fig.tight_layout()
+    fig.savefig('/home/itskov/Dropbox/dayfigs.png')
 
     plt.show()
 

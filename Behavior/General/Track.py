@@ -180,14 +180,16 @@ if __name__  == "__main__":
     exp = np.load('/home/itskov/Temp/behav/TS1_ATR_TRAIN_75M_0D.avi_11.17.28/exp.npy')[0]
     tracks = exp._tracks
 
-    from Behavior.Visualizers.AngPosDensity import AngPosDensity
+    from Behavior.General.TracksFilter import filterTracksForAnalyses
+    tracks = filterTracksForAnalyses(tracks, minSteps=50, minDistance=50)
+    pass
 
 
     #ap = AngPosDensity(exp)
     #ap.execute()
 
-    l = [track._trackCords.shape[0] for track in tracks]
-    tracks = tracks[np.array(l) > 500]
+    #l = [track._trackCords.shape[0] for track in tracks]
+    #tracks = tracks[np.array(l) > 500]
 
 
     t = tracks[186]
