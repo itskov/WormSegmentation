@@ -1,6 +1,7 @@
 from Behavior.General.TracksFilter import filterTracksForAnalyses
 from Behavior.General.ExpDir import ExpDir
 from Behavior.Tools.Artifacts import Artifacts
+from scipy.signal import savgol_filter
 
 from os import path
 
@@ -17,6 +18,8 @@ def gatherTracksForSpikes(exp_file, show_plot=False):
     RANGE_BEFORE = 100
     RANGE_AFTER = 260
     MAX_FRAMES = 3500
+
+    speed_up_times = []
 
     exp = np.load(exp_file)[0]
 
@@ -87,30 +90,43 @@ def gatherTracksForSpikes(exp_file, show_plot=False):
     mean_spikes_speeds = np.median(spikes_speeds, axis=0)
     mean_spikes_angles = np.median(spikes_angles, axis=0)
 
+    mean_spikes_speeds = mean_spikes_speeds[2:-2]
+    spike_reversals_prob = spike_reversals_prob[2:-2]
+    mean_spikes_angles = mean_spikes_speeds[2:-2]
+    spike_rep = spike_rep[2:-2]
+
+    # Gathering the speeding up time.
+    smoothed_speeds = savgol_filter(mean_spikes_speeds, 11, 3)
+    spike_decay_point = np.max(np.where(np.diff(spike_rep) < -5)) + 3
+    speed_up_time = \
+        np.min(np.where(smoothed_speeds[spike_decay_point:] >= np.mean(smoothed_speeds[0:RANGE_BEFORE])))
+
+    speed_up_times.append(speed_up_time)
+
     if show_plot:
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        ax.plot(spike_rep[2:-2])
+        ax.plot(spike_rep)
         ax2 = ax.twinx()
 
-        ax2.plot(spike_reversals_prob[2:-2])
+        ax2.plot(spike_reversals_prob)
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
 
-        ax.plot(mean_spikes_speeds[1:-1])
+        ax.plot(mean_spikes_speeds)
         ax2 = ax.twinx()
         spike_reversals_prob = np.sum(spikes_reversals, axis=0) / np.prod(spikes_reversals.shape)
-        ax2.plot(spike_reversals_prob[1:-1])
+        ax2.plot(spike_reversals_prob)
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
 
-        ax.plot(mean_spikes_speeds[1:-1], color='red')
+        ax.plot(mean_spikes_speeds, color='red')
         ax2 = ax.twinx()
 
-        ax2.plot(mean_spikes_angles[1:-1], color='blue')
+        ax2.plot(mean_spikes_angles, color='blue')
 
         plt.figure()
         sns.lineplot(x='frame', y='speed', data=df, ci=None)
@@ -122,17 +138,17 @@ def gatherTracksForSpikes(exp_file, show_plot=False):
 
 
 if __name__ == "__main__":
-    '''exp_files = ['/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_0.5S.avi_10.09.48/exp.npy',
+    exp_files = ['/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_0.5S.avi_10.09.48/exp.npy',
                 '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_1S.avi_10.54.39/exp.npy',
                 '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_1.5S.avi_11.45.54/exp.npy',
                 '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2S.avi_12.39.07/exp.npy',
                 '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2.5S.avi_13.25.34/exp.npy',
-                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_3S.avi_14.14.43/exp.npy']'''
+                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_3S.avi_14.14.43/exp.npy']
 
-    exp_files = ['/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_0.5S.avi_22.01.55/exp.npy',
+    '''exp_files = ['/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_0.5S.avi_22.01.55/exp.npy',
                  '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_1S.avi_19.49.05/exp.npy',
                  '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_3S.avi_20.36.24/exp.npy',
-                 '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_5S.avi_21.16.44/exp.npy']
+                 '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_5S.avi_21.16.44/exp.npy']'''
 
 
 

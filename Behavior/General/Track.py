@@ -45,11 +45,11 @@ class Track:
 
 
         # Calculate speeds
-        self._tracksSteps = np.diff(self._trackCords, axis = 0)
-        self._tracksSpeeds = np.sqrt(self._tracksSteps[:,0] ** 2 + self._tracksSteps[:,1] ** 2)
+        self._tracksSteps = np.diff(self._trackCords, axis=0)
+        self._tracksSpeeds = np.sqrt(self._tracksSteps[:, 0] ** 2 + self._tracksSteps[:, 1] ** 2)
         self._tracksSpeeds = np.append(self._tracksSpeeds, 0)
         # Adding one last fictive step.
-        self._tracksSteps = np.append(self._tracksSteps,[[None, None]],axis=0)
+        self._tracksSteps = np.append(self._tracksSteps, [[None, None]], axis=0)
         self._tracksSteps = self._tracksSteps.astype(np.float32)
 
 
@@ -107,7 +107,7 @@ class Track:
         afterDistance = np.linalg.norm(self._trackCords[-1, :] - pos)
 
         deltaDistance = beforeDistance - afterDistance
-        return (deltaDistance / self._trackCords.shape[0])
+        return (deltaDistance / np.sum(self._tracksSpeeds))
 
     def getMeanSpeed(self):
         return np.mean(self._tracksSpeeds)
@@ -140,7 +140,7 @@ class Track:
 
     def getAbsAngles(self, frame):
         if (frame in self._trackFrames):
-            rev =  self._tracksAngles[self._trackFrames == frame]
+            rev = self._tracksAngles[self._trackFrames == frame][0]
             if rev == np.NaN:
                 return None
             else:
@@ -177,7 +177,7 @@ class Track:
         return np.max(pdist(self._trackCords))
 
 if __name__  == "__main__":
-    exp = np.load('/mnt/storageNASRe/tph1/Results/12-Sep-2019/TPH_1_ATR_TRAIN_IAA3.avi_12.14.20/exp.npy')[0]
+    exp = np.load('/home/itskov/Temp/behav/TS1_ATR_TRAIN_75M_0D.avi_11.17.28/exp.npy')[0]
     tracks = exp._tracks
 
     from Behavior.Visualizers.AngPosDensity import AngPosDensity
