@@ -17,3 +17,4 @@ class JointSpeedProjection:
 
         df = pd.DataFrame({'speed': speeds, 'proj': projs})
         sns.jointplot(x='speed', y='proj', data=df, kind='scatter')
+        plt.show()
