@@ -13,7 +13,6 @@ class JointSpeedProjection:
         self._speeds = [t.getMeanSpeed() for t in self._tracks]
         self._projs = [t.getMeanProjection(self._exp._regionsOfInterest['endReg']['pos']) for t in self._tracks]
 
-<<<<<<< HEAD
 
     def execute(self, xlims, ylims):
         plt.style.use('deafault')
@@ -22,8 +21,3 @@ class JointSpeedProjection:
         sns.jointplot(x='speed', y='proj', data=df, kind='scatter', xlim=xlims, ylim=ylims)
 
         return(self._speeds, self._projs)
-=======
-        df = pd.DataFrame({'speed': speeds, 'proj': projs})
-        sns.jointplot(x='speed', y='proj', data=df, kind='scatter')
-        plt.show()
->>>>>>> 3c582bee8007b96942d80d1ea78900ff84b7ebb0
