@@ -40,8 +40,8 @@ def tracksSpeedsPerSpike(exp_files):
 
 def tracksSpeedsForAllSpikes(exp_files):
     #sns.set()
-    sns.set_context('poster')
-    plt.style.use("dark_background")
+    sns.set_context('talk')
+    plt.style.use('dark_background')
 
     df = pd.DataFrame({'Frame': [], 'Speed': [], 'ActivationTime': []})
 
@@ -57,18 +57,26 @@ def tracksSpeedsForAllSpikes(exp_files):
         # Getting rid start/end time artifacts.
         spikes_speeds = spikes_speeds[:, 2:-2]
         norm_factor = np.reshape(np.mean(spikes_speeds[:, 0:10], axis=1), (spikes_speeds.shape[0],1))
-        spikes_speeds =  spikes_speeds - norm_factor
+        spikes_speeds = spikes_speeds - norm_factor
 
         current_df = pd.DataFrame({'Time': tuple(np.array(range(0, spikes_speeds.shape[1])) * 0.5) * spikes_speeds.shape[0],
                                    'Speed': np.reshape(spikes_speeds, np.size(spikes_speeds)),
                                    'ActivationTime': exp_tuple[1]})
 
+        cp = sns.cubehelix_palette(8)
+        ax = sns.lineplot(x='Time', y='Speed', data=current_df, ci=95, color=cp[5], linewidth=2)
+        plt.gca().grid(alpha=0.2)
+        ax.set(xlabel='Time [s]', ylabel='Speed [au]')
+        plt.gca().grid(alpha=0.2)
+
         df = pd.concat((df, current_df))
         pass
 
-    ax = sns.lineplot(x='Time', y='Speed', hue='ActivationTime', data=df, ci=None)
+
+    ax = sns.lineplot(x='Time', y='Speed', hue='ActivationTime', data=df, ci=None, linewidth=2, alpha=0.75)
     plt.gca().grid(alpha=0.2)
     ax.set(xlabel='Time [s]', ylabel='Speed [au]')
+    plt.gca().grid(alpha=0.2)
     plt.show()
     pass
 

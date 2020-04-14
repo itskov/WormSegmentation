@@ -4,11 +4,11 @@ class ProjectionAnalyses:
         self._results = {}
 
     def execute(self):
-        LENGTH_THR = 250
+        LENGTH_THR = 60
 
-        proj = [track.getMeanProjection(self._exp._regionsOfInterest['endReg']['pos']) / self._exp._scale for
+        proj = [track.getMeanProjection(self._exp._regionsOfInterest['endReg']['pos']) for
                track in self._exp._tracks if
-               track._trackCords.shape[0] >= LENGTH_THR and track.getMaxDistTravelled() > 350]
+               track._trackCords.shape[0] >= LENGTH_THR and track.getMaxDistTravelled() > 120]
 
         self._results['proj'] = proj
 

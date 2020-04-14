@@ -23,7 +23,7 @@ This class helps compare and visualize difference between
 two experiments. Naturally, control and condition.
 '''
 class ExpPair:
-    def __init__(self, firstExpPath, secExpPath, targetPath = None):
+    def __init__(self, firstExpPath, secExpPath, targetPath = None, cond1=None, cond2=None):
         self.FIRST_COLOR = "#3C65B7"
         self.SECOND_COLOR = "#00A99C"
 
@@ -36,11 +36,20 @@ class ExpPair:
         self._targetDir = path.dirname(firstExpPath)
 
         # Try to get the name of the condition from one of the experiment files.
-        fn1 = path.basename(self._firstExpDir.getExpSegVid())
-        fn2 = path.basename(self._secondExpDir.getExpSegVid())
+        if cond1 is None:
+            fn1 = path.basename(self._firstExpDir.getExpSegVid())
+            self._cond1 = re.search('.+-(.+)\.avi.*', fn1)[1]
+        else:
+            self._cond1 = cond1
 
-        self._cond1 = re.search('.+-(.+)\.avi.*', fn1)[1]
-        self._cond2 = re.search('.+-(.+)\.avi.*', fn2)[1]
+        if cond2 is None:
+            fn2 = path.basename(self._secondExpDir.getExpSegVid())
+            self._cond2 = re.search('.+-(.+)\.avi.*', fn2)[1]
+        else:
+            self._cond2 = cond2
+
+
+
 
         #DEBUG!!!
         #self._cond1 = 'Trained'

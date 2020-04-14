@@ -10,10 +10,14 @@ class JointSpeedProjection:
         self._exp = exp
         self._tracks = filterTracksForAnalyses(exp._tracks, minSteps=50, minDistance=50)
 
-    def execute(self):
-        plt.style.use('dark_background')
-        speeds = [t.getMeanSpeed() for t in self._tracks]
-        projs = [t.getMeanProjection(self._exp._regionsOfInterest['endReg']['pos']) for t in self._tracks]
+        self._speeds = [t.getMeanSpeed() for t in self._tracks]
+        self._projs = [t.getMeanProjection(self._exp._regionsOfInterest['endReg']['pos']) for t in self._tracks]
 
-        df = pd.DataFrame({'speed': speeds, 'proj': projs})
-        sns.jointplot(x='speed', y='proj', data=df, kind='scatter')
+
+    def execute(self, xlims, ylims):
+        plt.style.use('deafault')
+
+        df = pd.DataFrame({'speed': self._speeds, 'proj': self._projs})
+        sns.jointplot(x='speed', y='proj', data=df, kind='scatter', xlim=xlims, ylim=ylims)
+
+        return(self._speeds, self._projs)

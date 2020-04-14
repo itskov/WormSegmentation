@@ -102,6 +102,10 @@ class Track:
 
         return pirMark
 
+    def getRunsLength(self):
+        runs_length = np.diff(np.where(self._tracksReversals))
+        return runs_length
+
     def getMeanProjection(self, pos):
         beforeDistance = np.linalg.norm(self._trackCords[0, :] - pos)
         afterDistance = np.linalg.norm(self._trackCords[-1, :] - pos)
@@ -177,12 +181,32 @@ class Track:
         return np.max(pdist(self._trackCords))
 
 if __name__  == "__main__":
-    exp = np.load('/home/itskov/Temp/behav/TS1_ATR_TRAIN_75M_0D.avi_11.17.28/exp.npy')[0]
-    tracks = exp._tracks
+    exp_atr = np.load('/home/itskov/Temp/behav/TPH_1_ATR_TRAIN_75M_0D.avi_14.20.27/exp.npy')[0]
+    exp_noAtr = np.load('/home/itskov/Temp/behav/TPH_1_NO_ATR_TRAIN_75M_D0.avi_14.19.35/exp.npy')[0]
+
 
     from Behavior.General.TracksFilter import filterTracksForAnalyses
-    tracks = filterTracksForAnalyses(tracks, minSteps=50, minDistance=50)
+    #tracks_atr = filterTracksForAnalyses(exp._atr._tracks, minSteps=50, minDistance=50)
+    #tracks_noAtr = filterTracksForAnalyses(exp_noAtr._atr._tracks, minSteps=50, minDistance=50)
     pass
+
+    from Behavior.Visualizers.RunsLengthAnalyses import RunsLengthAnalyses
+    runs_vis_atr = RunsLengthAnalyses(exp_atr)
+    runs_vis_atr.execute()
+
+    runs_vis_no_atr = RunsLengthAnalyses(exp_noAtr)
+    runs_vis_no_atr.execute()
+
+    import pandas as pd
+    df_atr = pd.DataFrame({'len': runs_vis_atr._results['run_lens'], 'cond': 'ATR+'})
+    df_no_atr = pd.DataFrame({'len': runs_vis_no_atr._results['run_lens'], 'cond': 'ATR-'})
+    df = pd.concat((df_atr, df_no_atr))
+
+
+
+
+
+    plt.hist(runs_vis._results['run_lens'], bins=1000)
 
 
     #ap = AngPosDensity(exp)

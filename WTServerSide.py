@@ -14,7 +14,6 @@ from os.path import join
 from os import mkdir, rmdir
 from shutil import copyfile, copytree, rmtree
 from scipy.ndimage import imread, label
-#from skimage.measure import label
 from PIL import Image
 
 

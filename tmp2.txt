@@ -1,0 +1,255 @@
+/mnt/storageNASRe/tph1/Results/11-Sep-2019/expBundle_1585231131.json
+/mnt/storageNASRe/tph1/Results/19-Mar-2020/expBundle_1585231552.json
+/mnt/storageNASRe/tph1/Results/25-Sep-2019/expBundle_1585242439.json
+/mnt/storageNASRe/tph1/Results/28-Nov-2019/expBundle_1585242724.json
+/mnt/storageNASRe/tph1/Results/01-Dec-2019/expBundle_1585232792.json
+/mnt/storageNASRe/tph1/Results/27-Oct-2019/expBundle_1585232126.json
+/mnt/storageNASRe/tph1/Results/27-Oct-2019/expBundle_1585232165.json
+/mnt/storageNASRe/tph1/Results/23-Dec-2019/expBundle_1585241686.json
+/mnt/storageNASRe/tph1/Results/08-Jan-2020/expBundle_1585233195.json
+/mnt/storageNASRe/tph1/Results/15-Jan-2020/expBundle_1585231512.json
+/mnt/storageNASRe/tph1/Results/19-Nov-2019/expBundle_1585232723.json
+/mnt/storageNASRe/tph1/Results/20-Nov-2019/expBundle_1585241472.json
+/mnt/storageNASRe/tph1/Results/20-Nov-2019/expBundle_1585241494.json
+/mnt/storageNASRe/tph1/Results/24-Nov-2019/expBundle_1585242030.json
+/mnt/storageNASRe/tph1/Results/24-Nov-2019/expBundle_1585242136.json
+/mnt/storageNASRe/tph1/Results/20-Jan-2020/expBundle_1585241442.json
+/mnt/storageNASRe/tph1/Results/22-Jan-2020/expBundle_1585241636.json
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/expBundle_1585242836.json
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/expBundle_1585243083.json
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/expBundle_1585242963.json
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/expBundle_1585243166.json
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/expBundle_1585243139.json
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/expBundle_1585243296.json
+/mnt/storageNASRe/tph1/Results/29-Jan-2020/expBundle_1585242762.json
+/mnt/storageNASRe/tph1/Results/29-Jan-2020/expBundle_1585242782.json
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/expBundle_1585233066.json
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/expBundle_1585233086.json
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/expBundle_1585233151.json
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/expBundle_1585233273.json
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/expBundle_1585233292.json
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/expBundle_1585233312.json
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/expBundle_1585241118.json
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/expBundle_1585241141.json
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/expBundle_1585241164.json
+/mnt/storageNASRe/tph1/Results/10-Feb-2020/expBundle_1585240966.json
+/mnt/storageNASRe/tph1/Results/10-Feb-2020/expBundle_1585240992.json
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/expBundle_1585241197.json
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/expBundle_1585241225.json
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/expBundle_1585241255.json
+/mnt/storageNASRe/tph1/Results/26-Feb-2020/expBundle_1585242526.json
+/mnt/storageNASRe/tph1/Results/26-Feb-2020/expBundle_1585242549.json
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/expBundle_1585242614.json
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/expBundle_1585242640.json
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/expBundle_1585242661.json
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/expBundle_1585242678.json
+/mnt/storageNASRe/tph1/Results/12-Mar-2020/expBundle_1585241044.json
+/mnt/storageNASRe/tph1/Results/04-Mar-2020/expBundle_1585233017.json
+/mnt/storageNASRe/tph1/Results/01-Mar-2020/expBundle_1585232842.json
+(42, 4)
+/mnt/storageNASRe/tph1/Results/11-Sep-2019/TPH_1_ATR_TRAIN_NO_IAA3.avi_12.58.44
+/mnt/storageNASRe/tph1/Results/11-Sep-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3.avi_12.57.02
+vals: 0.481481, 0.424242
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/25-Sep-2019/TPH_1_ATR_TRAIN_NO_IAA3.avi_13.27.40
+/mnt/storageNASRe/tph1/Results/25-Sep-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3.avi_13.26.44
+vals: 0.331915, 0.323529
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/28-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_17.13.55
+/mnt/storageNASRe/tph1/Results/28-Nov-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_17.13.10
+vals: 0.705882, 0.786885
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/01-Dec-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_16.18.20
+/mnt/storageNASRe/tph1/Results/01-Dec-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_16.17.35
+vals: 0.942308, 0.960630
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/27-Oct-2019/TPH_1_ATR_TRAIN_NO_IAA3.avi_15.16.46
+/mnt/storageNASRe/tph1/Results/27-Oct-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3.avi_15.15.58
+vals: 0.180952, 0.166667
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/27-Oct-2019/TPH_1_ATR_TRAIN_NO_IAA3.avi_18.20.12
+/mnt/storageNASRe/tph1/Results/27-Oct-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3.avi_18.19.39
+vals: 0.206522, 0.131313
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/23-Dec-2019/TPH_1_ATR_TRAIN_40M_NO_IAA3x5.avi_11.03.56
+/mnt/storageNASRe/tph1/Results/23-Dec-2019/TPH_1_NO_ATR_TRAIN_40M_NO_IAA3x5.avi_11.03.09
+vals: 0.309677, 0.128834
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/08-Jan-2020/TPH_1_ATR_TRAIN_70M_NO_IAA3x5.avi_13.05.52
+/mnt/storageNASRe/tph1/Results/08-Jan-2020/TPH_1_NO_ATR_TRAIN_70M_NO_IAA3x5.avi_13.05.52
+vals: 0.009901, 0.082192
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_15.11.05
+/mnt/storageNASRe/tph1/Results/19-Nov-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_15.10.16
+vals: 1.060870, 1.400990
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/20-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_10.22.38
+/mnt/storageNASRe/tph1/Results/20-Nov-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_10.21.51
+vals: 0.921053, 0.828283
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/20-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_13.19.03
+/mnt/storageNASRe/tph1/Results/20-Nov-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_13.18.07
+vals: 1.322148, 0.963415
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/24-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_14.51.14
+/mnt/storageNASRe/tph1/Results/24-Nov-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_14.50.08
+vals: 1.269461, 1.234940
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/24-Nov-2019/TPH_1_ATR_TRAIN_NO_IAA3x5.avi_12.17.21
+/mnt/storageNASRe/tph1/Results/24-Nov-2019/TPH_1_NO_ATR_TRAIN_NO_IAA3x5.avi_12.16.29
+vals: 1.107784, 0.942029
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/20-Jan-2020/TPH_1_ATR_TRAIN_60M_D240_NO_IAA3x5.avi_15.30.47
+/mnt/storageNASRe/tph1/Results/20-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_15.29.32
+vals: 0.166667, 0.222930
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/TPH_1_ATR_TRAIN_30M_NO_IAA3x5.avi_15.45.04
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/TPH_1_NO_ATR_TRAIN_30M_NO_IAA3x5.avi_15.44.18
+vals: 1.018018, 0.776596
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/TPH_1_ATR_TRAIN_30M_NO_IAA3x5.avi_19.27.27
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/TPH_1_NO_ATR_TRAIN_30M_NO_IAA3x5.avi_19.26.53
+vals: 1.081081, 0.752747
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/TPH_1_ATR_TRAIN_30M_NO_IAA3x5.avi_17.54.52
+/mnt/storageNASRe/tph1/Results/30-Dec-2019/TPH_1_NO_ATR_TRAIN_30M_NO_IAA3x5.avi_17.54.19
+vals: 1.152318, 1.464567
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/TPH_1_ATR_TRAIN_35M_NO_IAA3x5.avi_13.43.21
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/TPH_1_NO_ATR_TRAIN_35M_NO_IAA3x5.avi_13.42.39
+vals: 1.173913, 1.239130
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/TPH_1_ATR_TRAIN_35M_NO_IAA3x5.avi_10.50.09
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/TPH_1_NO_ATR_TRAIN_35M_NO_IAA3x5.avi_10.49.32
+vals: 0.442857, 0.530769
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/TPH_1_ATR_TRAIN_40M_NO_IAA3x5.avi_12.17.37
+/mnt/storageNASRe/tph1/Results/31-Dec-2019/TPH_1_NO_ATR_TRAIN_40M_NO_IAA3x5.avi_12.17.01
+vals: 1.029412, 0.984848
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/29-Jan-2020/TPH_1_ATR_TRAIN_65M_D0.avi_11.57.19
+/mnt/storageNASRe/tph1/Results/29-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D0.avi_11.56.26
+vals: 0.485597, 0.720930
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/29-Jan-2020/TPH_1_ATR_TRAIN_65M_D0.avi_14.08.35
+/mnt/storageNASRe/tph1/Results/29-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D0.avi_14.07.53
+vals: 0.842767, 0.725490
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_11.52.32
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_11.51.33
+vals: 0.641975, 0.638655
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_13.57.56
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_13.57.04
+vals: 0.637363, 0.683258
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/TPH_1_ATR_TRAIN_NOFOIL_75M_D0.avi_20.58.02
+/mnt/storageNASRe/tph1/Results/06-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_20.57.14
+vals: 0.936000, 0.740506
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_ATR_TRAIN_65M_D0.avi_13.03.09
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_NO_ATR_TRAIN_65M_D0.avi_13.02.15
+vals: 0.764368, 0.457831
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_ATR_TRAIN_65M_D0.avi_14.48.25
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_NO_ATR_TRAIN_65M_D0.avi_14.47.37
+vals: 0.505495, 0.414286
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_11.05.51
+/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_11.04.57
+vals: 0.938272, 0.572327
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/TS1_ATR_TRAIN_75M_0D.avi_11.17.28
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/TS1_NO_ATR_TRAIN_75M_0D.avi_11.15.58
+vals: 0.466667, 0.352941
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/TS1_ATR_TRAIN_75M_0D.avi_12.31.55
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/TS1_NO_ATR_TRAIN_75M_0D.avi_12.31.00
+vals: 1.068493, 0.523810
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/TS1_ATR_TRAIN_75M_0D.avi_13.52.55
+/mnt/storageNASRe/tph1/Results/15-Mar-2020/TS1_NO_ATR_TRAIN_75M_0D.avi_13.51.37
+vals: 0.595745, 0.417910
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/10-Feb-2020/TPH_1_ATR_TRAIN_65M_D0.avi_09.04.10
+/mnt/storageNASRe/tph1/Results/10-Feb-2020/TPH_1_NO_ATR_TRAIN_65M_D0.avi_09.03.08
+vals: 0.939394, 0.867347
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/10-Feb-2020/TPH_1_ATR_TRAIN_65M_D0.avi_11.19.33
+/mnt/storageNASRe/tph1/Results/10-Feb-2020/TPH_1_NO_ATR_TRAIN_65M_D0.avi_11.18.43
+vals: 0.379310, 0.523810
+(3750,)
+(3750,)
+*** Error: Invalid pair ***
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/TPH_1_ATR_TRAIN_70M_D0.avi_12.34.21
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/TPH_1_NO_ATR_TRAIN_70M_D0.avi_12.33.17
+vals: 0.459459, 0.105263
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/TPH_1_ATR_TRAIN_70M_D90.avi_16.06.15
+/mnt/storageNASRe/tph1/Results/16-Feb-2020/TPH_1_NO_ATR_TRAIN_65M_D90.avi_16.05.19
+vals: 0.186047, 0.229167
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/26-Feb-2020/TPH_1_ATR_TRAIN_70M_D0.avi_14.49.29
+/mnt/storageNASRe/tph1/Results/26-Feb-2020/TPH_1_NO_ATR_TRAIN_70M_D0.avi_14.48.37
+vals: 0.306667, 0.186047
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/26-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_11.55.20
+/mnt/storageNASRe/tph1/Results/26-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_11.54.30
+vals: 0.514085, 0.318750
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_ATR_TRAIN_75M_0D.avi_11.49.56
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_11.48.58
+vals: 0.600000, 0.480000
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_ATR_TRAIN_75M_0D.avi_14.20.27
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_14.19.35
+vals: 0.804469, 0.521739
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_10.35.08
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_0D.avi_10.33.43
+vals: 0.538462, 0.361446
+(3750,)
+(3750,)
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_13.05.28
+/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_0D.avi_13.04.39
+vals: 0.568750, 0.423077
+(3750,)
+(3750,)

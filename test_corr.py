@@ -6,11 +6,14 @@ import numpy as np
 import pandas as pd
 
 def checkCorrelation(filename):
+    # The maximal distance we will have in our distance column
+    DIST_THR = 450
+
     exp = np.load(filename)[0]
     tracks = exp._tracks
 
     # Filtering tracks
-    tracks = filterTracksForAnalyses(tracks, minSteps=25, minDistance=50)
+    tracks = filterTracksForAnalyses(tracks, minSteps=20, minDistance=50)
 
     angles = {}
     print("Calculating angles..")
@@ -41,6 +44,8 @@ def checkCorrelation(filename):
         before = time()
         tBearings = bearingsDict[i]
 
+        addedEntries = 0
+        thrownEntries = 0
 
         for f in t._trackFrames:
             t1CurrentBearing = tBearings[t._trackFrames == f][0]
@@ -58,6 +63,13 @@ def checkCorrelation(filename):
             for j in range((i+1), len(tracks)):
                 t2 = tracks[j]
                 if f in t2._trackFrames:
+                    vec = t._trackCords[t._trackFrames == f] - t2._trackCords[t2._trackFrames == f]
+                    distance = np.sqrt(np.sum(vec ** 2))
+
+                    if distance > DIST_THR:
+                        thrownEntries +=1
+                        continue
+
                     t2Bearings = bearingsDict[j]
                     t2CurrentBearing = t2Bearings[t2._trackFrames == f][0]
                     t2CurrentAngle = t2.getAbsAngles(f)
@@ -70,8 +82,6 @@ def checkCorrelation(filename):
                     distFromEnd2 = np.linalg.norm(
                         t2._trackCords[t2._trackFrames == f] - exp._regionsOfInterest['endReg']['pos'])
 
-                    vec = t._trackCords[t._trackFrames == f] - t2._trackCords[t2._trackFrames == f]
-                    distance = np.sqrt(np.sum(vec ** 2))
                     '''dicts.append({'trackId1': i,
                                     'trackId2': j,
                                     'angle1': tCurrentAngle,
@@ -95,8 +105,14 @@ def checkCorrelation(filename):
                     distsFromEnd2.append(distFromEnd2)
                     frame.append(f)
 
+                    addedEntries +=1
+
             after = time() - before
-        print('Time: %f seconds. Entries: %d' % (after, len(trackId1)))
+
+        print('Time: %f seconds. Added Entries: %d, Thrown Entries %d, All Entries: %d' % (after,
+                                                                                          addedEntries,
+                                                                                          thrownEntries,
+                                                                                          len(trackId1)))
 
     df = pd.DataFrame({'trackId1': trackId1, 'trackId2': trackId2, 'angle1': angle1,
                        'bearing1': bearing1, 'angle2': angle2, 'bearing2': bearing2,
@@ -111,5 +127,5 @@ def checkCorrelation(filename):
 
 
 if __name__ == "__main__":
-    checkCorrelation('/home/itskov/Temp/behav/04-Mar-2020/TPH1_ATR_TRAIN_75M_D0.avi_16.57.20/exp.npy')
+    checkCorrelation('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/exp.npy')
     #checkCorrelation('/home/itskov/Temp/behav/TS1_ATR_TRAIN_75M_0D.avi_11.17.28/exp.npy')

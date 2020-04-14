@@ -86,52 +86,20 @@ def gatherTracksForSpikes(exp_file, show_plot=False):
     spikes_angles[:, -2] = spikes_angles[:, -3]
     spikes_angles[:, -1] = spikes_angles[:, -3]
 
-    spike_reversals_prob = np.sum(spikes_reversals, axis=0) / np.prod(spikes_reversals.shape)
     mean_spikes_speeds = np.median(spikes_speeds, axis=0)
     mean_spikes_angles = np.median(spikes_angles, axis=0)
 
     mean_spikes_speeds = mean_spikes_speeds[2:-2]
-    spike_reversals_prob = spike_reversals_prob[2:-2]
-    mean_spikes_angles = mean_spikes_speeds[2:-2]
     spike_rep = spike_rep[2:-2]
 
     # Gathering the speeding up time.
-    smoothed_speeds = savgol_filter(mean_spikes_speeds, 11, 3)
+    '''smoothed_speeds = savgol_filter(mean_spikes_speeds, 11, 3)
     spike_decay_point = np.max(np.where(np.diff(spike_rep) < -5)) + 3
     speed_up_time = \
         np.min(np.where(smoothed_speeds[spike_decay_point:] >= np.mean(smoothed_speeds[0:RANGE_BEFORE])))
 
-    speed_up_times.append(speed_up_time)
+    speed_up_times.append(speed_up_time)'''
 
-    if show_plot:
-
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.plot(spike_rep)
-        ax2 = ax.twinx()
-
-        ax2.plot(spike_reversals_prob)
-
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-
-        ax.plot(mean_spikes_speeds)
-        ax2 = ax.twinx()
-        spike_reversals_prob = np.sum(spikes_reversals, axis=0) / np.prod(spikes_reversals.shape)
-        ax2.plot(spike_reversals_prob)
-
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-
-        ax.plot(mean_spikes_speeds, color='red')
-        ax2 = ax.twinx()
-
-        ax2.plot(mean_spikes_angles, color='blue')
-
-        plt.figure()
-        sns.lineplot(x='frame', y='speed', data=df, ci=None)
-        # plt.plot(frame_intensities)
-        plt.show()
 
     artifacts.addArtifact('tracks_by_pulse', tracks_for_single_spikes)
     artifacts.addArtifact('tracks_for_all_spikes', tracks_for_spikes)
