@@ -37,7 +37,7 @@ def PairWiseJointSpeedProjection(cond1, firstExp, cond2, secondExp, showShow=Tru
     cp = reversed(sns.dark_palette("purple", 2))
     sns.scatterplot(x='Speed', y='Projection', hue='cond', data=df, alpha=0.75, palette=cp)
     plt.xlabel('Speed [au / sec]')
-    plt.ylabel('Projection [au / sec]')
+    plt.ylabel('Projection')
 
     h1 = sns.jointplot(x='Speed', y='Projection', data=df[df['cond'] == cond1], kind='kde')
     #plt.xlabel('Speed [au / sec]')
