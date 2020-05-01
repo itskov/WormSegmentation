@@ -81,5 +81,6 @@ if __name__ == "__main__":
             ('/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2.5S.avi_13.25.34', 2.5),
             ('/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_3S.avi_14.14.43', 3)]
 
+
     analyzeSpeedUps(exps)
     pass

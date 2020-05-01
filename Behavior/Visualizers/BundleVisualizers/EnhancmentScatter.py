@@ -140,9 +140,9 @@ def scatterEnhacnment(pairsDf):
     xmin = np.min(plotDfProjection['ATR-'])
     xmax = np.max(plotDfProjection['ATR-'])
     ymin = np.min(plotDfProjection['ATR-'])
-    ymax = np.min(plotDfProjection['ATR+'])
+    ymax = np.max(plotDfProjection['ATR+'])
 
-    ax.plot([xmin, ymin], [xmax, ymax], ":")
+    ax.plot([0, 1], [0, 1], ":")
     plt.xlim(xmin, xmax)
     plt.ylim(ymin, ymax)
     plt.gca().grid(alpha=0.2)
@@ -185,11 +185,29 @@ def scatterEnhacnment(pairsDf):
 
 
 if __name__ == "__main__":
+    from os import path
+    from Behavior.Visualizers.ProjectionAnalyses import ProjectionAnalyses
+
     bundleDfs = gatherBundles(sys.argv[1])
 
     # Go over the right bundles
+
     pairsDf = bundleDfs[bundleDfs['ExpType'] == 'Pair Comparison']
+    for i in range(pairsDf.shape[0]):
+        dirnames = pairsDf.iloc[i]['files']
+
+        for dirname in dirnames:
+            exp = np.load(path.join(str(dirname), 'exp.npy'))[0]
+            art = Artifacts(expLocation=dirname)
+            projectionAnalyses = ProjectionAnalyses(exp)
+            projectionAnalyses.execute()
+            art.addArtifact('proj', projectionAnalyses._results)
+            print('%d. Added artifact' % (i,))
+
     scatterEnhacnment(pairsDf)
+
+
+
 
 
 
