@@ -12,7 +12,7 @@ from os.path import join
 class DataCollector:
     def __init__(self):
         print('Starting..')
-        self._GLOB_TERM = '/home/itskov/Temp/behav/20-Feb-2020/**/*Full.mp4'
+        self._GLOB_TERM = '/home/itskov/Temp/ec/*.avi'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -58,9 +58,6 @@ class DataCollector:
 
         # Get frames number
         movieLength = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        # DEBUG
-        movieLength *= 0.8
-        # DEBUG
         #length = 5000
 
         # Sample frame
@@ -116,7 +113,7 @@ class DataCollector:
 
         smallImage = curImage[heightPos:(heightPos + self._SNIP_SIZE[0]),
                      widthPos:(widthPos + self._SNIP_SIZE[1])]
-
+        
         smallImage = cv2.cvtColor(smallImage, cv2.COLOR_BGR2GRAY)
 
         return smallImage
@@ -154,8 +151,8 @@ def saveImage(i):
 
             im_I.save(join('./static/RawData/', str(i) + '.orig.png'), compress_level=0)
             imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
-    except Exception:
-        print('Error creating sample')
+    except Exception as ex:
+        print('Error creating sample: ' + str(ex))
         raise;
 
 
