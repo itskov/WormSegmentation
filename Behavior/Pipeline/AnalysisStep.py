@@ -26,15 +26,18 @@ class AnalysisStep:
 
 
 def process(pipline, artifacts):
+    print('***** Here *****')
     import cv2
     import numpy as np
 
     cap = cv2.VideoCapture(artifacts['mj2_path'])
-    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 6500))
+    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 118))
     cap.release()
 
     start_time = time()
     # Change to 8000
+    print('*** Total Frames: %d ***' % (total_frames,))
+
     while artifacts['frame_num'] < total_frames:
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'], so_far_time / 60))

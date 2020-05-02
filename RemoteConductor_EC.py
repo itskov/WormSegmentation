@@ -46,12 +46,12 @@ def main():
         #expName = expName[0]
 
         # Output parent dir
-        #outputParentDir = path.join(localPath,fileName)
+        #outputParentDir = path.join(localPath,fileDate)
         #if not path.isdir(outputParentDir):
         #    mkdir(outputParentDir)
 
         # Creating the localdir
-        outputLocalDir = path.join(localPath,fileName + "_exp")
+        outputLocalDir = path.join(localPath, fileName + "_exp")
         if not path.isdir(outputLocalDir):
             mkdir(outputLocalDir)
 
@@ -69,18 +69,7 @@ def main():
                 print('Done retrieving. in %d minutes' % (retTime / 60))
 
         #conduct(outputLocalDir)
-        os.system('sbatch --mem=64g --gres gpu:m60:1 -c2 --time=0-12 ./processVideo.bash %s' % outputLocalDir)
-
-
-
-
-
-
-
-
-
-
-
+        os.system('sbatch --mem=50g --gres gpu:m60:1 -c3 --time=0-8 ./RunNew.bash %s' % outputFile)
 
 
 if __name__ ==  "__main__":

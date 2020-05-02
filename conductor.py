@@ -22,7 +22,7 @@ def conduct(inputDir = None):
         return
 
 
-    mj2Files = glob(path.join(escape(inputDir), "*.mj2"))
+    mj2Files = glob(path.join(escape(inputDir), "*.avi"))
     if (len(mj2Files) > 1):
         print('Error: ambiguous mj2 files.')
         return
