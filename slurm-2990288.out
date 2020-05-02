@@ -1,0 +1,1032 @@
+/cs/phd/itskov/Storage/EhudC/EHC143_DAF2_DAY_2_rep_3_19jan20.avi_exp/EHC143_DAF2_DAY_2_rep_3_19jan20.avi
+/cs/phd/itskov/venv_8e1da10d-46bb-4dd4-aa3c-ed7bbfd172c3
+
+Inactive Modules:
+  1) infiniband
+
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /cs/phd/itskov/venv_8e1da10d-46bb-4dd4-aa3c-ed7bbfd172c3/bin/python3
+Also creating executable in /cs/phd/itskov/venv_8e1da10d-46bb-4dd4-aa3c-ed7bbfd172c3/bin/python
+Installing setuptools, pkg_resources, pip, wheel...done.
+Installing sk-video.
+Collecting sk-video
+  Using cached sk_video-1.1.10-py2.py3-none-any.whl (2.3 MB)
+Requirement already satisfied: scipy in /usr/lib/python3/dist-packages (from sk-video) (1.1.0)
+Requirement already satisfied: numpy in /usr/lib/python3/dist-packages (from sk-video) (1.16.2)
+Installing collected packages: sk-video
+Successfully installed sk-video-1.1.10
+Done installting sk-video.
+/cs/phd/itskov/Storage/EhudC/EHC143_DAF2_DAY_2_rep_3_19jan20.avi_exp/EHC143_DAF2_DAY_2_rep_3_19jan20.avi
+2020-05-02 18:04:48.961271: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(AnalysisStep.py:8983): Gdk-CRITICAL **: 18:04:55.156: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+
+(AnalysisStep.py:8983): Gdk-CRITICAL **: 18:04:55.158: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+WARNING: Logging before flag parsing goes to stderr.
+W0502 18:04:57.102204 139840714594112 deprecation_wrapper.py:119] From /cs/phd/itskov/WormSegmentation/Behavior/Pipeline/SegmentStep.py:23: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+W0502 18:04:57.119242 139840714594112 deprecation_wrapper.py:119] From /cs/phd/itskov/WormSegmentation/Behavior/Pipeline/SegmentStep.py:26: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+W0502 18:04:57.119440 139840714594112 deprecation_wrapper.py:119] From /cs/phd/itskov/WormSegmentation/Behavior/Pipeline/SegmentStep.py:29: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+2020-05-02 18:04:57.136290: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2399925000 Hz
+2020-05-02 18:04:57.136949: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x3cf11d0 executing computations on platform Host. Devices:
+2020-05-02 18:04:57.136978: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2020-05-02 18:04:57.141538: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2020-05-02 18:04:57.335563: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x658e730 executing computations on platform CUDA. Devices:
+2020-05-02 18:04:57.335615: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Tesla M60, Compute Capability 5.2
+2020-05-02 18:04:57.338680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: Tesla M60 major: 5 minor: 2 memoryClockRate(GHz): 1.1775
+pciBusID: 0000:06:00.0
+2020-05-02 18:04:57.338815: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2020-05-02 18:04:57.437957: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2020-05-02 18:04:57.497728: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2020-05-02 18:04:57.536063: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2020-05-02 18:04:57.686106: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2020-05-02 18:04:57.751185: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2020-05-02 18:04:58.013244: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2020-05-02 18:04:58.018208: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2020-05-02 18:04:58.018351: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2020-05-02 18:05:03.539211: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-05-02 18:05:03.539488: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2020-05-02 18:05:03.539522: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2020-05-02 18:05:03.544758: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7576 MB memory) -> physical GPU (device: 0, name: Tesla M60, pci bus id: 0000:06:00.0, compute capability: 5.2)
+W0502 18:05:03.548689 139840714594112 deprecation.py:323] From /cs/phd/itskov/WormSegmentation/trainModel.py:28: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0502 18:05:03.551519 139840714594112 deprecation.py:506] From /usr/local/tensorflow/avx-avx2-gpu/1.14.0/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+W0502 18:05:03.710239 139840714594112 ag_logging.py:145] Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecf15de80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecf15de80>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:03.873037 139840714594112 ag_logging.py:145] Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecf15de80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecf15de80>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:04.021443 139840714594112 ag_logging.py:145] Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecf15de80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecf15de80>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:04.023655 139840714594112 deprecation.py:323] From /cs/phd/itskov/WormSegmentation/trainModel.py:52: conv2d_transpose (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2DTranspose` instead.
+W0502 18:05:04.405173 139840714594112 ag_logging.py:145] Entity <bound method Conv2DTranspose.call of <tensorflow.python.layers.convolutional.Conv2DTranspose object at 0x7f2ecf15de80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv2DTranspose.call of <tensorflow.python.layers.convolutional.Conv2DTranspose object at 0x7f2ecf15de80>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:04.886714 139840714594112 ag_logging.py:145] Entity <bound method Conv2DTranspose.call of <tensorflow.python.layers.convolutional.Conv2DTranspose object at 0x7f2ecf15de80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv2DTranspose.call of <tensorflow.python.layers.convolutional.Conv2DTranspose object at 0x7f2ecf15de80>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:05.292257 139840714594112 ag_logging.py:145] Entity <bound method Conv2DTranspose.call of <tensorflow.python.layers.convolutional.Conv2DTranspose object at 0x7f2ecf15de80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv2DTranspose.call of <tensorflow.python.layers.convolutional.Conv2DTranspose object at 0x7f2ecf15de80>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:05.454942 139840714594112 ag_logging.py:145] Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecc0a0908>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f2ecc0a0908>>: AttributeError: module 'astor' has no attribute 'code_gen'
+W0502 18:05:05.461084 139840714594112 deprecation_wrapper.py:119] From /cs/phd/itskov/WormSegmentation/Behavior/Pipeline/SegmentStep.py:33: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+
+W0502 18:05:05.477089 139840714594112 deprecation.py:323] From /usr/local/tensorflow/avx-avx2-gpu/1.14.0/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+2020-05-02 18:05:05.806343: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+/usr/lib/python3/dist-packages/scipy/ndimage/measurements.py:1328: RuntimeWarning: invalid value encountered in true_divide
+  for dir in range(input.ndim)]
+Channel: first_channel.
+***** Here *****
+*** Total Frames: 118 ***
+Frame: 0 Time: 0.000000 m
+	0. Split Channel time: 0.147302 s
+	1. Segmentation time: 12.735527 s
+	2. Output time: 0.921048 s
+	Time to get frame: 0.067472
+	3. Tracking time: 0.145872 s
+	Overall: 13.949868 s
+Frame: 1 Time: 0.232498 m
+	0. Split Channel time: 0.010757 s
+	1. Segmentation time: 0.124696 s
+	2. Output time: 0.013153 s
+	Time to get frame: 0.062517
+	3. Tracking time: 0.138443 s
+	Overall: 0.287124 s
+Frame: 2 Time: 0.237284 m
+	0. Split Channel time: 0.008977 s
+	1. Segmentation time: 0.125611 s
+	2. Output time: 0.015915 s
+	Time to get frame: 0.063844
+	3. Tracking time: 0.140841 s
+	Overall: 0.291417 s
+Frame: 3 Time: 0.242141 m
+	0. Split Channel time: 0.002684 s
+	1. Segmentation time: 0.127675 s
+	2. Output time: 0.015726 s
+	Time to get frame: 0.070038
+	3. Tracking time: 0.141832 s
+	Overall: 0.287985 s
+Frame: 4 Time: 0.246941 m
+	0. Split Channel time: 0.023219 s
+	1. Segmentation time: 0.123733 s
+	2. Output time: 0.016138 s
+	Time to get frame: 0.070399
+	3. Tracking time: 0.141268 s
+	Overall: 0.304434 s
+Frame: 5 Time: 0.252015 m
+	0. Split Channel time: 0.026574 s
+	1. Segmentation time: 0.124014 s
+	2. Output time: 0.016065 s
+	Time to get frame: 0.070685
+	3. Tracking time: 0.149189 s
+	Overall: 0.315911 s
+Frame: 6 Time: 0.257280 m
+	0. Split Channel time: 0.011231 s
+	1. Segmentation time: 0.124689 s
+	2. Output time: 0.014799 s
+	Time to get frame: 0.064179
+	3. Tracking time: 0.143983 s
+	Overall: 0.294772 s
+Frame: 7 Time: 0.262193 m
+	0. Split Channel time: 0.010343 s
+	1. Segmentation time: 0.124527 s
+	2. Output time: 0.012429 s
+	Time to get frame: 0.064215
+	3. Tracking time: 0.144375 s
+	Overall: 0.291742 s
+Frame: 8 Time: 0.267056 m
+	0. Split Channel time: 0.009414 s
+	1. Segmentation time: 0.125731 s
+	2. Output time: 0.014293 s
+	Time to get frame: 0.064539
+	3. Tracking time: 0.143545 s
+	Overall: 0.293052 s
+Frame: 9 Time: 0.271940 m
+	0. Split Channel time: 0.007615 s
+	1. Segmentation time: 0.125365 s
+	2. Output time: 0.017235 s
+	Time to get frame: 0.063997
+	3. Tracking time: 0.142752 s
+	Overall: 0.293042 s
+Frame: 10 Time: 0.276824 m
+	0. Split Channel time: 0.003451 s
+	1. Segmentation time: 0.125222 s
+	2. Output time: 0.016426 s
+	Time to get frame: 0.067198
+	3. Tracking time: 0.146781 s
+	Overall: 0.291947 s
+Frame: 11 Time: 0.281690 m
+	0. Split Channel time: 0.002498 s
+	1. Segmentation time: 0.125960 s
+	2. Output time: 0.019690 s
+	Time to get frame: 0.067125
+	3. Tracking time: 0.146199 s
+	Overall: 0.294413 s
+Frame: 12 Time: 0.286597 m
+	0. Split Channel time: 0.032274 s
+	1. Segmentation time: 0.128026 s
+	2. Output time: 0.013974 s
+	Time to get frame: 0.063984
+	3. Tracking time: 0.136397 s
+	Overall: 0.310742 s
+Frame: 13 Time: 0.291776 m
+	0. Split Channel time: 0.029184 s
+	1. Segmentation time: 0.124165 s
+	2. Output time: 0.013413 s
+	Time to get frame: 0.064136
+	3. Tracking time: 0.135836 s
+	Overall: 0.302668 s
+Frame: 14 Time: 0.296821 m
+	0. Split Channel time: 0.030213 s
+	1. Segmentation time: 0.124674 s
+	2. Output time: 0.016409 s
+	Time to get frame: 0.070184
+	3. Tracking time: 0.148569 s
+	Overall: 0.319939 s
+Frame: 15 Time: 0.302153 m
+	0. Split Channel time: 0.010352 s
+	1. Segmentation time: 0.123271 s
+	2. Output time: 0.014747 s
+	Time to get frame: 0.064089
+	3. Tracking time: 0.143442 s
+	Overall: 0.291890 s
+Frame: 16 Time: 0.307018 m
+	0. Split Channel time: 0.012341 s
+	1. Segmentation time: 0.125170 s
+	2. Output time: 0.015662 s
+	Time to get frame: 0.064126
+	3. Tracking time: 0.143309 s
+	Overall: 0.296548 s
+Frame: 17 Time: 0.311961 m
+	0. Split Channel time: 0.005658 s
+	1. Segmentation time: 0.124839 s
+	2. Output time: 0.016397 s
+	Time to get frame: 0.064069
+	3. Tracking time: 0.144744 s
+	Overall: 0.291706 s
+Frame: 18 Time: 0.316823 m
+	0. Split Channel time: 0.003621 s
+	1. Segmentation time: 0.122840 s
+	2. Output time: 0.015727 s
+	Time to get frame: 0.067085
+	3. Tracking time: 0.147791 s
+	Overall: 0.290046 s
+Frame: 19 Time: 0.321657 m
+	0. Split Channel time: 0.002698 s
+	1. Segmentation time: 0.124147 s
+	2. Output time: 0.018167 s
+	Time to get frame: 0.064031
+	3. Tracking time: 0.144912 s
+	Overall: 0.289990 s
+Frame: 20 Time: 0.326490 m
+	0. Split Channel time: 0.018848 s
+	1. Segmentation time: 0.125258 s
+	2. Output time: 0.017140 s
+	Time to get frame: 0.064341
+	3. Tracking time: 0.146408 s
+	Overall: 0.307733 s
+Frame: 21 Time: 0.331619 m
+	0. Split Channel time: 0.030189 s
+	1. Segmentation time: 0.123922 s
+	2. Output time: 0.012042 s
+	Time to get frame: 0.064053
+	3. Tracking time: 0.144837 s
+	Overall: 0.311067 s
+Frame: 22 Time: 0.336804 m
+	0. Split Channel time: 0.031002 s
+	1. Segmentation time: 0.123289 s
+	2. Output time: 0.014028 s
+	Time to get frame: 0.064111
+	3. Tracking time: 0.144723 s
+	Overall: 0.313122 s
+Frame: 23 Time: 0.342022 m
+	0. Split Channel time: 0.009079 s
+	1. Segmentation time: 0.125546 s
+	2. Output time: 0.014572 s
+	Time to get frame: 0.064117
+	3. Tracking time: 0.143391 s
+	Overall: 0.292658 s
+Frame: 24 Time: 0.346900 m
+	0. Split Channel time: 0.008735 s
+	1. Segmentation time: 0.125318 s
+	2. Output time: 0.013677 s
+	Time to get frame: 0.064217
+	3. Tracking time: 0.137057 s
+	Overall: 0.284849 s
+Frame: 25 Time: 0.351648 m
+	0. Split Channel time: 0.005608 s
+	1. Segmentation time: 0.124904 s
+	2. Output time: 0.014171 s
+	Time to get frame: 0.064117
+	3. Tracking time: 0.143065 s
+	Overall: 0.287817 s
+Frame: 26 Time: 0.356445 m
+	0. Split Channel time: 0.005036 s
+	1. Segmentation time: 0.125768 s
+	2. Output time: 0.015053 s
+	Time to get frame: 0.064392
+	3. Tracking time: 0.136735 s
+	Overall: 0.282662 s
+Frame: 27 Time: 0.361156 m
+	0. Split Channel time: 0.002479 s
+	1. Segmentation time: 0.124497 s
+	2. Output time: 0.017211 s
+	Time to get frame: 0.070223
+	3. Tracking time: 0.149333 s
+	Overall: 0.293587 s
+Frame: 28 Time: 0.366049 m
+	0. Split Channel time: 0.015638 s
+	1. Segmentation time: 0.124572 s
+	2. Output time: 0.013155 s
+	Time to get frame: 0.064721
+	3. Tracking time: 0.147747 s
+	Overall: 0.301181 s
+Frame: 29 Time: 0.371069 m
+	0. Split Channel time: 0.015834 s
+	1. Segmentation time: 0.124767 s
+	2. Output time: 0.011848 s
+	Time to get frame: 0.064175
+	3. Tracking time: 0.144940 s
+	Overall: 0.297457 s
+Frame: 30 Time: 0.376027 m
+	0. Split Channel time: 0.012240 s
+	1. Segmentation time: 0.126421 s
+	2. Output time: 0.013280 s
+	Time to get frame: 0.064692
+	3. Tracking time: 0.136966 s
+	Overall: 0.288973 s
+Frame: 31 Time: 0.380843 m
+	0. Split Channel time: 0.011254 s
+	1. Segmentation time: 0.123094 s
+	2. Output time: 0.014624 s
+	Time to get frame: 0.070129
+	3. Tracking time: 0.141457 s
+	Overall: 0.290500 s
+Frame: 32 Time: 0.385685 m
+	0. Split Channel time: 0.006940 s
+	1. Segmentation time: 0.124065 s
+	2. Output time: 0.017456 s
+	Time to get frame: 0.070347
+	3. Tracking time: 0.148048 s
+	Overall: 0.296575 s
+Frame: 33 Time: 0.390628 m
+	0. Split Channel time: 0.007038 s
+	1. Segmentation time: 0.124069 s
+	2. Output time: 0.014774 s
+	Time to get frame: 0.064143
+	3. Tracking time: 0.143874 s
+	Overall: 0.289823 s
+Frame: 34 Time: 0.395458 m
+	0. Split Channel time: 0.003658 s
+	1. Segmentation time: 0.123040 s
+	2. Output time: 0.015343 s
+	Time to get frame: 0.064030
+	3. Tracking time: 0.143392 s
+	Overall: 0.285499 s
+Frame: 35 Time: 0.400217 m
+	0. Split Channel time: 0.002467 s
+	1. Segmentation time: 0.123473 s
+	2. Output time: 0.014602 s
+	Time to get frame: 0.064830
+	3. Tracking time: 0.144386 s
+	Overall: 0.284994 s
+Frame: 36 Time: 0.404967 m
+	0. Split Channel time: 0.031121 s
+	1. Segmentation time: 0.122900 s
+	2. Output time: 0.013054 s
+	Time to get frame: 0.064084
+	3. Tracking time: 0.143578 s
+	Overall: 0.310720 s
+Frame: 37 Time: 0.410145 m
+	0. Split Channel time: 0.031046 s
+	1. Segmentation time: 0.123082 s
+	2. Output time: 0.012213 s
+	Time to get frame: 0.064097
+	3. Tracking time: 0.145496 s
+	Overall: 0.311916 s
+Frame: 38 Time: 0.415344 m
+	0. Split Channel time: 0.010807 s
+	1. Segmentation time: 0.123352 s
+	2. Output time: 0.012007 s
+	Time to get frame: 0.064102
+	3. Tracking time: 0.143816 s
+	Overall: 0.290056 s
+Frame: 39 Time: 0.420178 m
+	0. Split Channel time: 0.012191 s
+	1. Segmentation time: 0.123323 s
+	2. Output time: 0.015317 s
+	Time to get frame: 0.064184
+	3. Tracking time: 0.143943 s
+	Overall: 0.294909 s
+Frame: 40 Time: 0.425094 m
+	0. Split Channel time: 0.009047 s
+	1. Segmentation time: 0.124544 s
+	2. Output time: 0.015387 s
+	Time to get frame: 0.066269
+	3. Tracking time: 0.146039 s
+	Overall: 0.295084 s
+Frame: 41 Time: 0.430012 m
+	0. Split Channel time: 0.007280 s
+	1. Segmentation time: 0.125204 s
+	2. Output time: 0.014340 s
+	Time to get frame: 0.070042
+	3. Tracking time: 0.162248 s
+	Overall: 0.309141 s
+Frame: 42 Time: 0.435164 m
+	0. Split Channel time: 0.003438 s
+	1. Segmentation time: 0.126791 s
+	2. Output time: 0.017992 s
+	Time to get frame: 0.064135
+	3. Tracking time: 0.145028 s
+	Overall: 0.293322 s
+Frame: 43 Time: 0.440053 m
+	0. Split Channel time: 0.002399 s
+	1. Segmentation time: 0.124902 s
+	2. Output time: 0.014052 s
+	Time to get frame: 0.064421
+	3. Tracking time: 0.144039 s
+	Overall: 0.285460 s
+Frame: 44 Time: 0.444811 m
+	0. Split Channel time: 0.030395 s
+	1. Segmentation time: 0.124806 s
+	2. Output time: 0.014670 s
+	Time to get frame: 0.067872
+	3. Tracking time: 0.141878 s
+	Overall: 0.311819 s
+Frame: 45 Time: 0.450008 m
+	0. Split Channel time: 0.013412 s
+	1. Segmentation time: 0.125096 s
+	2. Output time: 0.017544 s
+	Time to get frame: 0.067167
+	3. Tracking time: 0.145967 s
+	Overall: 0.302090 s
+Frame: 46 Time: 0.455043 m
+	0. Split Channel time: 0.025590 s
+	1. Segmentation time: 0.123973 s
+	2. Output time: 0.018638 s
+	Time to get frame: 0.064185
+	3. Tracking time: 0.145145 s
+	Overall: 0.313413 s
+Frame: 47 Time: 0.460267 m
+	0. Split Channel time: 0.012166 s
+	1. Segmentation time: 0.124090 s
+	2. Output time: 0.017993 s
+	Time to get frame: 0.064497
+	3. Tracking time: 0.145143 s
+	Overall: 0.299466 s
+Frame: 48 Time: 0.465258 m
+	0. Split Channel time: 0.010101 s
+	1. Segmentation time: 0.123102 s
+	2. Output time: 0.018328 s
+	Time to get frame: 0.064090
+	3. Tracking time: 0.145018 s
+	Overall: 0.296622 s
+Frame: 49 Time: 0.470202 m
+	0. Split Channel time: 0.005834 s
+	1. Segmentation time: 0.123357 s
+	2. Output time: 0.019243 s
+	Time to get frame: 0.070226
+	3. Tracking time: 0.151138 s
+	Overall: 0.299643 s
+Frame: 50 Time: 0.475196 m
+	0. Split Channel time: 0.003265 s
+	1. Segmentation time: 0.123310 s
+	2. Output time: 0.021868 s
+	Time to get frame: 0.070038
+	3. Tracking time: 0.151412 s
+	Overall: 0.299920 s
+Frame: 51 Time: 0.480195 m
+	0. Split Channel time: 0.002632 s
+	1. Segmentation time: 0.123442 s
+	2. Output time: 0.019785 s
+	Time to get frame: 0.070135
+	3. Tracking time: 0.151056 s
+	Overall: 0.296980 s
+Frame: 52 Time: 0.485144 m
+	0. Split Channel time: 0.036209 s
+	1. Segmentation time: 0.122706 s
+	2. Output time: 0.012067 s
+	Time to get frame: 0.064054
+	3. Tracking time: 0.145467 s
+	Overall: 0.316521 s
+Frame: 53 Time: 0.490420 m
+	0. Split Channel time: 0.028902 s
+	1. Segmentation time: 0.125258 s
+	2. Output time: 0.015185 s
+	Time to get frame: 0.070164
+	3. Tracking time: 0.150641 s
+	Overall: 0.320056 s
+Frame: 54 Time: 0.495754 m
+	0. Split Channel time: 0.023794 s
+	1. Segmentation time: 0.123157 s
+	2. Output time: 0.015322 s
+	Time to get frame: 0.070081
+	3. Tracking time: 0.155087 s
+	Overall: 0.317445 s
+Frame: 55 Time: 0.501045 m
+	0. Split Channel time: 0.012489 s
+	1. Segmentation time: 0.123564 s
+	2. Output time: 0.010808 s
+	Time to get frame: 0.064215
+	3. Tracking time: 0.146290 s
+	Overall: 0.293216 s
+Frame: 56 Time: 0.505932 m
+	0. Split Channel time: 0.011542 s
+	1. Segmentation time: 0.123564 s
+	2. Output time: 0.013293 s
+	Time to get frame: 0.064270
+	3. Tracking time: 0.145390 s
+	Overall: 0.293860 s
+Frame: 57 Time: 0.510830 m
+	0. Split Channel time: 0.005723 s
+	1. Segmentation time: 0.123673 s
+	2. Output time: 0.012568 s
+	Time to get frame: 0.064170
+	3. Tracking time: 0.146035 s
+	Overall: 0.288065 s
+Frame: 58 Time: 0.515631 m
+	0. Split Channel time: 0.004253 s
+	1. Segmentation time: 0.123192 s
+	2. Output time: 0.027616 s
+	Time to get frame: 0.064189
+	3. Tracking time: 0.146363 s
+	Overall: 0.301488 s
+Frame: 59 Time: 0.520656 m
+	0. Split Channel time: 0.002482 s
+	1. Segmentation time: 0.123196 s
+	2. Output time: 0.018098 s
+	Time to get frame: 0.064141
+	3. Tracking time: 0.145674 s
+	Overall: 0.289512 s
+Frame: 60 Time: 0.525481 m
+	0. Split Channel time: 0.028786 s
+	1. Segmentation time: 0.122946 s
+	2. Output time: 0.016206 s
+	Time to get frame: 0.066647
+	3. Tracking time: 0.147596 s
+	Overall: 0.315598 s
+Frame: 61 Time: 0.530741 m
+	0. Split Channel time: 0.030226 s
+	1. Segmentation time: 0.125236 s
+	2. Output time: 0.016602 s
+	Time to get frame: 0.072794
+	3. Tracking time: 0.153668 s
+	Overall: 0.325805 s
+Frame: 62 Time: 0.536172 m
+	0. Split Channel time: 0.012232 s
+	1. Segmentation time: 0.122882 s
+	2. Output time: 0.014447 s
+	Time to get frame: 0.074975
+	3. Tracking time: 0.155787 s
+	Overall: 0.305433 s
+Frame: 63 Time: 0.541262 m
+	0. Split Channel time: 0.010299 s
+	1. Segmentation time: 0.122900 s
+	2. Output time: 0.014613 s
+	Time to get frame: 0.064160
+	3. Tracking time: 0.145483 s
+	Overall: 0.293369 s
+Frame: 64 Time: 0.546152 m
+	0. Split Channel time: 0.008003 s
+	1. Segmentation time: 0.123127 s
+	2. Output time: 0.018311 s
+	Time to get frame: 0.070111
+	3. Tracking time: 0.150575 s
+	Overall: 0.300083 s
+Frame: 65 Time: 0.551153 m
+	0. Split Channel time: 0.006949 s
+	1. Segmentation time: 0.123059 s
+	2. Output time: 0.016327 s
+	Time to get frame: 0.070182
+	3. Tracking time: 0.150822 s
+	Overall: 0.297225 s
+Frame: 66 Time: 0.556107 m
+	0. Split Channel time: 0.003824 s
+	1. Segmentation time: 0.123060 s
+	2. Output time: 0.015222 s
+	Time to get frame: 0.067260
+	3. Tracking time: 0.155357 s
+	Overall: 0.297528 s
+Frame: 67 Time: 0.561066 m
+	0. Split Channel time: 0.002476 s
+	1. Segmentation time: 0.123091 s
+	2. Output time: 0.015008 s
+	Time to get frame: 0.070145
+	3. Tracking time: 0.152092 s
+	Overall: 0.292733 s
+Frame: 68 Time: 0.565945 m
+	0. Split Channel time: 0.025551 s
+	1. Segmentation time: 0.123941 s
+	2. Output time: 0.014346 s
+	Time to get frame: 0.070221
+	3. Tracking time: 0.152097 s
+	Overall: 0.316007 s
+Frame: 69 Time: 0.571212 m
+	0. Split Channel time: 0.034247 s
+	1. Segmentation time: 0.122909 s
+	2. Output time: 0.016664 s
+	Time to get frame: 0.070085
+	3. Tracking time: 0.151390 s
+	Overall: 0.325282 s
+Frame: 70 Time: 0.576633 m
+	0. Split Channel time: 0.013235 s
+	1. Segmentation time: 0.122958 s
+	2. Output time: 0.016342 s
+	Time to get frame: 0.070270
+	3. Tracking time: 0.158159 s
+	Overall: 0.310763 s
+Frame: 71 Time: 0.581813 m
+	0. Split Channel time: 0.029974 s
+	1. Segmentation time: 0.123965 s
+	2. Output time: 0.014820 s
+	Time to get frame: 0.070147
+	3. Tracking time: 0.151509 s
+	Overall: 0.320340 s
+Frame: 72 Time: 0.587152 m
+	0. Split Channel time: 0.007927 s
+	1. Segmentation time: 0.124674 s
+	2. Output time: 0.014112 s
+	Time to get frame: 0.066193
+	3. Tracking time: 0.147815 s
+	Overall: 0.294592 s
+Frame: 73 Time: 0.592062 m
+	0. Split Channel time: 0.009940 s
+	1. Segmentation time: 0.125231 s
+	2. Output time: 0.015652 s
+	Time to get frame: 0.070193
+	3. Tracking time: 0.152335 s
+	Overall: 0.303227 s
+Frame: 74 Time: 0.597116 m
+	0. Split Channel time: 0.003686 s
+	1. Segmentation time: 0.124557 s
+	2. Output time: 0.018334 s
+	Time to get frame: 0.070279
+	3. Tracking time: 0.154977 s
+	Overall: 0.301634 s
+Frame: 75 Time: 0.602143 m
+	0. Split Channel time: 0.002519 s
+	1. Segmentation time: 0.124608 s
+	2. Output time: 0.016835 s
+	Time to get frame: 0.070167
+	3. Tracking time: 0.151589 s
+	Overall: 0.295616 s
+Frame: 76 Time: 0.607070 m
+	0. Split Channel time: 0.030135 s
+	1. Segmentation time: 0.126272 s
+	2. Output time: 0.014913 s
+	Time to get frame: 0.067060
+	3. Tracking time: 0.140178 s
+	Overall: 0.311570 s
+Frame: 77 Time: 0.612263 m
+	0. Split Channel time: 0.017957 s
+	1. Segmentation time: 0.125582 s
+	2. Output time: 0.013021 s
+	Time to get frame: 0.064270
+	3. Tracking time: 0.135900 s
+	Overall: 0.292534 s
+Frame: 78 Time: 0.617139 m
+	0. Split Channel time: 0.013368 s
+	1. Segmentation time: 0.124162 s
+	2. Output time: 0.018685 s
+	Time to get frame: 0.070114
+	3. Tracking time: 0.141466 s
+	Overall: 0.297751 s
+Frame: 79 Time: 0.622101 m
+	0. Split Channel time: 0.013411 s
+	1. Segmentation time: 0.124682 s
+	2. Output time: 0.017353 s
+	Time to get frame: 0.064124
+	3. Tracking time: 0.135551 s
+	Overall: 0.291069 s
+Frame: 80 Time: 0.626953 m
+	0. Split Channel time: 0.011022 s
+	1. Segmentation time: 0.123808 s
+	2. Output time: 0.014505 s
+	Time to get frame: 0.072834
+	3. Tracking time: 0.143768 s
+	Overall: 0.293177 s
+Frame: 81 Time: 0.631840 m
+	0. Split Channel time: 0.005587 s
+	1. Segmentation time: 0.123059 s
+	2. Output time: 0.014508 s
+	Time to get frame: 0.067109
+	3. Tracking time: 0.138035 s
+	Overall: 0.281255 s
+Frame: 82 Time: 0.636527 m
+	0. Split Channel time: 0.003650 s
+	1. Segmentation time: 0.123288 s
+	2. Output time: 0.013956 s
+	Time to get frame: 0.069809
+	3. Tracking time: 0.143958 s
+	Overall: 0.284922 s
+Frame: 83 Time: 0.641276 m
+	0. Split Channel time: 0.002427 s
+	1. Segmentation time: 0.123093 s
+	2. Output time: 0.014439 s
+	Time to get frame: 0.070143
+	3. Tracking time: 0.143585 s
+	Overall: 0.283613 s
+Frame: 84 Time: 0.646003 m
+	0. Split Channel time: 0.016382 s
+	1. Segmentation time: 0.124942 s
+	2. Output time: 0.016013 s
+	Time to get frame: 0.067669
+	3. Tracking time: 0.138830 s
+	Overall: 0.296241 s
+Frame: 85 Time: 0.650941 m
+	0. Split Channel time: 0.018008 s
+	1. Segmentation time: 0.123428 s
+	2. Output time: 0.014652 s
+	Time to get frame: 0.070124
+	3. Tracking time: 0.141303 s
+	Overall: 0.297461 s
+Frame: 86 Time: 0.655898 m
+	0. Split Channel time: 0.031778 s
+	1. Segmentation time: 0.123793 s
+	2. Output time: 0.012049 s
+	Time to get frame: 0.064452
+	3. Tracking time: 0.135544 s
+	Overall: 0.303236 s
+Frame: 87 Time: 0.660952 m
+	0. Split Channel time: 0.014537 s
+	1. Segmentation time: 0.123342 s
+	2. Output time: 0.015905 s
+	Time to get frame: 0.064104
+	3. Tracking time: 0.133795 s
+	Overall: 0.287649 s
+Frame: 88 Time: 0.665747 m
+	0. Split Channel time: 0.009750 s
+	1. Segmentation time: 0.123488 s
+	2. Output time: 0.016488 s
+	Time to get frame: 0.070333
+	3. Tracking time: 0.140582 s
+	Overall: 0.290376 s
+Frame: 89 Time: 0.670586 m
+	0. Split Channel time: 0.006786 s
+	1. Segmentation time: 0.123296 s
+	2. Output time: 0.012043 s
+	Time to get frame: 0.064125
+	3. Tracking time: 0.135354 s
+	Overall: 0.277544 s
+Frame: 90 Time: 0.675212 m
+	0. Split Channel time: 0.004920 s
+	1. Segmentation time: 0.123100 s
+	2. Output time: 0.012627 s
+	Time to get frame: 0.064470
+	3. Tracking time: 0.136971 s
+	Overall: 0.277681 s
+Frame: 91 Time: 0.679840 m
+	0. Split Channel time: 0.002558 s
+	1. Segmentation time: 0.122805 s
+	2. Output time: 0.012732 s
+	Time to get frame: 0.065001
+	3. Tracking time: 0.136565 s
+	Overall: 0.274732 s
+Frame: 92 Time: 0.684419 m
+	0. Split Channel time: 0.016911 s
+	1. Segmentation time: 0.126654 s
+	2. Output time: 0.014813 s
+	Time to get frame: 0.070156
+	3. Tracking time: 0.144238 s
+	Overall: 0.302694 s
+Frame: 93 Time: 0.689464 m
+	0. Split Channel time: 0.028997 s
+	1. Segmentation time: 0.123941 s
+	2. Output time: 0.014739 s
+	Time to get frame: 0.070164
+	3. Tracking time: 0.144790 s
+	Overall: 0.312537 s
+Frame: 94 Time: 0.694673 m
+	0. Split Channel time: 0.014487 s
+	1. Segmentation time: 0.123044 s
+	2. Output time: 0.018445 s
+	Time to get frame: 0.070154
+	3. Tracking time: 0.141847 s
+	Overall: 0.297891 s
+Frame: 95 Time: 0.699638 m
+	0. Split Channel time: 0.010196 s
+	1. Segmentation time: 0.123883 s
+	2. Output time: 0.017165 s
+	Time to get frame: 0.070230
+	3. Tracking time: 0.142747 s
+	Overall: 0.294060 s
+Frame: 96 Time: 0.704539 m
+	0. Split Channel time: 0.007902 s
+	1. Segmentation time: 0.123892 s
+	2. Output time: 0.017372 s
+	Time to get frame: 0.067187
+	3. Tracking time: 0.138191 s
+	Overall: 0.287437 s
+Frame: 97 Time: 0.709330 m
+	0. Split Channel time: 0.005907 s
+	1. Segmentation time: 0.125685 s
+	2. Output time: 0.015808 s
+	Time to get frame: 0.064151
+	3. Tracking time: 0.135185 s
+	Overall: 0.282652 s
+Frame: 98 Time: 0.714041 m
+	0. Split Channel time: 0.005696 s
+	1. Segmentation time: 0.123883 s
+	2. Output time: 0.015491 s
+	Time to get frame: 0.070292
+	3. Tracking time: 0.144867 s
+	Overall: 0.290007 s
+Frame: 99 Time: 0.718875 m
+	0. Split Channel time: 0.002568 s
+	1. Segmentation time: 0.124417 s
+	2. Output time: 0.015069 s
+	Time to get frame: 0.070208
+	3. Tracking time: 0.141736 s
+	Overall: 0.283860 s
+Frame: 100 Time: 0.723606 m
+	0. Split Channel time: 0.030016 s
+	1. Segmentation time: 0.124176 s
+	2. Output time: 0.014988 s
+	Time to get frame: 0.070054
+	3. Tracking time: 0.141106 s
+	Overall: 0.310366 s
+Frame: 101 Time: 0.728779 m
+	0. Split Channel time: 0.016639 s
+	1. Segmentation time: 0.125375 s
+	2. Output time: 0.014873 s
+	Time to get frame: 0.070185
+	3. Tracking time: 0.141737 s
+	Overall: 0.298705 s
+Frame: 102 Time: 0.733757 m
+	0. Split Channel time: 0.022398 s
+	1. Segmentation time: 0.125520 s
+	2. Output time: 0.015178 s
+	Time to get frame: 0.070108
+	3. Tracking time: 0.145354 s
+	Overall: 0.308522 s
+Frame: 103 Time: 0.738899 m
+	0. Split Channel time: 0.035855 s
+	1. Segmentation time: 0.124979 s
+	2. Output time: 0.014745 s
+	Time to get frame: 0.070318
+	3. Tracking time: 0.148746 s
+	Overall: 0.324399 s
+Frame: 104 Time: 0.744306 m
+	0. Split Channel time: 0.013683 s
+	1. Segmentation time: 0.124745 s
+	2. Output time: 0.015742 s
+	Time to get frame: 0.070151
+	3. Tracking time: 0.151796 s
+	Overall: 0.306036 s
+Frame: 105 Time: 0.749407 m
+	0. Split Channel time: 0.012293 s
+	1. Segmentation time: 0.125067 s
+	2. Output time: 0.014768 s
+	Time to get frame: 0.069867
+	3. Tracking time: 0.151031 s
+	Overall: 0.303228 s
+Frame: 106 Time: 0.754461 m
+	0. Split Channel time: 0.003656 s
+	1. Segmentation time: 0.125421 s
+	2. Output time: 0.014825 s
+	Time to get frame: 0.070254
+	3. Tracking time: 0.155660 s
+	Overall: 0.299627 s
+Frame: 107 Time: 0.759455 m
+	0. Split Channel time: 0.002372 s
+	1. Segmentation time: 0.126484 s
+	2. Output time: 0.015406 s
+	Time to get frame: 0.067673
+	3. Tracking time: 0.150631 s
+	Overall: 0.294959 s
+Frame: 108 Time: 0.764371 m
+	0. Split Channel time: 0.031146 s
+	1. Segmentation time: 0.124861 s
+	2. Output time: 0.015285 s
+	Time to get frame: 0.070124
+	3. Tracking time: 0.151571 s
+	Overall: 0.322934 s
+Frame: 109 Time: 0.769753 m
+	0. Split Channel time: 0.014312 s
+	1. Segmentation time: 0.125463 s
+	2. Output time: 0.014584 s
+	Time to get frame: 0.070644
+	3. Tracking time: 0.152166 s
+	Overall: 0.306593 s
+Frame: 110 Time: 0.774863 m
+	0. Split Channel time: 0.029100 s
+	1. Segmentation time: 0.124189 s
+	2. Output time: 0.015924 s
+	Time to get frame: 0.064103
+	3. Tracking time: 0.145622 s
+	Overall: 0.314905 s
+Frame: 111 Time: 0.780112 m
+	0. Split Channel time: 0.011564 s
+	1. Segmentation time: 0.125931 s
+	2. Output time: 0.015340 s
+	Time to get frame: 0.070439
+	3. Tracking time: 0.151791 s
+	Overall: 0.304699 s
+Frame: 112 Time: 0.785190 m
+	0. Split Channel time: 0.007906 s
+	1. Segmentation time: 0.124131 s
+	2. Output time: 0.013568 s
+	Time to get frame: 0.064085
+	3. Tracking time: 0.144861 s
+	Overall: 0.290530 s
+Frame: 113 Time: 0.790032 m
+	0. Split Channel time: 0.005716 s
+	1. Segmentation time: 0.123913 s
+	2. Output time: 0.014071 s
+	Time to get frame: 0.064129
+	3. Tracking time: 0.145266 s
+	Overall: 0.289034 s
+Frame: 114 Time: 0.794850 m
+	0. Split Channel time: 0.003604 s
+	1. Segmentation time: 0.123071 s
+	2. Output time: 0.026889 s
+	Time to get frame: 0.070185
+	3. Tracking time: 0.153689 s
+	Overall: 0.307321 s
+Frame: 115 Time: 0.799972 m
+	0. Split Channel time: 0.002486 s
+	1. Segmentation time: 0.123160 s
+	2. Output time: 0.014598 s
+	Time to get frame: 0.071377
+	3. Tracking time: 0.152396 s
+	Overall: 0.292703 s
+Frame: 116 Time: 0.804850 m
+	0. Split Channel time: 0.034301 s
+	1. Segmentation time: 0.122993 s
+	2. Output time: 0.016219 s
+	Time to get frame: 0.070218
+	3. Tracking time: 0.152100 s
+	Overall: 0.325683 s
+Frame: 117 Time: 0.810278 m
+	0. Split Channel time: 0.014724 s
+	1. Segmentation time: 0.122789 s
+	2. Output time: 0.016325 s
+	Time to get frame: 0.070179
+	3. Tracking time: 0.151307 s
+	Overall: 0.305215 s
+Closing..
+Filtering tracks..
+Before filtering: 5814 tracks.
+After filtering by length: (248,) tracks.
+/cs/phd/itskov/Storage/EhudC/EHC143_DAF2_DAY_2_rep_3_19jan20.avi_exp/EHC143_DAF2_DAY_2_rep_3_19jan20_seg_raw_tracked.mp4
+/cs/phd/itskov/Storage/EhudC/EHC143_DAF2_DAY_2_rep_3_19jan20.avi_exp/EHC143_DAF2_DAY_2_rep_3_19jan20_seg_both_tracked.mp4
+Saving frame: 1 Time: 0.7248072624206543 Relevant Tracks: 248
+Saving frame: 2 Time: 0.09974956512451172 Relevant Tracks: 248
+Saving frame: 3 Time: 0.04881572723388672 Relevant Tracks: 248
+Saving frame: 4 Time: 0.04848790168762207 Relevant Tracks: 248
+Saving frame: 5 Time: 0.04833340644836426 Relevant Tracks: 248
+Saving frame: 6 Time: 0.05379128456115723 Relevant Tracks: 248
+Saving frame: 7 Time: 0.04870891571044922 Relevant Tracks: 248
+Saving frame: 8 Time: 0.05857205390930176 Relevant Tracks: 248
+Saving frame: 9 Time: 0.04846024513244629 Relevant Tracks: 246
+Saving frame: 10 Time: 0.052324771881103516 Relevant Tracks: 243
+Saving frame: 11 Time: 0.048622846603393555 Relevant Tracks: 240
+Saving frame: 12 Time: 0.05119776725769043 Relevant Tracks: 239
+Saving frame: 13 Time: 0.05243563652038574 Relevant Tracks: 239
+Saving frame: 14 Time: 0.05430912971496582 Relevant Tracks: 234
+Saving frame: 15 Time: 0.0488429069519043 Relevant Tracks: 232
+Saving frame: 16 Time: 0.05565071105957031 Relevant Tracks: 227
+Saving frame: 17 Time: 0.04825282096862793 Relevant Tracks: 221
+Saving frame: 18 Time: 0.048448801040649414 Relevant Tracks: 219
+Saving frame: 19 Time: 0.0483400821685791 Relevant Tracks: 214
+Saving frame: 20 Time: 0.05168604850769043 Relevant Tracks: 210
+Saving frame: 21 Time: 0.05231761932373047 Relevant Tracks: 206
+Saving frame: 22 Time: 0.0504765510559082 Relevant Tracks: 205
+Saving frame: 23 Time: 0.053964853286743164 Relevant Tracks: 201
+Saving frame: 24 Time: 0.04781532287597656 Relevant Tracks: 201
+Saving frame: 25 Time: 0.04801511764526367 Relevant Tracks: 200
+Saving frame: 26 Time: 0.0484011173248291 Relevant Tracks: 198
+Saving frame: 27 Time: 0.05184149742126465 Relevant Tracks: 198
+Saving frame: 28 Time: 0.05178689956665039 Relevant Tracks: 196
+Saving frame: 29 Time: 0.04905533790588379 Relevant Tracks: 194
+Saving frame: 30 Time: 0.04949617385864258 Relevant Tracks: 191
+Saving frame: 31 Time: 0.04912066459655762 Relevant Tracks: 187
+Saving frame: 32 Time: 0.05330395698547363 Relevant Tracks: 185
+Saving frame: 33 Time: 0.04806184768676758 Relevant Tracks: 184
+Saving frame: 34 Time: 0.060307979583740234 Relevant Tracks: 182
+Saving frame: 35 Time: 0.04882001876831055 Relevant Tracks: 177
+Saving frame: 36 Time: 0.05115318298339844 Relevant Tracks: 174
+Saving frame: 37 Time: 0.04946398735046387 Relevant Tracks: 173
+Saving frame: 38 Time: 0.05004620552062988 Relevant Tracks: 171
+Saving frame: 39 Time: 0.05262637138366699 Relevant Tracks: 169
+Saving frame: 40 Time: 0.04944014549255371 Relevant Tracks: 166
+Saving frame: 41 Time: 0.051218509674072266 Relevant Tracks: 166
+Saving frame: 42 Time: 0.048677921295166016 Relevant Tracks: 164
+Saving frame: 43 Time: 0.06694579124450684 Relevant Tracks: 163
+Saving frame: 44 Time: 0.07636189460754395 Relevant Tracks: 161
+Saving frame: 45 Time: 0.0679776668548584 Relevant Tracks: 160
+Saving frame: 46 Time: 0.0749824047088623 Relevant Tracks: 156
+Saving frame: 47 Time: 0.38570427894592285 Relevant Tracks: 155
+Saving frame: 48 Time: 0.12226080894470215 Relevant Tracks: 153
+Saving frame: 49 Time: 0.07297492027282715 Relevant Tracks: 152
+Saving frame: 50 Time: 0.07798218727111816 Relevant Tracks: 149
+Saving frame: 51 Time: 0.09598016738891602 Relevant Tracks: 147
+Saving frame: 52 Time: 0.0769803524017334 Relevant Tracks: 147
+Saving frame: 53 Time: 0.20121145248413086 Relevant Tracks: 147
+Saving frame: 54 Time: 0.06452131271362305 Relevant Tracks: 142
+Saving frame: 55 Time: 0.1292107105255127 Relevant Tracks: 141
+Saving frame: 56 Time: 0.07376241683959961 Relevant Tracks: 140
+Saving frame: 57 Time: 0.21692657470703125 Relevant Tracks: 136
+Saving frame: 58 Time: 0.07802248001098633 Relevant Tracks: 134
+Saving frame: 59 Time: 0.11285901069641113 Relevant Tracks: 133
+Saving frame: 60 Time: 0.10982298851013184 Relevant Tracks: 132
+Saving frame: 61 Time: 0.0708463191986084 Relevant Tracks: 131
+Saving frame: 62 Time: 0.08887815475463867 Relevant Tracks: 128
+Saving frame: 63 Time: 0.16016197204589844 Relevant Tracks: 126
+Saving frame: 64 Time: 0.17353606224060059 Relevant Tracks: 126
+Saving frame: 65 Time: 0.08565688133239746 Relevant Tracks: 125
+Saving frame: 66 Time: 0.10284161567687988 Relevant Tracks: 123
+Saving frame: 67 Time: 0.08931303024291992 Relevant Tracks: 123
+Saving frame: 68 Time: 0.15168499946594238 Relevant Tracks: 122
+Saving frame: 69 Time: 0.11059999465942383 Relevant Tracks: 121
+Saving frame: 70 Time: 0.0806572437286377 Relevant Tracks: 116
+Saving frame: 71 Time: 0.10731244087219238 Relevant Tracks: 114
+Saving frame: 72 Time: 0.21135783195495605 Relevant Tracks: 114
+Saving frame: 73 Time: 0.06839632987976074 Relevant Tracks: 114
+Saving frame: 74 Time: 0.07141304016113281 Relevant Tracks: 111
+Saving frame: 75 Time: 0.07479333877563477 Relevant Tracks: 110
+Saving frame: 76 Time: 0.2127394676208496 Relevant Tracks: 106
+Saving frame: 77 Time: 0.0669715404510498 Relevant Tracks: 102
+Saving frame: 78 Time: 0.07125663757324219 Relevant Tracks: 100
+Saving frame: 79 Time: 0.14970135688781738 Relevant Tracks: 98
+Saving frame: 80 Time: 0.16661977767944336 Relevant Tracks: 96
+Saving frame: 81 Time: 0.08357930183410645 Relevant Tracks: 94
+Saving frame: 82 Time: 0.10643458366394043 Relevant Tracks: 94
+Saving frame: 83 Time: 0.1222841739654541 Relevant Tracks: 93
+Saving frame: 84 Time: 0.1328258514404297 Relevant Tracks: 90
+Saving frame: 85 Time: 0.07836627960205078 Relevant Tracks: 90
+Saving frame: 86 Time: 0.14174962043762207 Relevant Tracks: 87
+Saving frame: 87 Time: 0.10980367660522461 Relevant Tracks: 85
+Saving frame: 88 Time: 0.12358498573303223 Relevant Tracks: 82
+Saving frame: 89 Time: 0.05523347854614258 Relevant Tracks: 81
+Saving frame: 90 Time: 0.06219649314880371 Relevant Tracks: 80
+Saving frame: 91 Time: 0.22908830642700195 Relevant Tracks: 77
+Saving frame: 92 Time: 0.16637325286865234 Relevant Tracks: 75
+Saving frame: 93 Time: 0.09857439994812012 Relevant Tracks: 73
+Saving frame: 94 Time: 0.0850675106048584 Relevant Tracks: 73
+Saving frame: 95 Time: 0.09515738487243652 Relevant Tracks: 71
+Saving frame: 96 Time: 0.11472773551940918 Relevant Tracks: 66
+Saving frame: 97 Time: 0.2999746799468994 Relevant Tracks: 63
+Saving frame: 98 Time: 0.07599544525146484 Relevant Tracks: 62
+Saving frame: 99 Time: 0.12826919555664062 Relevant Tracks: 61
+Saving frame: 100 Time: 0.1096181869506836 Relevant Tracks: 60
+Saving frame: 101 Time: 0.06503748893737793 Relevant Tracks: 58
+Saving frame: 102 Time: 0.17194128036499023 Relevant Tracks: 57
+Saving frame: 103 Time: 0.14163875579833984 Relevant Tracks: 56
+Saving frame: 104 Time: 0.07584929466247559 Relevant Tracks: 51
+Saving frame: 105 Time: 0.06406855583190918 Relevant Tracks: 48
+Saving frame: 106 Time: 0.07539153099060059 Relevant Tracks: 45
+Saving frame: 107 Time: 0.16698145866394043 Relevant Tracks: 43
+Saving frame: 108 Time: 0.07297873497009277 Relevant Tracks: 40
+Saving frame: 109 Time: 0.07340002059936523 Relevant Tracks: 39
+Saving frame: 110 Time: 0.0679013729095459 Relevant Tracks: 36
+Saving frame: 111 Time: 0.12863969802856445 Relevant Tracks: 32
+Saving frame: 112 Time: 0.0899803638458252 Relevant Tracks: 29
+Saving frame: 113 Time: 0.06970071792602539 Relevant Tracks: 27
+Saving frame: 114 Time: 0.07211112976074219 Relevant Tracks: 27
+Saving frame: 115 Time: 0.21213173866271973 Relevant Tracks: 26
+Deactivating venv.
+Deletd venv.

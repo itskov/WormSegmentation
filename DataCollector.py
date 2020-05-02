@@ -135,7 +135,7 @@ from multiprocessing import Pool
 
 dc = DataCollector()
 print('Setting regions..')
-dc.setRegions()
+#dc.setRegions()
 
 def saveImage(i):
 
@@ -163,7 +163,7 @@ def saveImage(i):
 if __name__ == "__main__":
     print('Running threads..')
     with Pool(processes=4) as pool:
-        pool.map(saveImage, np.random.choice(range(1, 5*10**6),100000))
+        pool.map(saveImage, np.random.choice(range(1, 5*10**6),85000))
     print('Done.')
     #saveImage(4)
 
