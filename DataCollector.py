@@ -24,6 +24,7 @@ class DataCollector:
         self._regions = None
 
         print('Found %d relevant files.' % len(self._videoFiles))
+        print(self._videoFiles)
 
     def setRegions(self):
         for i, video_file in enumerate(self._videoFiles):
@@ -94,8 +95,8 @@ class DataCollector:
         #heightPos = np.random.randint(height - (self._SNIP_SIZE[0]))
         #widthPos = np.random.randint(width - (self._SNIP_SIZE[1]))
         # Sampling from truncated normal variable.
-        heightPos = stats.truncnorm(-1, 1).rvs()
-        widthPos = stats.truncnorm(-1, 1).rvs()
+        heightPos = stats.uniform(-1, 1).rvs()
+        widthPos = stats.uniform(-1, 1).rvs()
 
         #DEBUG
         #heightPos = stats.truncnorm(0.2, 0.7).rvs()
