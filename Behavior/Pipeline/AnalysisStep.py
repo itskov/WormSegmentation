@@ -58,7 +58,7 @@ def process(pipline, artifacts):
 if __name__ == '__main__':
     import sys
 
-    sys.path.append('/cs/phd/itskov/WormSegmentation')
+    sys.path.append('/cs/phd/itskov/WormSegmentationEC')
 
     from Behavior.Pipeline.SplitChannelsStep import SplitChannelsStep
     from Behavior.Pipeline.SegmentStep import SegmentStep
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     artifacts = {}
     artifacts['mj2_path'] = sys.argv[1]
-    artifacts['restore_points'] = '/cs/phd/itskov/WormSegmentation/WormSegmentatioNetworks/WormSegmentation'
+    artifacts['restore_points'] = '/cs/phd/itskov/WormSegmentationEC/WormSegmentatioNetworks/WormSegmentation'
     artifacts['frame_num'] = 0
     artifacts['take_first_channel'] = (sys.argv[2] == 'first_channel')
     print('Channel: ' + 'first_channel.' if artifacts['take_first_channel'] is True else 'Combined.')
