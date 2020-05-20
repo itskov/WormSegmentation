@@ -51,7 +51,7 @@ class TrackStep(AnalysisStep):
 
                 if len(distances) > 0:
                     nextPosIndex = np.argmin(distances)
-                    if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 55):
+                    if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 80):
                         t[frame_num] = centroids[np.argmin(distances), :]
                         usedCentroids[nextPosIndex] = 1
 
@@ -76,7 +76,7 @@ class TrackStep(AnalysisStep):
         print('Before filtering: ' + str(len(self._tracks)) + " tracks.")
         self._tracks = np.asarray(self._tracks)[lens > 5]
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        self._tracks = self._tracks[np.asarray(maxDistances) > 7]
+        #self._tracks = self._tracks[np.asarray(maxDistances) > 7]
         print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
 
 
