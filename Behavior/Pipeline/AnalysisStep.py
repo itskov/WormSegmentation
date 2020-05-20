@@ -30,7 +30,7 @@ def process(pipline, artifacts):
     import numpy as np
 
     cap = cv2.VideoCapture(artifacts['mj2_path'])
-    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 8000))
+    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 118))
     cap.release()
 
     start_time = time()
@@ -50,12 +50,12 @@ def process(pipline, artifacts):
 
             all_time_duration = time() - all_time_before
             print('\tOverall: %f s' %(all_time_duration,))
+	    print('Closing..')
+            [p.close(artifacts) for p in pipline]
         except:
             print('Error occured while processing a frame (Probably error in reading the frame).')
                 
 
-    print('Closing..')
-    [p.close(artifacts) for p in pipline]
 
 if __name__ == '__main__':
     import sys
