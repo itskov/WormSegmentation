@@ -47,10 +47,10 @@ def process(pipline, artifacts):
             duration_time = time() - before_time
             print('\t%d. %s time: %f s' % (i, proc.stepName(artifacts), duration_time))
 
-        all_time_duration = time() - all_time_before
-        print('\tOverall: %f s' %(all_time_duration,))
-        print('Closing..')
-        [p.close(artifacts) for p in pipline]
+    all_time_duration = time() - all_time_before
+    print('\tOverall: %f s' %(all_time_duration,))
+    print('Closing..')
+    [p.close(artifacts) for p in pipline]
                 
 
 
