@@ -65,9 +65,11 @@ if __name__ == '__main__':
     from Behavior.Pipeline.TrackStep import TrackStep
     from Behavior.Pipeline.OutputStep import OutputStep
 
+    restore_point = '/cs/phd/itskov/WormSegmentationEC/WormSegmentatioNetworks/WormSegmentation' if len(sys.argv) < 4 else sys.argv[3]
+
     artifacts = {}
     artifacts['mj2_path'] = sys.argv[1]
-    artifacts['restore_points'] = '/cs/phd/itskov/WormSegmentationEC/WormSegmentatioNetworks/WormSegmentation'
+    artifacts['restore_points'] = restore_point
     artifacts['frame_num'] = 0
     artifacts['take_first_channel'] = (sys.argv[2] == 'first_channel')
     print('Channel: ' + 'first_channel.' if artifacts['take_first_channel'] is True else 'Combined.')
