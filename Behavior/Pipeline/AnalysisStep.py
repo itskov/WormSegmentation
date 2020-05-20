@@ -41,19 +41,16 @@ def process(pipline, artifacts):
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'], so_far_time / 60))
         all_time_before = time()
-        try:
-            for i, proc in enumerate(pipline):
-                before_time = time()
-                artifacts = proc.process(artifacts)
-                duration_time = time() - before_time
-                print('\t%d. %s time: %f s' % (i, proc.stepName(artifacts), duration_time))
+	for i, proc in enumerate(pipline):
+            before_time = time()
+            artifacts = proc.process(artifacts)
+            duration_time = time() - before_time
+            print('\t%d. %s time: %f s' % (i, proc.stepName(artifacts), duration_time))
 
-            all_time_duration = time() - all_time_before
-            print('\tOverall: %f s' %(all_time_duration,))
-            print('Closing..')
-            [p.close(artifacts) for p in pipline]
-        except:
-            print('Error occured while processing a frame (Probably error in reading the frame).')
+        all_time_duration = time() - all_time_before
+        print('\tOverall: %f s' %(all_time_duration,))
+        print('Closing..')
+        [p.close(artifacts) for p in pipline]
                 
 
 
