@@ -51,7 +51,7 @@ class TrackStep(AnalysisStep):
 
                 if len(distances) > 0:
                     nextPosIndex = np.argmin(distances)
-                    if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 80):
+                    if (usedCentroids[nextPosIndex] == 0 and distances[nextPosIndex] < 20):
                         t[frame_num] = centroids[np.argmin(distances), :]
                         usedCentroids[nextPosIndex] = 1
 
@@ -76,7 +76,7 @@ class TrackStep(AnalysisStep):
         print('Before filtering: ' + str(len(self._tracks)) + " tracks.")
         self._tracks = np.asarray(self._tracks)[lens > 5]
         maxDistances = [max(pdist(np.asarray(list(t.values())))) for t in self._tracks]
-        #self._tracks = self._tracks[np.asarray(maxDistances) > 7]
+        self._tracks = self._tracks[np.asarray(maxDistances) > 7]
         print('After filtering by length: ' + str(self._tracks.shape) + " tracks.")
 
 
@@ -149,7 +149,7 @@ class TrackStep(AnalysisStep):
             #labeledFrame = np.array([eraseFunc(p) for p in np.ravel(labeledFrame)])
             before = time()
             segFrame[segFrame != 0] = 1
-            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 8, 8))).astype(np.int16)
+            filtered_frame = ndimage.binary_opening(segFrame, structure=np.ones((1, 3, 3))).astype(np.int16)
             labeledFrame, n = label(np.uint16(filtered_frame))
 
             # Take only one channel
