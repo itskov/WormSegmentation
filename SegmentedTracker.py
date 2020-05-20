@@ -157,7 +157,7 @@ class SegmentedTracker:
         videoWriterRaw = FFmpegWriter(outputFileRaw, outputdict={'-crf': '20'})
         videoWriterBoth = FFmpegWriter(outputFileBoth, outputdict={'-crf': '30'})
 
-        font = ImageFont.truetype("FreeSans.ttf", 32)
+        #font = ImageFont.truetype("FreeSans.ttf", 32)
 
         # We store the relevant tracks so we won't go over irrelevant tracks
         relevantTracks = np.array(self._tracks)
@@ -196,7 +196,7 @@ class SegmentedTracker:
                     #curImSegDraw.text(traj[-1], "+", (0, 0, 255), font=font)
 
                     curImRawDraw.line(traj, fill=(255, 0, 0), width=2)
-                    curImRawDraw.text(traj[-1], "+", (0, 0, 255), font=font)
+                    curImRawDraw.text(traj[-1], "+", (0, 0, 255))
 
 
             if shouldRemoveInds.size > 0:
