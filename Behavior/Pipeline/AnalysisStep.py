@@ -26,12 +26,11 @@ class AnalysisStep:
 
 
 def process(pipline, artifacts):
-    print('***** Here *****')
     import cv2
     import numpy as np
 
     cap = cv2.VideoCapture(artifacts['mj2_path'])
-    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 118))
+    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 8000))
     cap.release()
 
     start_time = time()
@@ -42,15 +41,18 @@ def process(pipline, artifacts):
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'], so_far_time / 60))
         all_time_before = time()
-        for i, proc in enumerate(pipline):
+	try:
+            for i, proc in enumerate(pipline):
+                before_time = time()
+                artifacts = proc.process(artifacts)
+                duration_time = time() - before_time
+                print('\t%d. %s time: %f s' % (i, proc.stepName(artifacts), duration_time))
 
-            before_time = time()
-            artifacts = proc.process(artifacts)
-            duration_time = time() - before_time
-            print('\t%d. %s time: %f s' % (i, proc.stepName(artifacts), duration_time))
-
-        all_time_duration = time() - all_time_before
-        print('\tOverall: %f s' %(all_time_duration,))
+            all_time_duration = time() - all_time_before
+            print('\tOverall: %f s' %(all_time_duration,))
+        except:
+	    print('Error occured while processing a frame (Probably error in reading the frame).
+		
 
     print('Closing..')
     [p.close(artifacts) for p in pipline]
