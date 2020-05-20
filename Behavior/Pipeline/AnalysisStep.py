@@ -41,7 +41,7 @@ def process(pipline, artifacts):
         so_far_time = time() - start_time
         print('Frame: %d Time: %f m' % (artifacts['frame_num'], so_far_time / 60))
         all_time_before = time()
-	for i, proc in enumerate(pipline):
+        for i, proc in enumerate(pipline):
             before_time = time()
             artifacts = proc.process(artifacts)
             duration_time = time() - before_time
