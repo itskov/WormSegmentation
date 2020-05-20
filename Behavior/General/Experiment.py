@@ -19,7 +19,7 @@ class Experiment:
         self._positions = None
         self._outputDirName = None
 
-        self.initialize(expDir, np.load(expDir.getTracksFile()))
+        self.initialize(expDir, np.load(expDir.getTracksFile(), allow_pickle=True))
 
     # Legacy constructor.
     #def __init__(self, videoFilename, tracks):
