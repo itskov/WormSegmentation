@@ -30,7 +30,12 @@ def process(pipline, artifacts):
     import numpy as np
 
     cap = cv2.VideoCapture(artifacts['mj2_path'])
-    total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 118))
+
+    if 'frame_count' not in artifacts:
+        total_frames = np.min((int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 2, 8000))
+    else:
+        total_frames = artifacts['frame_count']
+
     cap.release()
 
     start_time = time()
