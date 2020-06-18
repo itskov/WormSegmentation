@@ -164,7 +164,7 @@ def saveImage(i):
 if __name__ == "__main__":
     print('Running threads..')
     with Pool(processes=4) as pool:
-        pool.map(saveImage, np.random.choice(range(1, 5*10**6),85000))
+        pool.map(saveImage, np.random.choice(range(1, 5*10**6),10000))
     print('Done.')
     #saveImage(4)
 
