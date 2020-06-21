@@ -1,6 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
+
+from scipy.ndimage import binary_opening
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
 from trainModel import cnn_model_fn
 
@@ -60,7 +62,7 @@ class SegmentStep(AnalysisStep):
         output_val = self.mergeBatch(output_val, self._BINS)
         output_val = (np.reshape(output_val, (1, height, width)))
 
-        output_val[0, :, :] = cv2.blur(output_val[0, :, :], (3, 3))
+        output_val[0, :, :] = binary_opening(output_val[0, :, :], structure=np.ones((1, 3, 3))).astype(np.int16)
         #output_val[output_val < 100] = 0
         output_val[output_val > 0] = 1 * 255
 
