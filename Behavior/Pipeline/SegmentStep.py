@@ -55,6 +55,7 @@ class SegmentStep(AnalysisStep):
         output_val = artifacts['sess_output'].eval(procDict, session=artifacts['sess'])
         # Cross entropy
         output_val = np.argmax(output_val, axis=3)
+        #
 
         output_val = self.mergeBatch(output_val, self._BINS)
         output_val = normalizeFrame(np.reshape(output_val, (1, height, width)))
