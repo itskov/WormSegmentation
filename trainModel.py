@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def cnn_model_fn(origImages_, filteredImages, imageSize):
     input_layer = tf.reshape(origImages_, [-1, imageSize[0], imageSize[1], 1])
     filtered_images = tf.reshape(filteredImages, [-1, imageSize[0], imageSize[1], 1])
@@ -77,4 +79,4 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
     loss2 = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False)(filteredImages, output_ce)
 
     # return (loss(filteredImages, output), output)
-    return (loss1 + loss2, output_ce)
+    return loss1 + loss2, output_ce
