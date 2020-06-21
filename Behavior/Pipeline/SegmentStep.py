@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
+from trainModel import cnn_model_fn
 
 from os import path
 import cv2
