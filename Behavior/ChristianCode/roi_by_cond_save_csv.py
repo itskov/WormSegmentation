@@ -13,7 +13,7 @@ def main():
 
     #folder = '/mnt/storageNASRe/ChristianData/ChrisNewTracks'
 
-    conds = ['LTAP.','LTAV.','STAP.','STAV.', 'NAIVE']
+    conds = ['LTAP.','MOCK_LTAP', 'LTAV.','MOCK_LTAV', 'STAP.','MOCK_STAP', 'STAV.','MOCK_STAV', 'NAIVE']
 
 
     df = None

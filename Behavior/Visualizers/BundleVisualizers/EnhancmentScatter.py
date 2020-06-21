@@ -193,7 +193,10 @@ if __name__ == "__main__":
     # Go over the right bundles
 
     pairsDf = bundleDfs[bundleDfs['ExpType'] == 'Pair Comparison']
-    for i in range(pairsDf.shape[0]):
+    scatterEnhacnment(pairsDf)
+
+
+    '''for i in range(pairsDf.shape[0]):
         dirnames = pairsDf.iloc[i]['files']
 
         for dirname in dirnames:
@@ -202,9 +205,9 @@ if __name__ == "__main__":
             projectionAnalyses = ProjectionAnalyses(exp)
             projectionAnalyses.execute()
             art.addArtifact('proj', projectionAnalyses._results)
-            print('%d. Added artifact' % (i,))
+            print('%d. Added artifact' % (i,))'''
 
-    scatterEnhacnment(pairsDf)
+
 
 
 

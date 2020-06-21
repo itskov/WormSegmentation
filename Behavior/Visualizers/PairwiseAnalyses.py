@@ -3,7 +3,7 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 
-from ggplot import ggplot, aes, geom_density, xlab, ylab
+#from ggplot import ggplot, aes, geom_density, xlab, ylab
 
 
 from Behavior.Visualizers.RoiAnalysis import RoiAnalysis
@@ -127,6 +127,7 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp, showShow=True):
 def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp, showShow=True):
     LENGTH_THR = 250
     plt.style.use("dark_background")
+    sns.set_context("talk")
 
     #sns.set()
 
@@ -177,3 +178,16 @@ def PairWiseRevDistances(cond1, firstExp, cond2, secondExp, showShow=True):
     if showShow:
         plt.show()
 
+def main():
+    from Behavior.General.ExpDir import ExpDir
+
+    firstDir = '/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_ATR_TRAIN_75M_0D.avi_11.49.56'
+    secondDir = '/mnt/storageNASRe/tph1/Results/27-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_11.48.58'
+
+    exp1 = np.load(ExpDir(firstDir).getExpFile())[0]
+    exp2 = np.load(ExpDir(secondDir).getExpFile())[0]
+
+    PairWiseSpeedDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2)
+
+if __name__ == "__main__":
+    main()

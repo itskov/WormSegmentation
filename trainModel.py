@@ -1,20 +1,3 @@
-# @title Training
-
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-# Imports
-import numpy as np
-import tensorflow as tf
-
-
-from glob import glob
-from os import path
-
-
-
-
 def cnn_model_fn(origImages_, filteredImages, imageSize):
     input_layer = tf.reshape(origImages_, [-1, imageSize[0], imageSize[1], 1])
     filtered_images = tf.reshape(filteredImages, [-1, imageSize[0], imageSize[1], 1])
@@ -73,86 +56,25 @@ def cnn_model_fn(origImages_, filteredImages, imageSize):
 
     dconv3 = tf.concat((dconv3, input_layer), axis=3)
 
-    output = tf.layers.conv2d(
+    output_ce = tf.layers.conv2d(
+        inputs=dconv3,
+        filters=2,
+        kernel_size=(3, 3),
+        strides=(1, 1),
+        padding="same",
+        activation=tf.nn.relu)
+
+    output_mse = tf.layers.conv2d(
         inputs=dconv3,
         filters=1,
         kernel_size=(3, 3),
         strides=(1, 1),
         padding="same")
 
-    loss = tf.reduce_mean(tf.norm(tf.subtract(output, filtered_images)))
+    loss1 = tf.reduce_mean(tf.norm(tf.subtract(output_mse, filtered_images)))
+    output_ce = tf.nn.softmax(output_ce, axis=3)
 
-    return loss, output
+    loss2 = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False)(filteredImages, output_ce)
 
-def getBatch(batchDir, batchNum, imageSize):
-    npyFiles = glob(path.join(batchDir, '*.npy'))
-
-    # Chosing the numbers of mats of batch
-    chosenFiles = np.random.choice(npyFiles, batchNum)
-
-    origImages = np.zeros((batchNum,) + imageSize)
-    filteredImages = np.zeros((batchNum,) + imageSize)
-
-    for i, fileName in enumerate(chosenFiles):
-        currentSample = np.load(fileName)
-
-        origImages[i, :, :] = currentSample[0]
-        filteredImages[i, :, :] = cv2.blur(currentSample[1], (3, 3))
-
-    return (origImages, filteredImages)
-
-
-def normalizeFrame(outImage):
-    outImage = np.maximum(outImage, 0)
-    outImage = np.minimum(outImage, 1)
-
-    #outImage = (outImage - np.min(outImage)) / (np.max(outImage) - np.min(outImage))
-    outImage = np.uint8(outImage * 255)
-    return (outImage)
-
-
-def main():
-    # Setting the seed
-    # np.random.seed(15574)
-    DATA_DIR = '/home/itskov/workspace/lab/DeepSemantic/WormSegmentation/static/TrainData'
-    IMAGE_SIZE = (100, 100)
-    RESTORE_POINT = "./WormSegmentatioNetworks/WormSegmentation"
-    BATCH_SIZE = 50
-    N = 2750000
-    RESTORE = False
-
-    tf.reset_default_graph()
-
-    origImages_ = tf.placeholder(tf.float32, [None, IMAGE_SIZE[0], IMAGE_SIZE[1]])
-    filteredImages_ = tf.placeholder(tf.float32, [None, IMAGE_SIZE[0], IMAGE_SIZE[1]])
-
-    loss, output = cnn_model_fn(origImages_, filteredImages_, IMAGE_SIZE)
-
-    # Solver
-    solver = tf.train.AdamOptimizer().minimize(loss)
-
-    with tf.Session() as sess:
-
-        saver = tf.train.Saver()
-        if (RESTORE == False):
-            sess.run(tf.global_variables_initializer())
-        else:
-            saver.restore(sess, RESTORE_POINT)
-
-        for i in range(N):
-            currentBatch = getBatch(DATA_DIR, BATCH_SIZE, IMAGE_SIZE)
-
-            trainDict = {origImages_: currentBatch[0], filteredImages_: currentBatch[1]}
-            sess.run(solver, feed_dict=trainDict)
-            lossValue = loss.eval(feed_dict=trainDict);
-
-
-            if (i % 100 == 0):
-                print('\r' + str(i) + ". Loss: " + str(lossValue), end="")
-                saver.save(sess, RESTORE_POINT)
-
-
-
-
-if __name__ == "__main__":
-    main()
+    # return (loss(filteredImages, output), output)
+    return (loss1 + loss2, output_ce)
