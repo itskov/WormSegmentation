@@ -56,6 +56,7 @@ class SegmentStep(AnalysisStep):
         # The actual forward move.
         output_val = artifacts['sess_output'].eval(procDict, session=artifacts['sess'])
         # Cross entropy
+        output_val[..., 0][output_val[..., 0] == 0.5] = 0.49
         output_val = np.argmax(output_val, axis=3)
         #
 
