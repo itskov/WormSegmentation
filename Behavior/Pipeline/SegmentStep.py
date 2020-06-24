@@ -62,8 +62,8 @@ class SegmentStep(AnalysisStep):
         #output_val = normalizeFrame(np.reshape(output_val, (1, height, width)))
 
         output_val[0, :, :] = cv2.blur(output_val[0, :, :], (3, 3))
-        output_val[output_val < 128] = 0
-        output_val[output_val >= 128] = 1 * 255
+        #output_val[output_val < 128] = 0
+        output_val[output_val > 0] = 1 * 255
 
         artifacts['segmented_frame'] = output_val
 
