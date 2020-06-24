@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 
 from Behavior.Pipeline.AnalysisStep import AnalysisStep
-from trainModel import cnn_model_fn, normalizeFrame
+from trainModel import cnn_model_fn
 
 from os import path
 import cv2
@@ -59,7 +59,7 @@ class SegmentStep(AnalysisStep):
         #
 
         output_val = self.mergeBatch(output_val, self._BINS)
-        output_val = normalizeFrame(np.reshape(output_val, (1, height, width)))
+        #output_val = normalizeFrame(np.reshape(output_val, (1, height, width)))
 
         output_val[0, :, :] = cv2.blur(output_val[0, :, :], (3, 3))
         output_val[output_val < 128] = 0
