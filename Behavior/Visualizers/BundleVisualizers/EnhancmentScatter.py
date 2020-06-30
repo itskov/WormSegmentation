@@ -30,7 +30,7 @@ def gatherBundles(dirname):
 
     return bundlesDf
 
-def scatterEnhacnment(pairsDf):
+def scatterEnhacnment(pairsDf, paper=False):
     MAX_TIME = 3750
 
     plotDfArrivedFrac = pd.DataFrame({'Strain': [], 'ATR+': [], 'ATR-': []})
@@ -41,75 +41,73 @@ def scatterEnhacnment(pairsDf):
 
     print(pairsDf.shape)
     for i in range(pairsDf.shape[0]):
-        current_row = pairsDf.iloc[i]
-        files = np.array(current_row['files'])
+        try:
+            current_row = pairsDf.iloc[i]
+            files = np.array(current_row['files'])
 
-        noAtrInd = np.array([file.find('NO_ATR') >= 0 for file in files])
+            noAtrInd = np.array([file.find('NO_ATR') >= 0 for file in files])
 
+            if np.sum(noAtrInd) != 1:
+                print('*** Error: Invalid pair ***')
+            else:
+                atrFile = files[np.logical_not(noAtrInd)][0]
+                noAtrFile = files[noAtrInd][0]
 
-        if np.sum(noAtrInd) != 1:
-            print('*** Error: Invalid pair ***')
-        else:
-            atrFile = files[np.logical_not(noAtrInd)][0]
-            noAtrFile = files[noAtrInd][0]
+                print(atrFile)
+                print(noAtrFile)
 
-            print(atrFile)
-            print(noAtrFile)
+                atrRoi = Artifacts(expLocation=atrFile).getArtifact('roi')
+                noAtrRoi = Artifacts(expLocation=noAtrFile).getArtifact('roi')
 
-            atrRoi = Artifacts(expLocation=atrFile).getArtifact('roi')
-            noAtrRoi = Artifacts(expLocation=noAtrFile).getArtifact('roi')
+                if atrRoi['wormCount'] < 30 or noAtrRoi['wormCount'] < 30:
+                    print('Not enough worms. Continuing.')
+                    continue
 
-            if atrRoi['wormCount'] < 30 or noAtrRoi['wormCount'] < 30:
-                print('Not enough worms. Continuing.')
-                continue
+                plotDfArrivedFrac = plotDfArrivedFrac.append({'Strain': current_row['Strain'],
+                                                              'ATR+': np.minimum(atrRoi['arrivedFrac'][MAX_TIME], 1),
+                                                              'ATR-': np.minimum(noAtrRoi['arrivedFrac'][MAX_TIME], 1)},
+                                                             ignore_index=True)
 
-            plotDfArrivedFrac = plotDfArrivedFrac.append({'Strain': current_row['Strain'],
-                                    'ATR+': np.minimum(atrRoi['arrivedFrac'][MAX_TIME], 1),
-                                    'ATR-': np.minimum(noAtrRoi['arrivedFrac'][MAX_TIME], 1)}, ignore_index=True)
+                atrProj = Artifacts(expLocation=atrFile).getArtifact('proj')['proj']
+                noAtrProj = Artifacts(expLocation=noAtrFile).getArtifact('proj')['proj']
 
-            atrProj = Artifacts(expLocation=atrFile).getArtifact('proj')['proj']
-            noAtrProj = Artifacts(expLocation=noAtrFile).getArtifact('proj')['proj']
+                plotDfProjection = plotDfProjection.append({'Strain': current_row['Strain'],
+                                                            'ATR+': np.mean(atrProj),
+                                                            'ATR-': np.mean(noAtrProj)}, ignore_index=True)
 
-            plotDfProjection = plotDfProjection.append({'Strain': current_row['Strain'],
-                                                         'ATR+': np.mean(atrProj),
-                                                         'ATR-': np.mean(noAtrProj)}, ignore_index=True)
+                atrSpeed = Artifacts(expLocation=atrFile).getArtifact('speed')['speed']
+                noAtrSpeed = Artifacts(expLocation=noAtrFile).getArtifact('speed')['speed']
 
+                plotDfSpeed = plotDfSpeed.append({'Strain': current_row['Strain'],
+                                                  'ATR+': np.mean(atrSpeed),
+                                                  'ATR-': np.mean(noAtrSpeed)}, ignore_index=True)
 
-            atrSpeed = Artifacts(expLocation=atrFile).getArtifact('speed')['speed']
-            noAtrSpeed = Artifacts(expLocation=noAtrFile).getArtifact('speed')['speed']
+                print("Arrival vals: ATR+:%f, ATR-:%f, Projection mean: ATR+:%f, ATR-:%f, Speed mean ATR+:%f, ATR-:%f" %
+                      (atrRoi['arrivedFrac'][MAX_TIME],
+                       noAtrRoi['arrivedFrac'][MAX_TIME],
+                       np.mean(atrProj),
+                       np.mean(noAtrProj),
+                       np.mean(atrSpeed),
+                       np.mean(noAtrSpeed)))
 
-            plotDfSpeed = plotDfSpeed.append({'Strain': current_row['Strain'],
-                                              'ATR+': np.mean(atrSpeed),
-                                              'ATR-': np.mean(noAtrSpeed)}, ignore_index=True)
+                print(atrRoi['arrivedFrac'][0:MAX_TIME].shape)
+                print(np.array(list(range(MAX_TIME))).shape)
 
+                currentLinePlot = pd.DataFrame({'Strain': current_row['Strain'],
+                                                'time': np.array(list(range(MAX_TIME))) * 0.5,
+                                                'FractionArrived': atrRoi['arrivedFrac'][0:MAX_TIME],
+                                                'Exp': 'ATR'})
 
+                linePlotDf = pd.concat((linePlotDf, currentLinePlot))
 
+                currentLinePlot = pd.DataFrame({'Strain': current_row['Strain'],
+                                                'time': np.array(list(range(MAX_TIME))) * 0.5,
+                                                'FractionArrived': noAtrRoi['arrivedFrac'][0:MAX_TIME],
+                                                'Exp': 'NO ATR'})
 
-            print("Arrival vals: ATR+:%f, ATR-:%f, Projection mean: ATR+:%f, ATR-:%f, Speed mean ATR+:%f, ATR-:%f" %
-                  (atrRoi['arrivedFrac'][MAX_TIME],
-                   noAtrRoi['arrivedFrac'][MAX_TIME],
-                   np.mean(atrProj),
-                   np.mean(noAtrProj),
-                   np.mean(atrSpeed),
-                   np.mean(noAtrSpeed)))
-
-            print(atrRoi['arrivedFrac'][0:MAX_TIME].shape)
-            print(np.array(list(range(MAX_TIME))).shape)
-
-
-            currentLinePlot = pd.DataFrame({'Strain': current_row['Strain'],
-                                            'time': np.array(list(range(MAX_TIME))) * 0.5,
-                                            'FractionArrived': atrRoi['arrivedFrac'][0:MAX_TIME],
-                                            'Exp': 'ATR'})
-
-            linePlotDf = pd.concat((linePlotDf, currentLinePlot))
-
-            currentLinePlot = pd.DataFrame({'Strain': current_row['Strain'],
-                                            'time': np.array(list(range(MAX_TIME))) * 0.5,
-                                            'FractionArrived': noAtrRoi['arrivedFrac'][0:MAX_TIME],
-                                            'Exp': 'NO ATR'})
-
-            linePlotDf = pd.concat((linePlotDf, currentLinePlot))
+                linePlotDf = pd.concat((linePlotDf, currentLinePlot))
+        except Exception as e:
+            raise e
 
 
     #print(plotDf)
@@ -120,11 +118,21 @@ def scatterEnhacnment(pairsDf):
     linePlotDf.to_pickle('/home/itskov/Dropbox/tempBundle2.pkl')
     #DEBUG
 
-    plt.style.use("dark_background")
-    sns.set_context('talk')
-    cp = sns.dark_palette("purple", 7)
-    ax = sns.scatterplot(x='ATR-', y='ATR+',  data=plotDfArrivedFrac, linewidth=0,  alpha=0.85, color=cp[6])
-    ax.plot([0, 1.1], [0, 1.1], ":")
+    if paper == False:
+        plt.style.use("dark_background")
+        sns.set_context('talk')
+        cp = sns.dark_palette("purple", 7)
+    else:
+        cp = sns.cubehelix_palette(8, start=.5, rot=-.75)
+
+    if paper == False:
+        ax = sns.scatterplot(x='ATR-', y='ATR+',  data=plotDfArrivedFrac, linewidth=0,  alpha=0.85, color=cp[6])
+        ax.plot([0, 1.1], [0, 1.1], ":")
+    else:
+        ax = sns.scatterplot(x='ATR-', y='ATR+',  data=plotDfArrivedFrac, linewidth=0,  alpha=0.85, color=cp[6])
+        ax.plot([0, 1.1], [0, 1.1], ":", color='k')
+
+
     plt.xlim(0, 1.1)
     plt.ylim(0, 1.1)
     plt.gca().grid(alpha=0.2)
@@ -132,9 +140,11 @@ def scatterEnhacnment(pairsDf):
     plt.show()
 
     # Plotting the projection plot.
-    plt.style.use("dark_background")
-    sns.set_context('talk')
-    cp = sns.dark_palette("purple", 7)
+    #plt.style.use("dark_background")
+    #sns.set_context('talk')
+    #cp = sns.dark_palette("purple", 7)
+
+
     ax = sns.scatterplot(x='ATR-', y='ATR+',  data=plotDfProjection, linewidth=0,  alpha=0.85, color=cp[6])
 
     xmin = np.min(plotDfProjection['ATR-'])
@@ -142,9 +152,13 @@ def scatterEnhacnment(pairsDf):
     ymin = np.min(plotDfProjection['ATR-'])
     ymax = np.max(plotDfProjection['ATR+'])
 
-    ax.plot([0, 1], [0, 1], ":")
-    plt.xlim(xmin, xmax)
-    plt.ylim(ymin, ymax)
+    if paper == False:
+        ax.plot([0, 1], [0, 1], ":")
+    else:
+        ax.plot([0, 1], [0, 1], ":", color='k')
+
+    plt.xlim(0, 0.35)
+    plt.ylim(0, 0.35)
     plt.gca().grid(alpha=0.2)
     plt.locator_params(axis='y', nbins=6)
     plt.locator_params(axis='x', nbins=6)
@@ -152,9 +166,9 @@ def scatterEnhacnment(pairsDf):
     plt.show()
 
     # Plotting the speed plot.
-    plt.style.use("dark_background")
-    sns.set_context('talk')
-    cp = sns.dark_palette("purple", 7)
+    #plt.style.use("dark_background")
+    #sns.set_context('talk')
+    #cp = sns.dark_palette("purple", 7)
     ax = sns.scatterplot(x='ATR-', y='ATR+',  data=plotDfSpeed, linewidth=0,  alpha=0.85, color=cp[6])
 
     xmin = np.min(plotDfSpeed['ATR-'])
@@ -162,13 +176,17 @@ def scatterEnhacnment(pairsDf):
     ymin = np.min(plotDfSpeed['ATR+'])
     ymax = np.max(plotDfSpeed['ATR+'])
 
-    ax.plot([xmin, xmax], [ymin, ymax], ":")
-    plt.xlim(xmin, xmax)
-    plt.ylim(ymin, ymax)
+    if paper == False:
+        ax.plot([0, 0.0018], [0, 0.0018], ":")
+    else:
+        ax.plot([0, 0.0018], [0, 0.0018], ":", color='k')
+
+    plt.xlim(0.0008, 0.0018)
+    plt.ylim(0.0008, 0.0018)
     plt.gca().grid(alpha=0.2)
     plt.locator_params(axis='y', nbins=6)
     plt.locator_params(axis='x', nbins=6)
-    plt.title('n = %d' % (plotDfSpeed.shape[0],), loc='left')
+    plt.title('Mean Speed, n = %d' % (plotDfSpeed.shape[0],), loc='left')
     plt.show()
 
 
@@ -193,7 +211,10 @@ if __name__ == "__main__":
     # Go over the right bundles
 
     pairsDf = bundleDfs[bundleDfs['ExpType'] == 'Pair Comparison']
-    for i in range(pairsDf.shape[0]):
+    scatterEnhacnment(pairsDf)
+
+
+    '''for i in range(pairsDf.shape[0]):
         dirnames = pairsDf.iloc[i]['files']
 
         for dirname in dirnames:
@@ -202,9 +223,9 @@ if __name__ == "__main__":
             projectionAnalyses = ProjectionAnalyses(exp)
             projectionAnalyses.execute()
             art.addArtifact('proj', projectionAnalyses._results)
-            print('%d. Added artifact' % (i,))
+            print('%d. Added artifact' % (i,))'''
 
-    scatterEnhacnment(pairsDf)
+
 
 
 

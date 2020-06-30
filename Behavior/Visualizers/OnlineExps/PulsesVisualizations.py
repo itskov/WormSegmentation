@@ -38,12 +38,15 @@ def tracksSpeedsPerSpike(exp_files):
 
 
 
-def tracksSpeedsForAllSpikes(exp_files):
+def tracksSpeedsForAllSpikes(exp_files, paper=False, show=True):
     #sns.set()
-    sns.set_context('talk')
-    plt.style.use('dark_background')
+    if not paper:
+        sns.set_context('talk')
+        plt.style.use('dark_background')
+    else:
+        sns.set_context('paper')
 
-    df = pd.DataFrame({'Frame': [], 'Speed': [], 'ActivationTime': []})
+    df = pd.DataFrame({'Frame': [], 'Speed': [], 'Activation Duration': []})
 
     for i, exp_tuple in enumerate(exp_files):
         dir_name = path.dirname(exp_tuple[0])
@@ -61,23 +64,25 @@ def tracksSpeedsForAllSpikes(exp_files):
 
         current_df = pd.DataFrame({'Time': tuple(np.array(range(0, spikes_speeds.shape[1])) * 0.5) * spikes_speeds.shape[0],
                                    'Speed': np.reshape(spikes_speeds, np.size(spikes_speeds)),
-                                   'ActivationTime': exp_tuple[1]})
+                                   'Activation Duration': exp_tuple[1]})
 
         cp = sns.cubehelix_palette(8)
         ax = sns.lineplot(x='Time', y='Speed', data=current_df, ci=95, color=cp[5], linewidth=2)
         plt.gca().grid(alpha=0.2)
-        ax.set(xlabel='Time [s]', ylabel='Speed [au]')
+        ax.set(xlabel='Time [s]', ylabel='Normalized Speed [au]')
         plt.gca().grid(alpha=0.2)
 
         df = pd.concat((df, current_df))
         pass
 
 
-    ax = sns.lineplot(x='Time', y='Speed', hue='ActivationTime', data=df, ci=None, linewidth=2, alpha=0.75)
+    ax = sns.lineplot(x='Time', y='Speed', hue='Activation Duration', data=df, ci=None, linewidth=2, alpha=0.75)
     plt.gca().grid(alpha=0.2)
     ax.set(xlabel='Time [s]', ylabel='Speed [au]')
     plt.gca().grid(alpha=0.2)
-    plt.show()
+
+    if show:
+        plt.show()
     pass
 
 
@@ -93,10 +98,10 @@ if __name__ == "__main__":
                  ('/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2.5S.avi_13.25.34/exp.npy', '2.5s'),
                  ('/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_3S.avi_14.14.43/exp.npy', '3s')]'''
 
-    exp_files = [('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_0.5S.avi_22.01.55/exp.npy','0.5s'),
-                 #('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_1S.avi_19.49.05/exp.npy','1s'),
-                 #('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_3S.avi_20.36.24/exp.npy','3s'),
-                 ('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_5S.avi_21.16.44/exp.npy', '5s')]
+    #exp_files = [('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_0.5S.avi_22.01.55/exp.npy','0.5s'),
+    #             #('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_1S.avi_19.49.05/exp.npy','1s'),
+    #             #('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_3S.avi_20.36.24/exp.npy','3s'),
+    #             ('/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_5S.avi_21.16.44/exp.npy', '5s')]
 
     tracksSpeedsForAllSpikes(exp_files)
 

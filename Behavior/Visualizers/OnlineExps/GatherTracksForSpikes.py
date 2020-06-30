@@ -24,7 +24,7 @@ def gatherTracksForSpikes(exp_file, show_plot=False):
     exp = np.load(exp_file)[0]
 
     # Filtering the tracks.
-    exp._tracks = filterTracksForAnalyses(exp._tracks, minSteps=370, minDistance=80)
+    exp._tracks = filterTracksForAnalyses(exp._tracks, minSteps=370, minDistance=150)
 
     # Get pulses in time
     dir_name = path.dirname(exp._videoFilename)
@@ -106,17 +106,28 @@ def gatherTracksForSpikes(exp_file, show_plot=False):
 
 
 if __name__ == "__main__":
-    exp_files = ['/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_0.5S.avi_10.09.48/exp.npy',
-                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_1S.avi_10.54.39/exp.npy',
-                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_1.5S.avi_11.45.54/exp.npy',
-                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2S.avi_12.39.07/exp.npy',
-                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2.5S.avi_13.25.34/exp.npy',
-                '/home/itskov/Temp/behav/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_3S.avi_14.14.43/exp.npy']
+    exp_files = ['/mnt/storageNASRe/tph1/Results/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_0.5S.avi_10.09.48/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_1S.avi_10.54.39/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_1.5S.avi_11.45.54/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2S.avi_12.39.07/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_2.5S.avi_13.25.34/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/19-Mar-2020/TPH_1_ATR_ONLINE[IAA]_3S.avi_14.14.43/exp.npy']
 
     '''exp_files = ['/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_0.5S.avi_22.01.55/exp.npy',
                  '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_1S.avi_19.49.05/exp.npy',
                  '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_3S.avi_20.36.24/exp.npy',
                  '/home/itskov/Temp/behav/12-Mar-2020/TPH_1_ATR_ONLINE[NO_IAA]_5S.avi_21.16.44/exp.npy']'''
+
+    '''exp_files = ['/mnt/storageNASRe/tph1/Results/21-Jun-2020/TM5_ATR_ONLINE_0.5S.avi_12.22.02/exp.npy',
+                 '/mnt/storageNASRe/tph1/Results/21-Jun-2020/TM5_ATR_ONLINE_1S.avi_11.22.03/exp.npy',
+                 '/mnt/storageNASRe/tph1/Results/21-Jun-2020/TM5_ATR_ONLINE_1.5S.avi_13.15.35/exp.npy',
+                 '/mnt/storageNASRe/tph1/Results/21-Jun-2020/TM5_ATR_ONLINE_2S.avi_13.49.57/exp.npy']'''
+
+    exp_files = ['/mnt/storageNASRe/tph1/Results/01-Mar-2020/TPH_1_ATR_ONLINE[IAA].avi_10.38.56/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/01-Mar-2020/TPH_1_ATR_ONLINE[IAA].avi_13.16.09/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/01-Mar-2020/TPH_1_NO_ATR_ONLINE[IAA].avi_11.41.30/exp.npy',
+                '/mnt/storageNASRe/tph1/Results/01-Mar-2020/TPH_1_NO_ATR_ONLINE[IAA].avi_14.17.21/exp.npy']
+
 
 
 

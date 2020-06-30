@@ -3,8 +3,6 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 
-from ggplot import ggplot, aes, geom_density, xlab, ylab
-
 
 from Behavior.Visualizers.RoiAnalysis import RoiAnalysis
 from Behavior.Visualizers.OccupVisualizer import OccupVisualizer
@@ -58,10 +56,13 @@ def PairWiseJointSpeedProjection(cond1, firstExp, cond2, secondExp, showShow=Tru
 
 
 
-def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=True):
+def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=True, paper=False, freq=-1):
     #sns.set()
-    plt.style.use("dark_background")
-    sns.set_context("talk")
+    if not paper:
+        plt.style.use("dark_background")
+        sns.set_context("talk")
+    else:
+        sns.set_context("paper")
 
     print('Start Analyses..')
     firstRoi = RoiAnalysis(firstExp)
@@ -75,14 +76,25 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=Tru
     print(firstRoi._results)
     print(secondRoi._results)
 
-    if show_count:
-        plt.gca().plot(firstRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond1, firstRoi._results['wormCount']))
-        plt.gca().plot(secondRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond2, secondRoi._results['wormCount']))
+    if freq == -1:
+        xvalues_first = range(len(firstRoi._results['arrivedFrac']))
+        xvalues_second = range(len(secondRoi._results['arrivedFrac']))
     else:
-        plt.gca().plot(firstRoi._results['arrivedFrac'], label=cond1)
-        plt.gca().plot(secondRoi._results['arrivedFrac'], label=cond2)
+        xvalues_first = np.array(range(len(firstRoi._results['arrivedFrac']))) / freq
+        xvalues_second = np.array(range(len(secondRoi._results['arrivedFrac']))) / freq
 
-    plt.xlabel('Frames (2Hz)')
+    if show_count:
+        plt.gca().plot(xvalues_first, firstRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond1, firstRoi._results['wormCount']))
+        plt.gca().plot(xvalues_second, secondRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond2, secondRoi._results['wormCount']))
+    else:
+        plt.gca().plot(xvalues_first, firstRoi._results['arrivedFrac'], label=cond1)
+        plt.gca().plot(xvalues_second, secondRoi._results['arrivedFrac'], label=cond2)
+
+    if freq == -1:
+        plt.xlabel('Frames (2Hz)')
+    else:
+        plt.xlabel('Time (m))')
+
     plt.ylabel('Worms Arrived')
     plt.gca().legend(loc="lower right")
     plt.gca().grid(alpha=0.2)
@@ -90,9 +102,12 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=Tru
     if showShow:
         plt.show()
 
-def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp, showShow=True):
-    plt.style.use("dark_background")
-    sns.set_context("talk")
+def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp, showShow=True, paper=False):
+    if not paper:
+        plt.style.use("dark_background")
+        sns.set_context("talk")
+    else:
+        sns.set_context("paper")
 
     LENGTH_THR = 50
 
@@ -124,9 +139,14 @@ def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp, showShow=True):
 
     return df
 
-def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp, showShow=True):
+def PairWiseSpeedDensity(cond1, firstExp, cond2, secondExp, showShow=True, paper=False):
     LENGTH_THR = 250
-    plt.style.use("dark_background")
+    if not paper:
+        plt.style.use("dark_background")
+        sns.set_context("talk")
+    else:
+        sns.set_context("paper")
+
 
     #sns.set()
 
@@ -177,3 +197,18 @@ def PairWiseRevDistances(cond1, firstExp, cond2, secondExp, showShow=True):
     if showShow:
         plt.show()
 
+def main():
+    from Behavior.General.ExpDir import ExpDir
+
+    firstDir = '/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_ATR_TRAIN_75M_D0.avi_11.05.51'
+    secondDir = '/mnt/storageNASRe/tph1/Results/09-Feb-2020/TPH_1_NO_ATR_TRAIN_75M_D0.avi_11.04.57'
+
+    exp1 = np.load(ExpDir(firstDir).getExpFile())[0]
+    exp2 = np.load(ExpDir(secondDir).getExpFile())[0]
+
+    PairWiseRoi('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2)
+    PairWiseSpeedDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2, paper=True)
+    PairWiseProjectionDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2, paper=True)
+
+if __name__ == "__main__":
+    main()
