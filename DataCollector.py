@@ -12,7 +12,7 @@ from os.path import join
 class DataCollector:
     def __init__(self):
         print('Starting..')
-        self._GLOB_TERM = '/home/itskov/Temp/BigMovies/**/*Full.mp4'
+        self._GLOB_TERM = '/home/itskov/Temp/BigFiles/**/*Full.mp4'
 
         # Saving the paths video file.
         self._videoFiles = glob(self._GLOB_TERM)
@@ -154,8 +154,9 @@ def saveImage(i):
 
             im_I.save(join('./static/RawData/', str(i) + '.orig.png'), compress_level=0)
             imt_I.save(join('./static/RawData/', str(i) + '.bw.png'), compress_level=0)
-    except Exception:
-        print('Error creating sample')
+    except Exception as ex:
+	
+        print('Error creating sample: %s' % str(ex))
         raise;
 
 

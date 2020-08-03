@@ -30,7 +30,7 @@ def gatherBundles(dirname):
 
     return bundlesDf
 
-def scatterEnhacnment(pairsDf, paper=False):
+def scatterEnhacnment(pairsDf, paper=False, figNames=None):
     MAX_TIME = 3750
 
     plotDfArrivedFrac = pd.DataFrame({'Strain': [], 'ATR+': [], 'ATR-': []})
@@ -65,22 +65,25 @@ def scatterEnhacnment(pairsDf, paper=False):
 
                 plotDfArrivedFrac = plotDfArrivedFrac.append({'Strain': current_row['Strain'],
                                                               'ATR+': np.minimum(atrRoi['arrivedFrac'][MAX_TIME], 1),
-                                                              'ATR-': np.minimum(noAtrRoi['arrivedFrac'][MAX_TIME], 1)},
-                                                             ignore_index=True)
+                                                              'ATR-': np.minimum(noAtrRoi['arrivedFrac'][MAX_TIME], 1),
+                                                              'ExpId' : i},
+                                                              ignore_index=True)
 
                 atrProj = Artifacts(expLocation=atrFile).getArtifact('proj')['proj']
                 noAtrProj = Artifacts(expLocation=noAtrFile).getArtifact('proj')['proj']
 
                 plotDfProjection = plotDfProjection.append({'Strain': current_row['Strain'],
                                                             'ATR+': np.mean(atrProj),
-                                                            'ATR-': np.mean(noAtrProj)}, ignore_index=True)
+                                                            'ATR-': np.mean(noAtrProj),
+                                                            'ExpId' : i}, ignore_index=True)
 
                 atrSpeed = Artifacts(expLocation=atrFile).getArtifact('speed')['speed']
                 noAtrSpeed = Artifacts(expLocation=noAtrFile).getArtifact('speed')['speed']
 
                 plotDfSpeed = plotDfSpeed.append({'Strain': current_row['Strain'],
                                                   'ATR+': np.mean(atrSpeed),
-                                                  'ATR-': np.mean(noAtrSpeed)}, ignore_index=True)
+                                                  'ATR-': np.mean(noAtrSpeed),
+                                                  'ExpId' : i}, ignore_index=True)
 
                 print("Arrival vals: ATR+:%f, ATR-:%f, Projection mean: ATR+:%f, ATR-:%f, Speed mean ATR+:%f, ATR-:%f" %
                       (atrRoi['arrivedFrac'][MAX_TIME],
@@ -112,10 +115,10 @@ def scatterEnhacnment(pairsDf, paper=False):
 
     #print(plotDf)
     #DEBUG
-    plotDfArrivedFrac.to_pickle('/home/itskov/Dropbox/tempBundle_arrival.pkl')
-    plotDfProjection.to_pickle('/home/itskov/Dropbox/tempBundle_proj.pkl')
-    plotDfSpeed.to_pickle('/home/itskov/Dropbox/tempBundle_speed.pkl')
-    linePlotDf.to_pickle('/home/itskov/Dropbox/tempBundle2.pkl')
+    #plotDfArrivedFrac.to_pickle('/home/itskov/Dropbox/tempBundle_arrival.pkl')
+    #plotDfProjection.to_pickle('/home/itskov/Dropbox/tempBundle_proj.pkl')
+    #plotDfSpeed.to_pickle('/home/itskov/Dropbox/tempBundle_speed.pkl')
+    #linePlotDf.to_pickle('/home/itskov/Dropbox/tempBundle2.pkl')
     #DEBUG
 
     if paper == False:
@@ -137,7 +140,11 @@ def scatterEnhacnment(pairsDf, paper=False):
     plt.ylim(0, 1.1)
     plt.gca().grid(alpha=0.2)
     plt.title('Arrival Fracion, n = %d' % (plotDfArrivedFrac.shape[0],), loc='left')
-    plt.show()
+    if figNames is None:
+        plt.show()
+    else:
+        plt.gcf().savefig(figNames[0], format='svg')
+
 
     # Plotting the projection plot.
     #plt.style.use("dark_background")
@@ -163,7 +170,10 @@ def scatterEnhacnment(pairsDf, paper=False):
     plt.locator_params(axis='y', nbins=6)
     plt.locator_params(axis='x', nbins=6)
     plt.title('Mean Projection, n = %d' % (plotDfArrivedFrac.shape[0],), loc='left')
-    plt.show()
+    if figNames is None:
+        plt.show()
+    else:
+        plt.gcf().savefig(figNames[1], format='svg')
 
     # Plotting the speed plot.
     #plt.style.use("dark_background")
@@ -187,17 +197,20 @@ def scatterEnhacnment(pairsDf, paper=False):
     plt.locator_params(axis='y', nbins=6)
     plt.locator_params(axis='x', nbins=6)
     plt.title('Mean Speed, n = %d' % (plotDfSpeed.shape[0],), loc='left')
-    plt.show()
+    if figNames is None:
+        plt.show()
+    else:
+        plt.gcf().savefig(figNames[2], format='svg')
 
 
 
 
-    ax = sns.lineplot(x='time', y='FractionArrived', hue='Exp', data=linePlotDf, ci=68, estimator=np.median)
-    plt.gca().grid(alpha=0.2)
-    ax.set(xlabel='Time [s]')
+    #ax = sns.lineplot(x='time', y='FractionArrived', hue='Exp', data=linePlotDf, ci=68, estimator=np.median)
+    #plt.gca().grid(alpha=0.2)
+    #ax.set(xlabel='Time [s]')
 
-    plt.show()
-
+    #plt.show()
+    return (plotDfArrivedFrac, plotDfProjection, plotDfSpeed)
 
 
 
@@ -206,7 +219,8 @@ if __name__ == "__main__":
     from os import path
     from Behavior.Visualizers.ProjectionAnalyses import ProjectionAnalyses
 
-    bundleDfs = gatherBundles(sys.argv[1])
+    #bundleDfs = gatherBundles(sys.argv[1])
+    bundleDfs = gatherBundles('/mnt/storageNASRe/tph1/Results/')
 
     # Go over the right bundles
 

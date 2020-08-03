@@ -55,15 +55,49 @@ def PairWiseJointSpeedProjection(cond1, firstExp, cond2, secondExp, showShow=Tru
     return df
 
 
-
-def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=True, paper=False, freq=-1):
-    #sns.set()
+def PairWiseRoi_(condNames, expsResults, showShow=True, show_count=True, paper=False, freq=-1):
     if not paper:
         plt.style.use("dark_background")
         sns.set_context("talk")
     else:
         sns.set_context("paper")
 
+    first_results = expsResults[0]
+    second_results = expsResults[1]
+    cond1 = condNames[0]
+    cond2 = condNames[1]
+
+
+    if freq == -1:
+        xvalues_first = range(len(first_results['arrivedFrac']))
+        xvalues_second = range(len(second_results['arrivedFrac']))
+    else:
+        xvalues_first = np.array(range(len(first_results['arrivedFrac']))) / freq
+        xvalues_second = np.array(range(len(second_results['arrivedFrac']))) / freq
+
+    if show_count:
+        plt.gca().plot(xvalues_first, first_results['arrivedFrac'], label=" %s, %d worms" % (cond1, first_results['wormCount']))
+        plt.gca().plot(xvalues_second, second_results['arrivedFrac'], label=" %s, %d worms" % (cond2, second_results['wormCount']))
+    else:
+        plt.gca().plot(xvalues_first, first_results['arrivedFrac'], label=cond1)
+        plt.gca().plot(xvalues_second, second_results['arrivedFrac'], label=cond2)
+
+    if freq == -1:
+        plt.xlabel('Frames (2Hz)')
+    else:
+        plt.xlabel('Time (m)')
+
+    plt.ylabel('Worms Arrived')
+    plt.gca().legend(loc="lower right")
+    plt.gca().grid(alpha=0.2)
+
+    if showShow:
+        plt.show()
+
+
+
+
+def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=True, paper=False, freq=-1):
     print('Start Analyses..')
     firstRoi = RoiAnalysis(firstExp)
     secondRoi = RoiAnalysis(secondExp)
@@ -76,31 +110,8 @@ def PairWiseRoi(cond1, firstExp, cond2, secondExp, showShow=True, show_count=Tru
     print(firstRoi._results)
     print(secondRoi._results)
 
-    if freq == -1:
-        xvalues_first = range(len(firstRoi._results['arrivedFrac']))
-        xvalues_second = range(len(secondRoi._results['arrivedFrac']))
-    else:
-        xvalues_first = np.array(range(len(firstRoi._results['arrivedFrac']))) / freq
-        xvalues_second = np.array(range(len(secondRoi._results['arrivedFrac']))) / freq
+    PairWiseRoi_([cond1, cond2], [firstRoi._results, secondRoi._results], showShow, show_count, paper, freq)
 
-    if show_count:
-        plt.gca().plot(xvalues_first, firstRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond1, firstRoi._results['wormCount']))
-        plt.gca().plot(xvalues_second, secondRoi._results['arrivedFrac'], label=" %s, %d worms" % (cond2, secondRoi._results['wormCount']))
-    else:
-        plt.gca().plot(xvalues_first, firstRoi._results['arrivedFrac'], label=cond1)
-        plt.gca().plot(xvalues_second, secondRoi._results['arrivedFrac'], label=cond2)
-
-    if freq == -1:
-        plt.xlabel('Frames (2Hz)')
-    else:
-        plt.xlabel('Time (m))')
-
-    plt.ylabel('Worms Arrived')
-    plt.gca().legend(loc="lower right")
-    plt.gca().grid(alpha=0.2)
-
-    if showShow:
-        plt.show()
 
 def PairWiseProjectionDensity(cond1, firstExp, cond2, secondExp, showShow=True, paper=False):
     if not paper:
@@ -207,8 +218,8 @@ def main():
     exp2 = np.load(ExpDir(secondDir).getExpFile())[0]
 
     PairWiseRoi('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2)
-    PairWiseSpeedDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2, paper=True)
-    PairWiseProjectionDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2, paper=True)
+    #PairWiseSpeedDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2, paper=True)
+    #PairWiseProjectionDensity('ATR+ (Experiment)', exp1, 'ATR- (Control)', exp2, paper=True)
 
 if __name__ == "__main__":
     main()

@@ -10,8 +10,8 @@ import seaborn as sns
 def day_summary_plots(exp_pairs, titles, legends, paper=False, show=True, output_file=None):
     number_of_exps = len(exp_pairs)
 
-    fig, axs = plt.subplots(2, int(np.ceil(number_of_exps / 2)), figsize=(16, 4))
-    plt.subplots_adjust(wspace=0.3, top=0.93, hspace=0.51)
+    fig, axs = plt.subplots(number_of_exps, 3, figsize=(10, 14))
+    plt.subplots_adjust(wspace=0.36, left=0.09, bottom=0.11, right=0.98, top=0.96, hspace=0.36)
 
     if not paper:
         plt.style.use("dark_background")
@@ -22,41 +22,78 @@ def day_summary_plots(exp_pairs, titles, legends, paper=False, show=True, output
 
     axs = np.atleast_2d(axs)
 
-    df = pd.DataFrame({'Time' : [], 'ATR+' : [], 'ATR-' : [],'Type' : []})
+    df = pd.DataFrame({'Value' : [], 'Type' : [], 'Cond' :[],'Exp' : []})
 
     for i, exp_pair in enumerate(exp_pairs):
 
-        # ROI plot
-        plt.sca(axs[int(i >= 3)][int(i % 3)])
         first_exp_art = Artifacts(expLocation=exp_pair[0])
         second_exp_art = Artifacts(expLocation=exp_pair[1])
 
+        plt.sca(axs[int(i)][0])
         PairWiseRoi_(['ATR+', 'ATR- (Ctrl)'], [first_exp_art.getArtifact('roi'), second_exp_art.getArtifact('roi')], showShow=False, paper=paper, show_count=False, freq=120)
-        #plt.title(titles[i])
-        #plt.legend(fontsize='small', title_fontsize='40')
+        df = df.append({'Value': np.max(first_exp_art.getArtifact('roi')['arrivedFrac']),
+                        'Type': 'Max Roi',
+                         'Cond': 'ATR+',
+                         'Exp': i}, ignore_index=True)
 
-        first_mean_speed = np.mean(first_exp_art.getArtifact('speed')['speed'])
-        second_mean_speed = np.mean(second_exp_art.getArtifact('speed')['speed'])
-
-        first_mean_proj = np.mean(first_exp_art.getArtifact('proj')['proj'])
-        second_mean_proj = np.mean(second_exp_art.getArtifact('proj')['proj'])
-
-        first_max_roi = np.mean(first_exp_art.getArtifact('roi')['arrivedFrac'])
-        second_max_roi = np.mean(second_exp_art.getArtifact('roi')['arrivedFrac'])
+        df = df.append({'Value': np.max(second_exp_art.getArtifact('roi')['arrivedFrac']),
+                        'Type': 'Max Roi',
+                         'Cond': 'ATR-',
+                         'Exp': i}, ignore_index=True)
 
 
-        cur_df = pd.DataFrame({'Time' : i, 'ATR+' : [first_mean_speed, first_mean_proj, first_max_roi],
-                               'ATR-' : [second_mean_speed, second_mean_proj, second_max_roi],
-                               'Type' : ['Speed','Projection','Roi']})
+        plt.sca(axs[int(i)][1])
+        first_speed = (first_exp_art.getArtifact('speed')['speed'])
+        second_speed = (second_exp_art.getArtifact('speed')['speed'])
+        sns.kdeplot(first_speed, shade=True, label='ATR+')
+        ax = sns.kdeplot(second_speed, shade=True, label='ATR- (Control)')
+        plt.gca().grid(alpha=0.2)
+        ax.set(xlabel="Speed [au / sec]", ylabel="Density")
+        plt.locator_params(nbins=5)
+        df_cur = pd.DataFrame({'Value': np.mean(first_speed),
+                               'Type': 'Speed [au]',
+                               'Cond': 'ATR+',
+                               'Exp': i}, index=[0])
 
-        df = pd.concat((df, cur_df), ignore_index=True)
+        df = pd.concat((df, df_cur), ignore_index=True)
+
+        df_cur = pd.DataFrame({'Value': np.mean(second_speed),
+                               'Type': 'Speed [au]',
+                               'Cond': 'ATR-',
+                               'Exp': i}, index=[0])
+
+        df = pd.concat((df, df_cur), ignore_index=True)
 
 
 
 
+        plt.sca(axs[int(i)][2])
+        first_proj = (first_exp_art.getArtifact('proj')['proj'])
+        second_proj = (second_exp_art.getArtifact('proj')['proj'])
+        sns.kdeplot(first_proj, shade=True, label='ATR+')
+        ax = sns.kdeplot(second_proj, shade=True, label='ATR- (Control)')
+        plt.gca().grid(alpha=0.2)
+        ax.set(xlabel="Projection", ylabel="Density")
+        plt.locator_params(nbins=5)
 
-    #fig.tight_layout()
-    #fig.savefig('/home/itskov/Dropbox/dayfigs.png')
+
+        df_cur = pd.DataFrame({'Value': np.mean(first_proj),
+                               'Type': 'Projection',
+                               'Cond': 'ATR+',
+                               'Exp': i}, index=[0])
+
+        df = pd.concat((df, df_cur), ignore_index=True)
+
+        df_cur = pd.DataFrame({'Value': np.mean(second_proj),
+                               'Type': 'Projection',
+                               'Cond': 'ATR-',
+                               'Exp': i}, index=[0])
+
+        df = pd.concat((df, df_cur), ignore_index=True)
+
+
+
+
 
     if show:
         plt.show()
@@ -69,46 +106,41 @@ def main():
     plot_legends = []
     plot_titles = []
 
-    exp1 = ('/mnt/storageNASRe/tph1/Results/15-Jan-2020/TPH_1_ATR_TRAIN_120M_D0_NO_IAA3x5.avi_18.43.27')
-    exp2 = ('/mnt/storageNASRe/tph1/Results/15-Jan-2020/TPH_1_NO_ATR_TRAIN_120M_D0_NO_IAA3x5.avi_18.42.44')
+    #exp1 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_ATR_75M.avi_11.28.43')
+    #exp2 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_NO_ATR_75M.avi_11.27.26')
+    #plots_pairs.append((exp1, exp2))
+    #plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
+    #plot_titles.append('0m')
+
+
+    exp1 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_ATR_75M.avi_12.49.27')
+    exp2 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_NO_ATR_75M.avi_12.48.42')
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
     plot_titles.append('0m')
 
 
-    exp1 = ('/mnt/storageNASRe/tph1/Results/15-Jan-2020/TPH_1_ATR_TRAIN_60M_D60_NO_IAA3x5.avi_14.24.06')
-    exp2 = ('/mnt/storageNASRe/tph1/Results/15-Jan-2020/TPH_1_NO_ATR_TRAIN_60M_D60_NO_IAA3x5.avi_14.23.14')
+    exp1 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_ATR_75M.avi_14.01.15')
+    exp2 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_NO_ATR_75M.avi_14.00.19')
+    plots_pairs.append((exp1, exp2))
+    plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
+    plot_titles.append('0m')
+
+    exp1 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_ATR_75M.avi_15.20.05')
+    exp2 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_NO_ATR_75M.avi_15.19.25')
+    plots_pairs.append((exp1, exp2))
+    plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
+    plot_titles.append('0m')
+
+    exp1 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_ATR_75M.avi_16.48.02')
+    exp2 = ('/mnt/storageNASRe/tph1/Results/05-Jul-2020/TM1_NO_ATR_75M.avi_16.46.59')
     plots_pairs.append((exp1, exp2))
     plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
     plot_titles.append('0m')
 
 
-    exp1 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.57.03/')
-    exp2 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D120_NO_IAA3x5.avi_12.56.12/')
-    plots_pairs.append((exp1, exp2))
-    plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
-    plot_titles.append('0m')
-
-    exp1 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.29.04/')
-    exp2 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D180_NO_IAA3x5.avi_15.28.03/')
-    plots_pairs.append((exp1, exp2))
-    plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
-    plot_titles.append('0m')
-
-    exp1 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.52/')
-    exp2 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D240_NO_IAA3x5.avi_17.28.04/')
-    plots_pairs.append((exp1, exp2))
-    plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
-    plot_titles.append('0m')
-
-    exp1 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.12.12/')
-    exp2 = ('/mnt/storageNASRe/tph1/Results/22-Jan-2020/TPH_1_NO_ATR_TRAIN_65M_D300_NO_IAA3x5.avi_20.11.34/')
-    plots_pairs.append((exp1, exp2))
-    plot_legends.append(('ATR+ (Experiment)', 'ATR- (Control)'))
-    plot_titles.append('0m')
-
-
-    day_summary_plots(plots_pairs, plot_titles, plot_legends, paper=True)
+    df = day_summary_plots(plots_pairs, plot_titles, plot_legends, paper=True, show=True)
+    print(df)
 
 if __name__ == "__main__":
     main()
