@@ -1,4 +1,6 @@
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def cnn_model_fn(origImages_, filteredImages, imageSize):
     input_layer = tf.reshape(origImages_, [-1, imageSize[0], imageSize[1], 1])

@@ -1,5 +1,4 @@
 #! /usr/local/bin/bash
-
 echo $1
 
 
@@ -9,9 +8,10 @@ venvName="$HOME/venv_$UUID"
 echo $venvName
 
 rm -rf ~/Storage/seg.log
-module load tensorflow
+module load cuda/11.0
+module load tensorflow/2.3.0
 #module load opencv
-module load cuda/10.0
+
 
 virtualenv -p python3  --system-site-packages $venvName
 source $venvName/bin/activate
@@ -19,12 +19,13 @@ source $venvName/bin/activate
 #
 echo "Installing sk-video."
 pip install sk-video
+#pip install tensorflow
 echo "Done installting sk-video."
 #pip install glob2
 
 echo $1
-python ~/WormSegmentation/Behavior/Pipeline/AnalysisStep.py $1 first_channel
+python ~/WormSegmentation/Behavior/Pipeline/AnalysisStep.py $1 combined
 deactivate
 echo "Deactivating venv."
-rm -rf $venvNam
-echo "Deletd venv."
+rm -rf $venvName
+echo "Deleted venv."
