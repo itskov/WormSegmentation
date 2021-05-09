@@ -8,6 +8,9 @@ from os import path
 import cv2
 
 
+# Work with V1 TF version.
+tf.disable_v2_behavior()
+
 class SegmentStep(AnalysisStep):
     def __init__(self):
         self._BINS = 4
